@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jumping Jacks Challenge - Your Ultimate Fitness Companion</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #0a0f1c;
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0f1c 0%, #1e3a8a 25%, #3b82f6 50%, #f97316 75%, #ea580c 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(34,197,94,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(249,115,22,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(59,130,246,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: fitness-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes fitness-pulse {
+            0%, 100% { 
+                opacity: 0.4; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.8; 
+                transform: scale(1.02);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1400px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .floating-icons {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .fitness-icon {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0.15;
+            animation: jump-float 4s infinite ease-in-out;
+            color: #22c55e;
+        }
+
+        @keyframes jump-float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translateY(-30px) rotate(90deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-50px) rotate(180deg);
+                opacity: 0.15;
+            }
+            75% {
+                transform: translateY(-30px) rotate(270deg);
+                opacity: 0.2;
+            }
+        }
+
+        .challenge-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: challenge-bounce 2s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+            color: #ffffff;
+        }
+
+        @keyframes challenge-bounce {
+            0%, 100% { 
+                transform: translateY(0px) scale(1);
+                box-shadow: 0 0 40px rgba(34, 197, 94, 0.6);
+            }
+            50% { 
+                transform: translateY(-15px) scale(1.05);
+                box-shadow: 0 15px 60px rgba(249, 115, 22, 0.8);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 5.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #3b82f6, #f97316);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: title-jump 3s ease-in-out infinite;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        @keyframes title-jump {
+            0%, 100% { 
+                transform: translateY(0px);
+                filter: drop-shadow(0 0 20px rgba(34, 197, 94, 0.4));
+            }
+            33% { 
+                transform: translateY(-15px);
+                filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.5));
+            }
+            66% { 
+                transform: translateY(-10px);
+                filter: drop-shadow(0 0 30px rgba(249, 115, 22, 0.6));
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 2.2rem;
+            color: #22c55e;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .workout-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(34, 197, 94, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: stat-bounce 2s ease-in-out infinite;
+            min-width: 150px;
+        }
+
+        .stat-item:nth-child(1) { animation-delay: 0s; }
+        .stat-item:nth-child(2) { animation-delay: 0.3s; }
+        .stat-item:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes stat-bounce {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .stat-item:hover {
+            transform: translateY(-15px) scale(1.1);
+            border-color: rgba(249, 115, 22, 0.8);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f97316, #22c55e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #cccccc;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .hero .description {
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            font-weight: 500;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .btn {
+            padding: 20px 45px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            box-shadow: 0 15px 35px rgba(34, 197, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: white;
+            box-shadow: 0 15px 35px rgba(249, 115, 22, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-10px) scale(1.1);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            background: linear-gradient(180deg, #0a0f1c 0%, #1e3a8a 50%, #0a0f1c 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Nunito', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #22c55e, #f97316);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .step-card {
+            background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.5s ease;
+            border: 3px solid rgba(34, 197, 94, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #22c55e, #f97316, #3b82f6);
+        }
+
+        .step-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(34, 197, 94, 0.3);
+            border-color: rgba(249, 115, 22, 0.6);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #f97316, #22c55e);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 2rem;
+            animation: number-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes number-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .step-card h3 {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .step-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Features Section */
+        .features {
+            background: #0a0f1c;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" text-anchor="middle" font-size="30" fill="rgba(34,197,94,0.03)" font-weight="bold">💪</text></svg>') repeat;
+            background-size: 150px 150px;
+            animation: strength-pattern 25s infinite linear;
+        }
+
+        @keyframes strength-pattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-150px) translateY(-150px); }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #1e3a8a, #3b82f6);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.5s ease;
+            border: 3px solid rgba(249, 115, 22, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #f97316, #22c55e, #3b82f6);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(249, 115, 22, 0.3);
+            border-color: rgba(34, 197, 94, 0.6);
+        }
+
+        .feature-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #22c55e, #f97316);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: icon-workout 3s ease-in-out infinite;
+        }
+
+        @keyframes icon-workout {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            33% { transform: translateY(-10px) rotate(5deg) scale(1.1); }
+            66% { transform: translateY(-5px) rotate(-5deg) scale(1.05); }
+        }
+
+        .feature-card h3 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #0a0f1c 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .benefits-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .benefits-text h2 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #22c55e;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            color: #cccccc;
+            margin-bottom: 2rem;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .benefits-list li:hover {
+            color: #22c55e;
+            transform: translateX(15px);
+        }
+
+        .benefits-list li::before {
+            content: '💪';
+            font-size: 2rem;
+            animation: flex-muscle 2s ease-in-out infinite;
+        }
+
+        @keyframes flex-muscle {
+            0%, 100% { transform: scale(1) rotate(-5deg); }
+            50% { transform: scale(1.2) rotate(5deg); }
+        }
+
+        .benefits-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-chart {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(145deg, #0a0f1c, #1e3a8a);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(34, 197, 94, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: chart-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes chart-pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(34, 197, 94, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(249, 115, 22, 0.5); }
+        }
+
+        .progress-bars {
+            display: flex;
+            align-items: end;
+            gap: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .progress-bar {
+            width: 15px;
+            background: linear-gradient(to top, #f97316, #22c55e);
+            border-radius: 8px;
+            animation: bar-grow 2s ease-in-out infinite;
+        }
+
+        .progress-bar:nth-child(1) { height: 40px; animation-delay: 0s; }
+        .progress-bar:nth-child(2) { height: 60px; animation-delay: 0.2s; }
+        .progress-bar:nth-child(3) { height: 80px; animation-delay: 0.4s; }
+        .progress-bar:nth-child(4) { height: 100px; animation-delay: 0.6s; }
+        .progress-bar:nth-child(5) { height: 120px; animation-delay: 0.8s; }
+
+        @keyframes bar-grow {
+            0%, 100% { transform: scaleY(0.8); }
+            50% { transform: scaleY(1.2); }
+        }
+
+        .chart-label {
+            color: #22c55e;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #22c55e, #3b82f6, #f97316);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="3" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="3" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: celebration 30s infinite linear;
+        }
+
+        @keyframes celebration {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(-100px) rotate(360deg); }
+        }
+
+        .final-cta h2 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 4.5rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .final-cta p {
+            font-size: 1.6rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 600;
+        }
+
+        .final-cta .btn {
+            background: rgba(10, 15, 28, 0.9);
+            color: #22c55e;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(10, 15, 28, 0.3);
+            font-size: 1.6rem;
+            padding: 25px 55px;
+        }
+
+        .final-cta .btn:hover {
+            background: #0a0f1c;
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.8rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .workout-stats {
+                gap: 1.5rem;
+            }
+
+            .benefits-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .progress-chart {
+                width: 320px;
+                height: 320px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 1s ease;
+        }
+
+        .slide-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 1s ease;
+        }
+
+        .slide-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-icons" id="fitnessBackground"></div>
+        <div class="hero-content">
+            <div class="challenge-badge">🏋️‍♀️ Take the Challenge</div>
+            <h1>Jumping Jacks Challenge</h1>
+            <p class="subtitle">Your Ultimate Fitness Companion</p>
+            
+            <div class="workout-stats">
+                <div class="stat-item">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Day Plans</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Sets Daily</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Free</div>
+                </div>
+            </div>
+            
+            <p class="description">
+                Transform your body and boost your endurance with the ONLY app dedicated to mastering jumping jacks! 
+                Personalized workouts that grow with you - no equipment needed!
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">
+                    📱 Download for iOS
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    🤖 Download for Android
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title fade-in">How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Take Endurance Test</h3>
+                    <p>Start with an initial test - do as many jumping jacks as you can! This determines your fitness baseline.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Get Your Plan</h3>
+                    <p>Receive a personalized 3-day workout plan based on your performance, perfectly tailored to your level.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Daily Workouts</h3>
+                    <p>Complete daily workouts with 5 sets of jumping jacks. Each day builds on the previous for maximum results.</p>
+                </div>
+                <div class="step-card fade-in">
+                    <div class="step-number">4</div>
+                    <h3>Test & Progress</h3>
+                    <p>After 3 days, take another endurance test to measure improvement and get your next challenging plan!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Unique Features</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📋</div>
+                    <h3>Customized Plans</h3>
+                    <p>3-day workout plans tailored to your exact fitness level with adaptive difficulty that grows with you.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📊</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Comprehensive progress tracking with easy-to-read charts and detailed analytics of your fitness journey.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Endurance Tests</h3>
+                    <p>Regular endurance assessments to measure and track your progress with scientific precision.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Adaptive Difficulty</h3>
+                    <p>Smart system that automatically adjusts your workouts based on your improving performance.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3>User-Friendly</h3>
+                    <p>Intuitive interface makes tracking your fitness journey a breeze for beginners and experts alike.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💯</div>
+                    <h3>100% Free</h3>
+                    <p>No hidden costs, no in-app purchases! Complete access to all features at no charge whatsoever.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <div class="benefits-text slide-left">
+                    <h2>Benefits of Jumping Jacks</h2>
+                    <ul class="benefits-list">
+                        <li>Full-body workout engaging multiple muscle groups</li>
+                        <li>Improves cardiovascular health and stamina</li>
+                        <li>Boosts metabolism and aids weight management</li>
+                        <li>Enhances coordination and agility</li>
+                        <li>No equipment needed - work out anywhere!</li>
+                        <li>Perfect for HIIT and cardio training</li>
+                    </ul>
+                </div>
+                <div class="benefits-visual slide-right">
+                    <div class="progress-chart">
+                        <div class="progress-bars">
+                            <div class="progress-bar"></div>
+                            <div class="progress-bar"></div>
+                            <div class="progress-bar"></div>
+                            <div class="progress-bar"></div>
+                            <div class="progress-bar"></div>
+                        </div>
+                        <div class="chart-label">Your Progress</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Start Your Fitness Revolution!</h2>
+            <p>Download Jumping Jacks Challenge now and experience the transformative power of this simple yet effective exercise. Your journey begins with a single jump!</p>
+            <a href="#" class="btn">
+                🚀 Get Started Today
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Floating fitness icons
+        function createFitnessIcon() {
+            const icons = ['💪', '🏃‍♂️', '🏃‍♀️', '⚡', '🔥', '🏋️‍♂️', '🏋️‍♀️', '❤️', '⭐', '🎯'];
+            const icon = document.createElement('div');
+            icon.className = 'fitness-icon';
+            icon.textContent = icons[Math.floor(Math.random() * icons.length)];
+            icon.style.left = Math.random() * 100 + '%';
+            icon.style.top = Math.random() * 100 + '%';
+            icon.style.animationDelay = Math.random() * 4 + 's';
+            icon.style.animationDuration = (3 + Math.random() * 4) + 's';
+            
+            document.getElementById('fitnessBackground').appendChild(icon);
+            
+            setTimeout(() => {
+                icon.remove();
+            }, 7000);
+        }
+
+        // Create initial icons
+        for (let i = 0; i < 12; i++) {
+            setTimeout(createFitnessIcon, i * 500);
+        }
+        setInterval(createFitnessIcon, 2000);
+
+        // Workout stats animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach((stat, index) => {
+                setTimeout(() => {
+                    stat.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        stat.style.transform = 'scale(1)';
+                    }, 300);
+                }, index * 200);
+            });
+        }
+
+        // Animate stats every 4 seconds
+        setInterval(animateStats, 4000);
+
+        // Progress bars enhanced animation
+        function enhanceProgressBars() {
+            const bars = document.querySelectorAll('.progress-bar');
+            bars.forEach((bar, index) => {
+                setInterval(() => {
+                    const baseHeight = [40, 60, 80, 100, 120][index];
+                    const randomVariation = Math.random() * 20 - 10;
+                    bar.style.height = (baseHeight + randomVariation) + 'px';
+                }, 800 + (index * 100));
+            });
+        }
+
+        enhanceProgressBars();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-left, .slide-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced button interactions with fitness burst
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-10px) scale(1.1)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create jumping jack burst effect
+                for (let i = 0; i < 8; i++) {
+                    const burst = document.createElement('div');
+                    burst.style.position = 'absolute';
+                    burst.style.width = '8px';
+                    burst.style.height = '8px';
+                    burst.style.background = 'linear-gradient(45deg, #22c55e, #f97316)';
+                    burst.style.borderRadius = '50%';
+                    burst.style.pointerEvents = 'none';
+                    burst.style.left = '50%';
+                    burst.style.top = '50%';
+                    
+                    const angle = (i / 8) * Math.PI * 2;
+                    const distance = 60;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    
+                    burst.style.animation = `fitness-burst 0.8s ease-out forwards`;
+                    burst.style.setProperty('--end-x', endX + 'px');
+                    burst.style.setProperty('--end-y', endY + 'px');
+                    burst.style.animationDelay = (i * 0.05) + 's';
+                    
+                    this.appendChild(burst);
+                    
+                    setTimeout(() => burst.remove(), 800);
+                }
+            });
+        });
+
+        // Cards interaction with jump effect
+        document.querySelectorAll('.feature-card, .step-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.feature-icon, .step-number');
+                if (icon) {
+                    icon.style.transform = 'translateY(-15px) scale(1.2) rotate(10deg)';
+                    icon.style.transition = 'all 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.feature-icon, .step-number');
+                if (icon) {
+                    icon.style.transform = 'translateY(0px) scale(1) rotate(0deg)';
+                }
+            });
+        });
+
+        // Add fitness burst animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fitness-burst {
+                0% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add jumping motion to challenge badge
+        setInterval(() => {
+            const badge = document.querySelector('.challenge-badge');
+            badge.style.transform = 'translateY(-20px) scale(1.1)';
+            setTimeout(() => {
+                badge.style.transform = 'translateY(0px) scale(1)';
+            }, 200);
+        }, 3000);
+    </script>
+</body>
+</html>

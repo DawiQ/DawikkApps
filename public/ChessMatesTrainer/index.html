@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Mates in 1-4 Moves - Master Lightning-Fast Checkmates</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #0d0d0d;
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0d0d0d 0%, #1a0d26 25%, #2d1b69 50%, #4a2c7a 75%, #0d0d0d 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(138,43,226,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(255,69,0,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(30,144,255,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: constellation 25s infinite linear;
+        }
+
+        @keyframes constellation {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(-100px) rotate(360deg); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1400px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .checkmate-animation {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .mate-sequence {
+            position: absolute;
+            font-size: 50px;
+            opacity: 0.2;
+            animation: mate-flow 20s infinite ease-in-out;
+            color: #FF4500;
+        }
+
+        @keyframes mate-flow {
+            0%, 100% {
+                transform: translateY(100vh) translateX(-50px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(50vh) translateX(50px) rotate(180deg);
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.3;
+            }
+        }
+
+        .free-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FF4500, #FF6347);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.5);
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(255, 69, 0, 0.5);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 50px rgba(255, 69, 0, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8A2BE2, #1E90FF, #FF4500);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: title-shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes title-shimmer {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.3)); }
+            33% { filter: drop-shadow(0 0 15px rgba(30, 144, 255, 0.4)); }
+            66% { filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5)); }
+        }
+
+        .move-counter {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .move-badge {
+            background: linear-gradient(145deg, #2d1b69, #4a2c7a);
+            border: 3px solid rgba(138, 43, 226, 0.5);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: float-move 3s ease-in-out infinite;
+        }
+
+        .move-badge:nth-child(2) { animation-delay: 0.5s; }
+        .move-badge:nth-child(3) { animation-delay: 1s; }
+        .move-badge:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes float-move {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .move-badge:hover {
+            transform: translateY(-15px) scale(1.1);
+            border-color: rgba(255, 69, 0, 0.8);
+            box-shadow: 0 15px 30px rgba(138, 43, 226, 0.3);
+        }
+
+        .move-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8A2BE2, #FF4500);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .move-label {
+            color: #cccccc;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .hero .subtitle {
+            font-size: 2rem;
+            color: #1E90FF;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero .description {
+            font-size: 1.4rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .btn {
+            padding: 20px 40px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #8A2BE2, #4a2c7a);
+            color: white;
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #FF4500, #FF6347);
+            color: white;
+            box-shadow: 0 15px 35px rgba(255, 69, 0, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.08);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Free Features Section */
+        .free-section {
+            background: linear-gradient(180deg, #0d0d0d 0%, #1a0d26 50%, #0d0d0d 100%);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><text x="100" y="100" text-anchor="middle" font-size="40" fill="rgba(255,69,0,0.05)" font-weight="bold">FREE</text></svg>') repeat;
+            background-size: 200px 200px;
+            animation: free-pattern 30s infinite linear;
+        }
+
+        @keyframes free-pattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-200px) translateY(-200px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .free-title {
+            text-align: center;
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF4500, #FF6347, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            animation: free-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes free-glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 69, 0, 0.5)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.7)); }
+        }
+
+        .free-subtitle {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #cccccc;
+            margin-bottom: 4rem;
+        }
+
+        .free-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .free-feature {
+            background: linear-gradient(145deg, #1a0d26, #2d1b69);
+            border-radius: 25px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 2px solid rgba(255, 69, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #FF4500, #8A2BE2, #1E90FF);
+        }
+
+        .free-feature:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(255, 69, 0, 0.6);
+            box-shadow: 0 25px 50px rgba(138, 43, 226, 0.3);
+        }
+
+        .free-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FF4500, #8A2BE2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .free-feature h3 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .free-feature p {
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Game Modes Section */
+        .game-modes {
+            background: linear-gradient(135deg, #2d1b69 0%, #4a2c7a 50%, #1a0d26 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .mode-card {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 30px;
+            padding: 3rem;
+            text-align: center;
+            border: 3px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 69, 0, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.8s ease;
+        }
+
+        .mode-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .mode-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            border-color: rgba(255, 69, 0, 0.8);
+            box-shadow: 0 30px 60px rgba(138, 43, 226, 0.4);
+        }
+
+        .mode-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #8A2BE2, #FF4500);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-card h3 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Skill Levels Section */
+        .skill-levels {
+            background: #0d0d0d;
+            padding: 120px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #8A2BE2, #1E90FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4rem;
+        }
+
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .level-card {
+            background: linear-gradient(145deg, #1a0d26, #2d1b69);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 2px solid rgba(30, 144, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .level-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(30, 144, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(30, 144, 255, 0.2);
+        }
+
+        .level-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #1E90FF, #8A2BE2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .level-card h3 {
+            font-size: 1.8rem;
+            color: #1E90FF;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .level-card p {
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #1a0d26 0%, #2d1b69 50%, #4a2c7a 100%);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 2.5rem;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(138, 43, 226, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-15px) scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 69, 0, 0.6);
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FF4500, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.3rem;
+            color: #cccccc;
+            font-weight: 600;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #8A2BE2, #4a2c7a, #FF4500);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: victory-stars 20s infinite linear;
+        }
+
+        @keyframes victory-stars {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(-100px) rotate(360deg); }
+        }
+
+        .final-cta h2 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .final-cta p {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .btn {
+            background: rgba(255, 255, 255, 0.95);
+            color: #8A2BE2;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            font-size: 1.4rem;
+            padding: 22px 50px;
+        }
+
+        .final-cta .btn:hover {
+            background: white;
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .move-counter {
+                gap: 1rem;
+            }
+
+            .move-badge {
+                padding: 1rem 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .modes-grid,
+            .levels-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .free-title {
+                font-size: 3rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1s ease;
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="checkmate-animation" id="checkmateBackground"></div>
+        <div class="hero-content">
+            <div class="free-badge">🆓 100% FREE</div>
+            <h1>Chess Mates in 1-4 Moves</h1>
+            <p class="subtitle">Master Lightning-Fast Checkmates</p>
+            
+            <div class="move-counter">
+                <div class="move-badge">
+                    <div class="move-number">1</div>
+                    <div class="move-label">Move</div>
+                </div>
+                <div class="move-badge">
+                    <div class="move-number">2</div>
+                    <div class="move-label">Moves</div>
+                </div>
+                <div class="move-badge">
+                    <div class="move-number">3</div>
+                    <div class="move-label">Moves</div>
+                </div>
+                <div class="move-badge">
+                    <div class="move-number">4</div>
+                    <div class="move-label">Moves</div>
+                </div>
+            </div>
+            
+            <p class="description">
+                Become a tactical genius with our revolutionary FREE chess app! 
+                Master essential checkmate patterns and boost your calculation speed with lightning-fast puzzles.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">
+                    📱 Download for iOS
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    🤖 Download for Android
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Free Features Section -->
+    <section class="free-section">
+        <div class="container">
+            <h2 class="free-title fade-in">100% FREE Forever</h2>
+            <p class="free-subtitle fade-in">Full access to all features • No ads • No hidden fees</p>
+            
+            <div class="free-features">
+                <div class="free-feature fade-in">
+                    <div class="free-icon">🚀</div>
+                    <h3>100K+ Chess Puzzles</h3>
+                    <p>Carefully curated checkmate puzzles focusing on 1-4 move tactics. Perfect for rapid skill development.</p>
+                </div>
+                <div class="free-feature fade-in">
+                    <div class="free-icon">🧠</div>
+                    <h3>Smart Difficulty System</h3>
+                    <p>Dynamic adjustment that grows with your chess skills. Always the perfect challenge level.</p>
+                </div>
+                <div class="free-feature fade-in">
+                    <div class="free-icon">📊</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Dynamic rating system and detailed analytics to monitor your tactical improvement.</p>
+                </div>
+                <div class="free-feature fade-in">
+                    <div class="free-icon">🔍</div>
+                    <h3>Chess Analyzer</h3>
+                    <p>Built-in analysis engine to review your solutions and learn from every puzzle.</p>
+                </div>
+                <div class="free-feature fade-in">
+                    <div class="free-icon">📱</div>
+                    <h3>Offline Mode</h3>
+                    <p>Train anytime, anywhere without internet connection. Perfect for commuting or travel.</p>
+                </div>
+                <div class="free-feature fade-in">
+                    <div class="free-icon">👥</div>
+                    <h3>Multiplayer Chess</h3>
+                    <p>Challenge friends and test your skills in real games. Apply what you learn immediately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modes Section -->
+    <section class="game-modes">
+        <div class="container">
+            <h2 class="section-title fade-in">Exciting Game Modes</h2>
+            <div class="modes-grid">
+                <div class="mode-card slide-up">
+                    <div class="mode-icon">🎯</div>
+                    <h3>Training Mode</h3>
+                    <p>Master checkmate patterns at your own pace. Learn essential tactics step by step with progressive difficulty and immediate feedback on every move.</p>
+                </div>
+                <div class="mode-card slide-up">
+                    <div class="mode-icon">⚡</div>
+                    <h3>Puzzle Smash Mode</h3>
+                    <p>Race against time! Solve increasingly difficult puzzles with our chess timer. How long can you keep your streak going? Perfect for intense training sessions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skill Levels Section -->
+    <section class="skill-levels">
+        <div class="container">
+            <h2 class="section-title fade-in">Perfect For Every Chess Player</h2>
+            <div class="levels-grid">
+                <div class="level-card fade-in">
+                    <div class="level-icon">🌱</div>
+                    <h3>Beginners</h3>
+                    <p>Master essential checkmate patterns and learn chess strategy. Build a solid foundation with simple, clear tactical exercises.</p>
+                </div>
+                <div class="level-card fade-in">
+                    <div class="level-icon">🎭</div>
+                    <h3>Intermediate</h3>
+                    <p>Sharpen your tactical skills and improve your chess vision. Develop pattern recognition and calculation speed.</p>
+                </div>
+                <div class="level-card fade-in">
+                    <div class="level-icon">👑</div>
+                    <h3>Advanced</h3>
+                    <p>Boost your calculation speed and analyze complex positions. Master the most challenging checkmate combinations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">100K+</div>
+                    <div class="stat-label">Checkmate Puzzles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1-4</div>
+                    <div class="stat-label">Move Solutions</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Ads & Fees</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Skill Growth</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready for the Ultimate Chess Challenge?</h2>
+            <p>Download Chess Mates in 1-4 Moves and show what you can do on the chessboard! Every puzzle solved is a step towards chess mastery.</p>
+            <a href="#" class="btn">
+                ♟️ Start Your Journey Now
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Floating checkmate sequences
+        function createMateSequence() {
+            const sequences = ['♔♕', '♖♔', '♗♛', '♘♚', '#', '++', '⚔️', '⭐', '🏆', '⚡'];
+            const sequence = document.createElement('div');
+            sequence.className = 'mate-sequence';
+            sequence.textContent = sequences[Math.floor(Math.random() * sequences.length)];
+            sequence.style.left = Math.random() * 100 + '%';
+            sequence.style.animationDelay = Math.random() * 20 + 's';
+            sequence.style.animationDuration = (15 + Math.random() * 10) + 's';
+            
+            document.getElementById('checkmateBackground').appendChild(sequence);
+            
+            setTimeout(() => {
+                sequence.remove();
+            }, 25000);
+        }
+
+        // Create initial sequences
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createMateSequence, i * 2000);
+        }
+        setInterval(createMateSequence, 3000);
+
+        // Move counter animation
+        function animateMoveCounters() {
+            const badges = document.querySelectorAll('.move-badge');
+            badges.forEach((badge, index) => {
+                setTimeout(() => {
+                    badge.style.transform = 'translateY(-10px) scale(1.1)';
+                    setTimeout(() => {
+                        badge.style.transform = 'translateY(0) scale(1)';
+                    }, 300);
+                }, index * 200);
+            });
+        }
+
+        // Animate move counters every 5 seconds
+        setInterval(animateMoveCounters, 5000);
+
+        // Stats counter animation
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number');
+            
+            statNumbers.forEach((stat, index) => {
+                if (stat.textContent === '100K+') {
+                    let count = 0;
+                    const target = 100000;
+                    const increment = target / 100;
+                    
+                    const timer = setInterval(() => {
+                        count += increment;
+                        if (count >= target) {
+                            count = target;
+                            clearInterval(timer);
+                            stat.textContent = '100K+';
+                        } else {
+                            stat.textContent = Math.floor(count / 1000) + 'K+';
+                        }
+                    }, 20);
+                }
+            });
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger stats animation when stats section is visible
+                    if (entry.target.querySelector('.stat-number')) {
+                        setTimeout(animateStats, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced button interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.08)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create burst effect
+                for (let i = 0; i < 6; i++) {
+                    const spark = document.createElement('div');
+                    spark.style.position = 'absolute';
+                    spark.style.width = '4px';
+                    spark.style.height = '4px';
+                    spark.style.background = '#FFD700';
+                    spark.style.borderRadius = '50%';
+                    spark.style.pointerEvents = 'none';
+                    spark.style.left = '50%';
+                    spark.style.top = '50%';
+                    
+                    const angle = (i / 6) * Math.PI * 2;
+                    const distance = 50;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    
+                    spark.style.animation = `spark-burst 0.6s ease-out forwards`;
+                    spark.style.setProperty('--end-x', endX + 'px');
+                    spark.style.setProperty('--end-y', endY + 'px');
+                    
+                    this.appendChild(spark);
+                    
+                    setTimeout(() => spark.remove(), 600);
+                }
+            });
+        });
+
+        // Enhanced hover effects for cards
+        document.querySelectorAll('.free-feature, .mode-card, .level-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.free-icon, .mode-icon, .level-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.free-icon, .mode-icon, .level-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                }
+            });
+        });
+
+        // Add spark burst animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spark-burst {
+                to {
+                    transform: translate(var(--end-x), var(--end-y));
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Freestyle Rap Topics & Beats - Unleash Your Inner MC</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@400&family=Oswald:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Oswald', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #000;
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #1a0000 25%, #330000 50%, #ff0040 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,215,0,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,0,64,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(0,255,127,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: beat-pulse 0.6s infinite ease-in-out;
+        }
+
+        @keyframes beat-pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.02); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1400px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .floating-lyrics {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .lyric-word {
+            position: absolute;
+            font-size: 40px;
+            font-weight: 700;
+            opacity: 0.15;
+            animation: flow-lyrics 15s infinite linear;
+            color: #FFD700;
+            font-family: 'Bebas Neue', cursive;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @keyframes flow-lyrics {
+            0% {
+                transform: translateX(-100px) translateY(100vh) rotate(-15deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateX(100px) translateY(-100vh) rotate(15deg);
+                opacity: 0;
+            }
+        }
+
+        .mic-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: mic-glow 1.5s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+            color: #000;
+        }
+
+        @keyframes mic-glow {
+            0%, 100% { 
+                box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 60px rgba(255, 0, 64, 0.8);
+                transform: scale(1.05);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 5.5rem;
+            font-weight: 400;
+            background: linear-gradient(135deg, #FFD700, #FF0040, #00FF7F);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: title-bounce 2s ease-in-out infinite;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        @keyframes title-bounce {
+            0%, 100% { 
+                transform: translateY(0px);
+                filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+            }
+            50% { 
+                transform: translateY(-10px);
+                filter: drop-shadow(0 0 25px rgba(255, 0, 64, 0.6));
+            }
+        }
+
+        .hero .subtitle {
+            font-size: 2.5rem;
+            color: #FF0040;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .beat-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            gap: 8px;
+            margin: 2rem 0;
+            height: 80px;
+        }
+
+        .beat-bar {
+            width: 8px;
+            background: linear-gradient(to top, #FF0040, #FFD700);
+            border-radius: 4px;
+            animation: beat-dance 0.8s infinite ease-in-out;
+        }
+
+        .beat-bar:nth-child(1) { animation-delay: 0s; height: 30px; }
+        .beat-bar:nth-child(2) { animation-delay: 0.1s; height: 50px; }
+        .beat-bar:nth-child(3) { animation-delay: 0.2s; height: 70px; }
+        .beat-bar:nth-child(4) { animation-delay: 0.3s; height: 45px; }
+        .beat-bar:nth-child(5) { animation-delay: 0.4s; height: 60px; }
+        .beat-bar:nth-child(6) { animation-delay: 0.5s; height: 35px; }
+        .beat-bar:nth-child(7) { animation-delay: 0.6s; height: 55px; }
+        .beat-bar:nth-child(8) { animation-delay: 0.7s; height: 40px; }
+
+        @keyframes beat-dance {
+            0%, 100% { 
+                transform: scaleY(0.3);
+                opacity: 0.6;
+            }
+            50% { 
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .hero .description {
+            font-size: 1.6rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.5s both;
+            font-weight: 400;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        .btn {
+            padding: 20px 45px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.4rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF0040, #ff3366);
+            color: white;
+            box-shadow: 0 15px 35px rgba(255, 0, 64, 0.4);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.08);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(180deg, #000 0%, #1a0000 50%, #000 100%);
+            padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text x="50" y="50" text-anchor="middle" font-size="20" fill="rgba(255,215,0,0.03)" font-weight="bold">🎤</text></svg>') repeat;
+            background-size: 150px 150px;
+            animation: mic-pattern 20s infinite linear;
+        }
+
+        @keyframes mic-pattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-150px) translateY(-150px); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 4.5rem;
+            font-weight: 400;
+            background: linear-gradient(135deg, #FFD700, #FF0040);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #1a0000, #330000);
+            border-radius: 25px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.5s ease;
+            border: 3px solid rgba(255, 0, 64, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #FFD700, #FF0040, #00FF7F);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-20px) scale(1.05);
+            box-shadow: 0 30px 60px rgba(255, 0, 64, 0.3);
+            border-color: rgba(255, 215, 0, 0.6);
+        }
+
+        .feature-icon {
+            font-size: 5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #FFD700, #FF0040);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: icon-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes icon-bounce {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .feature-card h3 {
+            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        /* Why Freestyle Section */
+        .why-freestyle {
+            background: linear-gradient(135deg, #330000 0%, #1a0000 50%, #000 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .why-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .why-text h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 4rem;
+            font-weight: 400;
+            color: #FFD700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .why-list {
+            list-style: none;
+        }
+
+        .why-list li {
+            color: #cccccc;
+            margin-bottom: 2rem;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .why-list li:hover {
+            color: #FFD700;
+            transform: translateX(15px);
+        }
+
+        .why-list li::before {
+            content: '🔥';
+            font-size: 2rem;
+            animation: fire-flicker 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fire-flicker {
+            0%, 100% { transform: scale(1) rotate(-2deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+        }
+
+        .why-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .rap-studio {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(145deg, #1a0000, #330000);
+            border-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 4px solid rgba(255, 215, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: studio-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes studio-pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(255, 0, 64, 0.3); }
+            50% { box-shadow: 0 0 60px rgba(255, 215, 0, 0.5); }
+        }
+
+        .studio-mic {
+            font-size: 6rem;
+            background: linear-gradient(135deg, #FFD700, #FF0040);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            animation: mic-swing 2s ease-in-out infinite;
+        }
+
+        @keyframes mic-swing {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .studio-text {
+            color: #FFD700;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Use Cases Section */
+        .use-cases {
+            background: #000;
+            padding: 120px 0;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .case-card {
+            background: linear-gradient(145deg, #1a0000, #330000);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .case-card:hover {
+            transform: translateY(-15px) rotateY(5deg);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 25px 50px rgba(255, 0, 64, 0.2);
+        }
+
+        .case-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FF0040, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .case-card h3 {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .case-card p {
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #FF0040, #FFD700, #00FF7F);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="3" fill="rgba(0,0,0,0.1)"/><circle cx="75" cy="75" r="3" fill="rgba(0,0,0,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: confetti 25s infinite linear;
+        }
+
+        @keyframes confetti {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(-100px) rotate(360deg); }
+        }
+
+        .final-cta h2 {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 4.5rem;
+            color: #000;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.3);
+        }
+
+        .final-cta p {
+            font-size: 1.6rem;
+            color: rgba(0, 0, 0, 0.8);
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 600;
+        }
+
+        .final-cta .btn {
+            background: rgba(0, 0, 0, 0.9);
+            color: #FFD700;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            font-size: 1.6rem;
+            padding: 25px 55px;
+        }
+
+        .final-cta .btn:hover {
+            background: #000;
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+
+            .hero .subtitle {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 3rem;
+            }
+
+            .why-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .rap-studio {
+                width: 300px;
+                height: 300px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .beat-visualizer {
+                height: 60px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 1s ease;
+        }
+
+        .slide-in.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 1s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-lyrics" id="lyricsBackground"></div>
+        <div class="hero-content">
+            <div class="mic-badge">🎤 Drop the Mic</div>
+            <h1>Freestyle Rap</h1>
+            <p class="subtitle">Topics & Beats</p>
+            
+            <div class="beat-visualizer">
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+                <div class="beat-bar"></div>
+            </div>
+            
+            <p class="description">
+                Elevate your freestyle rap skills with our innovative app! Generate random topics and choose from professional beats to inspire your freestyle sessions.
+            </p>
+            
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">
+                    📱 Download for iOS
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    🤖 Download for Android
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎲</div>
+                    <h3>Topic Generator</h3>
+                    <p>Random words and phrases from various categories to spark your creativity and challenge your freestyle skills. Never run out of inspiration!</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎵</div>
+                    <h3>Beat Library</h3>
+                    <p>Professional backing tracks across different genres and tempos. Find the perfect beat to match your flow and style.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">👤</div>
+                    <h3>User-Friendly Interface</h3>
+                    <p>Easy to use for beginners and advanced rappers alike. Clean design that lets you focus on your performance, not navigation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Freestyle Section -->
+    <section class="why-freestyle">
+        <div class="container">
+            <div class="why-content">
+                <div class="why-text slide-in">
+                    <h2>Why Freestyle Rap?</h2>
+                    <ul class="why-list">
+                        <li>Perfect for training your rap skills</li>
+                        <li>Ideal entertainment for parties and gatherings</li>
+                        <li>Creative fun with words and rhythm</li>
+                        <li>Boost your confidence in rapping</li>
+                    </ul>
+                </div>
+                <div class="why-visual slide-in-right">
+                    <div class="rap-studio">
+                        <div class="studio-mic">🎤</div>
+                        <div class="studio-text">Drop Bars</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases">
+        <div class="container">
+            <h2 class="section-title fade-in">Use It For</h2>
+            <div class="cases-grid">
+                <div class="case-card fade-in">
+                    <div class="case-icon">📅</div>
+                    <h3>Daily Practice</h3>
+                    <p>Build your freestyle skills with consistent daily practice sessions. Develop your vocabulary and flow.</p>
+                </div>
+                <div class="case-card fade-in">
+                    <div class="case-icon">🎉</div>
+                    <h3>Party Entertainment</h3>
+                    <p>Spice up parties and social gatherings. Be the entertainment and impress your friends with your skills.</p>
+                </div>
+                <div class="case-card fade-in">
+                    <div class="case-icon">👥</div>
+                    <h3>Creative Fun</h3>
+                    <p>Have fun with friends in freestyle battles and creative word play. Build memories and connections.</p>
+                </div>
+                <div class="case-card fade-in">
+                    <div class="case-icon">📈</div>
+                    <h3>Skill Development</h3>
+                    <p>Develop your rap skills systematically. Track your progress and see yourself improve over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Unleash Your Inner MC!</h2>
+            <p>Download now and start your journey to freestyle mastery. Your stage is waiting.</p>
+            <a href="#" class="btn">
+                🚀 Get Started Now
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Floating lyrics animation
+        function createLyricWord() {
+            const words = ['FLOW', 'BARS', 'BEAT', 'RHYME', 'VERSE', 'DROP', 'FIRE', 'SICK', 'DOPE', 'RAP', 'MIC', 'RHYTHM', 'FRESH', 'BOOM'];
+            const word = document.createElement('div');
+            word.className = 'lyric-word';
+            word.textContent = words[Math.floor(Math.random() * words.length)];
+            word.style.left = Math.random() * 100 + '%';
+            word.style.animationDelay = Math.random() * 15 + 's';
+            word.style.animationDuration = (10 + Math.random() * 10) + 's';
+            
+            document.getElementById('lyricsBackground').appendChild(word);
+            
+            setTimeout(() => {
+                word.remove();
+            }, 20000);
+        }
+
+        // Create initial words
+        for (let i = 0; i < 15; i++) {
+            setTimeout(createLyricWord, i * 1000);
+        }
+        setInterval(createLyricWord, 2000);
+
+        // Beat visualizer enhanced animation
+        function enhanceBeatVisualizer() {
+            const bars = document.querySelectorAll('.beat-bar');
+            bars.forEach((bar, index) => {
+                setInterval(() => {
+                    const randomHeight = Math.random() * 60 + 20;
+                    bar.style.height = randomHeight + 'px';
+                }, 100 + (index * 50));
+            });
+        }
+
+        enhanceBeatVisualizer();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-in, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Enhanced button interactions with sound wave effect
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.08)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create sound wave effect
+                for (let i = 0; i < 8; i++) {
+                    const wave = document.createElement('div');
+                    wave.style.position = 'absolute';
+                    wave.style.width = '6px';
+                    wave.style.height = '20px';
+                    wave.style.background = 'linear-gradient(to top, #FFD700, #FF0040)';
+                    wave.style.borderRadius = '3px';
+                    wave.style.pointerEvents = 'none';
+                    wave.style.left = '50%';
+                    wave.style.top = '50%';
+                    wave.style.transformOrigin = 'center bottom';
+                    
+                    const angle = (i / 8) * Math.PI * 2;
+                    const distance = 40;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    
+                    wave.style.animation = `sound-wave 0.8s ease-out forwards`;
+                    wave.style.setProperty('--end-x', endX + 'px');
+                    wave.style.setProperty('--end-y', endY + 'px');
+                    wave.style.animationDelay = (i * 0.1) + 's';
+                    
+                    this.appendChild(wave);
+                    
+                    setTimeout(() => wave.remove(), 800);
+                }
+            });
+        });
+
+        // Feature cards interaction
+        document.querySelectorAll('.feature-card, .case-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.feature-icon, .case-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1.3) rotate(15deg)';
+                    icon.style.transition = 'all 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.feature-icon, .case-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                }
+            });
+        });
+
+        // Random topic generator demo (on click)
+        let topics = ['Pizza', 'Space', 'Ocean', 'Dreams', 'City', 'Fire', 'Gold', 'Thunder', 'Magic', 'Speed'];
+        let currentTopicIndex = 0;
+
+        function showRandomTopic() {
+            currentTopicIndex = (currentTopicIndex + 1) % topics.length;
+            // Could show topic in a demo area if we had one
+        }
+
+        // Add sound wave animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes sound-wave {
+                0% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(calc(-50% + var(--end-x)), calc(-50% + var(--end-y))) scale(0);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add rhythmic background pulse
+        setInterval(() => {
+            document.body.style.backgroundColor = '#000';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#0a0000';
+                setTimeout(() => {
+                    document.body.style.backgroundColor = '#000';
+                }, 50);
+            }, 50);
+        }, 800);
+    </script>
+</body>
+</html>
