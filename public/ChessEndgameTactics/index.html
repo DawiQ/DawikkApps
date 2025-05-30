@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Endgame Tactics - Master Chess Puzzles & Tactics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a2f1a 30%, #2d5a2d 70%, #0a0a0a 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="1" fill="rgba(255,215,0,0.1)"/></svg>') repeat;
+            background-size: 60px 60px;
+            animation: twinkle 8s infinite linear;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1200px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .puzzle-pieces {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .puzzle-piece {
+            position: absolute;
+            font-size: 40px;
+            opacity: 0.15;
+            animation: float-puzzle 12s infinite ease-in-out;
+            color: #FFD700;
+        }
+
+        @keyframes float-puzzle {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translateY(-20px) rotate(90deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateY(-10px) rotate(180deg);
+                opacity: 0.15;
+            }
+            75% {
+                transform: translateY(-30px) rotate(270deg);
+                opacity: 0.25;
+            }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700, #00FF88);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(74, 255, 74, 0.3)); }
+            50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5)); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            color: #4AFF4A;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero .puzzle-count {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .hero .description {
+            font-size: 1.3rem;
+            color: #cccccc;
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease-out 0.7s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .btn {
+            padding: 18px 35px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #4AFF4A, #00FF88);
+            color: #0a0a0a;
+            box-shadow: 0 15px 35px rgba(74, 255, 74, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #0a0a0a;
+            box-shadow: 0 15px 35px rgba(255, 215, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 45px rgba(74, 255, 74, 0.5);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: all 0.6s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* New Feature Banner */
+        .new-feature {
+            background: linear-gradient(135deg, #FF6B35, #F7931E);
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .new-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,10 60,40 90,40 70,60 80,90 50,70 20,90 30,60 10,40 40,40" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            background-size: 80px 80px;
+            animation: star-field 15s infinite linear;
+        }
+
+        @keyframes star-field {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-80px) translateY(-80px); }
+        }
+
+        .new-feature-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .new-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .new-feature h2 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .new-feature p {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .timer-display {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-top: 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Features Section */
+        .features {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 25px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 2px solid rgba(74, 255, 74, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4AFF4A, #FFD700, #00FF88);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(74, 255, 74, 0.2);
+            border-color: rgba(74, 255, 74, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: icon-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes icon-glow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(74, 255, 74, 0.3)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.5)); }
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #2d5a2d 0%, #1a2f1a 50%, #0a0a0a 100%);
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(74, 255, 74, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(74, 255, 74, 0.4);
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #4AFF4A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: #cccccc;
+            font-weight: 600;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: #0a0a0a;
+            padding: 120px 0;
+        }
+
+        .benefits-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .benefits-text h2 {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .benefits-list {
+            list-style: none;
+        }
+
+        .benefits-list li {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .benefits-list li:hover {
+            color: #4AFF4A;
+            transform: translateX(10px);
+        }
+
+        .benefits-list li::before {
+            content: '⚡';
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+        }
+
+        .benefits-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .tactical-display {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid rgba(74, 255, 74, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tactical-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(74, 255, 74, 0.1) 50%, transparent 70%);
+            animation: scan 3s ease-in-out infinite;
+        }
+
+        @keyframes scan {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .puzzle-counter {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #FFD700, #4AFF4A);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .puzzle-label {
+            color: #cccccc;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .mini-board {
+            width: 120px;
+            height: 120px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .mini-square {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .mini-square.light {
+            background: #F0D9B5;
+        }
+
+        .mini-square.dark {
+            background: #B58863;
+        }
+
+        /* Final CTA Section */
+        .final-cta {
+            background: linear-gradient(135deg, #4AFF4A, #00FF88, #FFD700);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.2)"/><circle cx="75" cy="75" r="2" fill="rgba(255,255,255,0.2)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: particles 20s infinite linear;
+        }
+
+        @keyframes particles {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-100px) translateY(-100px); }
+        }
+
+        .final-cta h2 {
+            font-size: 3.5rem;
+            color: #0a0a0a;
+            margin-bottom: 1rem;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+        }
+
+        .final-cta p {
+            font-size: 1.4rem;
+            color: rgba(10, 10, 10, 0.8);
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .final-cta .btn {
+            background: rgba(10, 10, 10, 0.9);
+            color: #4AFF4A;
+            font-weight: 900;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(10, 10, 10, 0.3);
+        }
+
+        .final-cta .btn:hover {
+            background: rgba(10, 10, 10, 1);
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero .puzzle-count {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .benefits-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .tactical-display {
+                width: 280px;
+                height: 280px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .new-feature h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="puzzle-pieces" id="puzzleBackground"></div>
+        <div class="hero-content">
+            <h1>Chess Endgame Tactics</h1>
+            <p class="subtitle">Challenge Your Mind</p>
+            <div class="puzzle-count">100,000+ Puzzles</div>
+            <p class="description">
+                The ultimate training app for chess enthusiasts of all levels! 
+                Dive into carefully curated chess puzzles, from simple tactics to complex endgame studies.
+            </p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">
+                    📱 Download for iOS
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    🤖 Download for Android
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Feature Section -->
+    <section class="new-feature">
+        <div class="new-feature-content">
+            <div class="new-badge">🆕 NEW FEATURE</div>
+            <h2>Puzzle Smash Mode</h2>
+            <p>Race against time in our exciting new mode! Solve as many puzzles as you can and compete with players worldwide.</p>
+            <div class="timer-display">
+                ⏱️ <span>03:00</span> ⚡
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">100K+</div>
+                    <div class="stat-label">Curated Puzzles</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Skill Levels</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Offline Training</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">Ads & Distractions</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title fade-in">Powerful Training Features</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Dynamic Rating System</h3>
+                    <p>Track your improvement and climb the ranks as you solve more puzzles. Watch your tactical skills grow with every challenge.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Learn from History</h3>
+                    <p>Review solved puzzles, analyze mistakes, and reinforce your learning. Turn every mistake into a stepping stone.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧩</div>
+                    <h3>All Skill Levels</h3>
+                    <p>From beginners to grandmasters, find puzzles that match your expertise. Progressive difficulty that grows with you.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💡</div>
+                    <h3>Smart Hint System</h3>
+                    <p>Get guidance when stuck without spoiling the solution. Learn the thought process behind each move.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌙</div>
+                    <h3>Dark Mode & Clean UI</h3>
+                    <p>Reduce eye strain with dark mode and focus on the game with our minimalist, distraction-free interface.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📈</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your improvement with detailed statistics and see your tactical pattern recognition improve over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <div class="benefits-text slide-in-left">
+                    <h2>Perfect For Every Chess Player</h2>
+                    <ul class="benefits-list">
+                        <li>Daily mental workouts</li>
+                        <li>Tactical mastery development</li>
+                        <li>Tournament preparation</li>
+                        <li>Endgame proficiency</li>
+                        <li>Pattern recognition training</li>
+                        <li>Quick tactical shots</li>
+                        <li>Complex multi-move combinations</li>
+                        <li>Pure, uninterrupted training</li>
+                    </ul>
+                </div>
+                <div class="benefits-visual slide-in-right">
+                    <div class="tactical-display">
+                        <div class="puzzle-counter" id="puzzleCounter">100,000+</div>
+                        <div class="puzzle-label">Handpicked Puzzles</div>
+                        <div class="mini-board" id="miniBoard"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="final-cta">
+        <div class="container">
+            <h2>Ready to Boost Your Chess Skills?</h2>
+            <p>Download Chess Endgame Tactics now and start your journey to tactical brilliance! No ads, just pure chess training.</p>
+            <a href="#" class="btn">
+                🚀 Start Training Now
+            </a>
+        </div>
+    </section>
+
+    <script>
+        // Floating puzzle pieces animation
+        function createPuzzlePiece() {
+            const symbols = ['♔', '♕', '♖', '♗', '♘', '♙', '⚡', '🧩', '🎯', '⭐'];
+            const piece = document.createElement('div');
+            piece.className = 'puzzle-piece';
+            piece.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            piece.style.left = Math.random() * 100 + '%';
+            piece.style.top = Math.random() * 100 + '%';
+            piece.style.animationDelay = Math.random() * 12 + 's';
+            piece.style.animationDuration = (8 + Math.random() * 8) + 's';
+            
+            document.getElementById('puzzleBackground').appendChild(piece);
+            
+            setTimeout(() => {
+                piece.remove();
+            }, 16000);
+        }
+
+        // Create floating pieces
+        for (let i = 0; i < 12; i++) {
+            setTimeout(createPuzzlePiece, i * 1000);
+        }
+        setInterval(createPuzzlePiece, 2000);
+
+        // Animated mini chess board
+        function createMiniBoard() {
+            const board = document.getElementById('miniBoard');
+            const pieces = ['♜', '♞', '♝', '♛', '♚', '♗', '♘', '♖', '', '', '', '', '♙', '♙', '♙', '♙'];
+            
+            for (let i = 0; i < 16; i++) {
+                const square = document.createElement('div');
+                square.className = 'mini-square';
+                
+                const row = Math.floor(i / 4);
+                const col = i % 4;
+                
+                if ((row + col) % 2 === 0) {
+                    square.classList.add('light');
+                } else {
+                    square.classList.add('dark');
+                }
+                
+                if (pieces[i]) {
+                    square.textContent = pieces[i];
+                    square.style.color = i < 8 ? '#1a1a1a' : '#ffffff';
+                    square.style.textShadow = i < 8 ? '0 0 3px rgba(255,255,255,0.5)' : '0 0 3px rgba(0,0,0,0.5)';
+                }
+                
+                board.appendChild(square);
+            }
+        }
+
+        createMiniBoard();
+
+        // Animated puzzle counter
+        function animatePuzzleCounter() {
+            const counter = document.getElementById('puzzleCounter');
+            let count = 0;
+            const target = 100000;
+            const increment = target / 100;
+            
+            const timer = setInterval(() => {
+                count += increment;
+                if (count >= target) {
+                    count = target;
+                    clearInterval(timer);
+                    counter.textContent = '100,000+';
+                } else {
+                    counter.textContent = Math.floor(count).toLocaleString() + '+';
+                }
+            }, 30);
+        }
+
+        // Timer animation for Puzzle Smash
+        function animateTimer() {
+            const timerSpan = document.querySelector('.timer-display span');
+            let seconds = 180; // 3 minutes
+            
+            const timer = setInterval(() => {
+                const minutes = Math.floor(seconds / 60);
+                const remainingSeconds = seconds % 60;
+                timerSpan.textContent = `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+                
+                seconds--;
+                if (seconds < 0) {
+                    seconds = 180; // Reset
+                }
+            }, 1000);
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Trigger counter animation when benefits section is visible
+                    if (entry.target.querySelector('#puzzleCounter')) {
+                        setTimeout(animatePuzzleCounter, 500);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Start timer animation
+        animateTimer();
+
+        // Enhanced button interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255,255,255,0.5)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s ease-out';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.marginLeft = '-10px';
+                ripple.style.marginTop = '-10px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
