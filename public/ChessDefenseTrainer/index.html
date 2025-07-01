@@ -357,6 +357,188 @@
             margin-top: 10px;
         }
 
+        /* Support Section */
+        .support {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .support h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .support-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #b8c6db;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .support-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .support-card:hover::before {
+            left: 100%;
+        }
+
+        .support-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(78, 205, 196, 0.3);
+        }
+
+        .support-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .support-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #4ecdc4;
+        }
+
+        .support-card p {
+            color: #b8c6db;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            background: rgba(78, 205, 196, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(78, 205, 196, 0.2);
+        }
+
+        .email-link {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: #ff6b6b;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .faq-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(78, 205, 196, 0.3);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(78, 205, 196, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(78, 205, 196, 0.1);
+        }
+
+        .faq-question h4 {
+            color: #4ecdc4;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .faq-toggle {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: #b8c6db;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+        }
+
         /* Footer CTA */
         .footer-cta {
             padding: 100px 0;
@@ -402,6 +584,10 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .support-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Scroll animations */
@@ -437,6 +623,7 @@
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
                 <li><a href="#modes">Game Modes</a></li>
+                <li><a href="#support">Support</a></li>
                 <li><a href="#download">Download</a></li>
             </ul>
         </nav>
@@ -534,6 +721,104 @@
         </div>
     </section>
 
+    <!-- Support Section -->
+    <section class="support" id="support">
+        <div class="container">
+            <h2 class="fade-in">Support & Help</h2>
+            <p class="support-subtitle fade-in">We're here to help you master chess defense! Get support, report issues, or ask questions about the app.</p>
+            
+            <div class="support-grid">
+                <div class="support-card fade-in">
+                    <div class="support-icon">📧</div>
+                    <h3>General Support</h3>
+                    <p>Have questions about the app or need help with features? Our support team is ready to assist you.</p>
+                    <div class="contact-info">
+                        <strong>Email Support:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p><strong>Response Time:</strong> Usually within 24 hours</p>
+                </div>
+                
+                <div class="support-card fade-in">
+                    <div class="support-icon">🐛</div>
+                    <h3>Bug Reports</h3>
+                    <p>Found a bug or experiencing technical issues? Help us improve Chess Defense by reporting problems.</p>
+                    <div class="contact-info">
+                        <strong>Bug Reports:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p>Please include device info and steps to reproduce the issue.</p>
+                </div>
+                
+                <div class="support-card fade-in">
+                    <div class="support-icon">💡</div>
+                    <h3>Feature Requests</h3>
+                    <p>Have ideas to make Chess Defense even better? We love hearing feedback from our chess community.</p>
+                    <div class="contact-info">
+                        <strong>Suggestions:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p>Your input helps shape the future of chess training!</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section fade-in">
+                <h3 class="faq-title">Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How does the rating system work?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chess Defense uses an adaptive rating system similar to chess.com and lichess. Your rating increases when you solve puzzles correctly and decreases when you struggle, ensuring you always face appropriately challenging positions.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Can I practice offline?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Chess Defense works completely offline once puzzles are downloaded. Perfect for training during commutes or when you don't have internet access.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>What makes Chess Defense different?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chess Defense focuses specifically on defensive tactics and positions, helping you improve an often-overlooked aspect of chess. Our AI adapts to your weaknesses to provide targeted training.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Is there a premium version?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chess Defense offers both free and premium features. The free version includes thousands of puzzles, while premium unlocks advanced analysis, unlimited hints, and exclusive training modes.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Which devices are supported?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chess Defense is available for iOS (iPhone and iPad) and Android devices. We regularly update the app to support the latest operating system versions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer CTA -->
     <section class="footer-cta" id="download">
         <div class="container fade-in">
@@ -554,15 +839,41 @@
     </footer>
 
     <script>
+        // FAQ Toggle functionality
+        function toggleFAQ(questionElement) {
+            const answer = questionElement.nextElementSibling;
+            const toggle = questionElement.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.textContent = '+';
+                toggle.classList.remove('rotated');
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                    openAnswer.classList.remove('active');
+                    openAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                    openAnswer.previousElementSibling.querySelector('.faq-toggle').classList.remove('rotated');
+                });
+                
+                // Open clicked FAQ
+                answer.classList.add('active');
+                toggle.textContent = '×';
+                toggle.classList.add('rotated');
+            }
+        }
+
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
             });
         });
 
@@ -630,6 +941,24 @@
             
             piece.addEventListener('mouseleave', () => {
                 piece.style.transform = '';
+            });
+        });
+
+        // Enhanced hover effects for support cards
+        document.querySelectorAll('.support-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.support-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1.2) rotate(10deg)';
+                    icon.style.transition = 'all 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.support-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                }
             });
         });
     </script>
