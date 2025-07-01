@@ -562,6 +562,162 @@
             font-weight: 600;
         }
 
+        /* Support Section */
+        .support-section {
+            background: linear-gradient(180deg, #0d0d0d 0%, #1a0d26 50%, #0d0d0d 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .support-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .support-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #1E90FF, #8A2BE2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .support-subtitle {
+            font-size: 1.4rem;
+            color: #cccccc;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .support-card {
+            background: linear-gradient(145deg, #1a0d26, #2d1b69);
+            border-radius: 25px;
+            padding: 3rem;
+            border: 2px solid rgba(30, 144, 255, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1E90FF, #8A2BE2, #FF4500);
+        }
+
+        .support-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(30, 144, 255, 0.5);
+            box-shadow: 0 25px 50px rgba(30, 144, 255, 0.2);
+        }
+
+        .support-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #1E90FF, #8A2BE2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .support-card h3 {
+            font-size: 1.8rem;
+            color: #1E90FF;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .support-card p {
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            background: rgba(30, 144, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .email-link {
+            color: #1E90FF;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: #FF4500;
+            text-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        }
+
+        .faq-section {
+            margin-top: 4rem;
+        }
+
+        .faq-item {
+            background: linear-gradient(145deg, #1a0d26, #2d1b69);
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(30, 144, 255, 0.2);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            background: rgba(30, 144, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(30, 144, 255, 0.1);
+        }
+
+        .faq-question h4 {
+            color: #1E90FF;
+            font-size: 1.2rem;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .faq-toggle {
+            color: #1E90FF;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: #cccccc;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
         /* Final CTA Section */
         .final-cta {
             background: linear-gradient(135deg, #8A2BE2, #4a2c7a, #FF4500);
@@ -641,12 +797,13 @@
                 padding: 1rem 1.5rem;
             }
 
-            .section-title {
+            .section-title, .support-title {
                 font-size: 2.5rem;
             }
 
             .modes-grid,
-            .levels-grid {
+            .levels-grid,
+            .support-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -841,6 +998,105 @@
         </div>
     </section>
 
+    <!-- Support Section -->
+    <section class="support-section">
+        <div class="container">
+            <div class="support-header">
+                <h2 class="support-title fade-in">Support & Help</h2>
+                <p class="support-subtitle fade-in">We're here to help you master chess! Get support, report issues, or ask questions.</p>
+            </div>
+            
+            <div class="support-grid">
+                <div class="support-card fade-in">
+                    <div class="support-icon">📧</div>
+                    <h3>Contact Support</h3>
+                    <p>Have a question or need help? Our support team is ready to assist you with any issues or inquiries.</p>
+                    <div class="contact-info">
+                        <strong>Email Support:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p><strong>Response Time:</strong> We typically respond within 24 hours</p>
+                </div>
+                
+                <div class="support-card fade-in">
+                    <div class="support-icon">🐛</div>
+                    <h3>Report Bugs</h3>
+                    <p>Found a bug or experiencing technical issues? Help us improve the app by reporting any problems.</p>
+                    <div class="contact-info">
+                        <strong>Bug Reports:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p>Please include your device info and steps to reproduce the issue.</p>
+                </div>
+                
+                <div class="support-card fade-in">
+                    <div class="support-icon">💡</div>
+                    <h3>Feature Requests</h3>
+                    <p>Have an idea to make the app better? We love hearing from our users about new features and improvements.</p>
+                    <div class="contact-info">
+                        <strong>Suggestions:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p>Your feedback helps us build a better chess training experience!</p>
+                </div>
+            </div>
+            
+            <div class="faq-section fade-in">
+                <h3 style="text-align: center; color: #1E90FF; font-size: 2rem; margin-bottom: 2rem;">Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Is the app really completely free?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Chess Mates in 1-4 Moves is 100% free. All features are available to all users.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How do I track my progress?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The app includes a comprehensive progress tracking system with ratings, statistics, and detailed analytics to monitor your improvement over time.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Can I use the app offline?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! The app works completely offline once downloaded. You can practice chess puzzles anytime, anywhere without an internet connection.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>What devices are supported?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chess Mates in 1-4 Moves is available for iOS (iPhone and iPad) and Android devices. Check the app stores for minimum system requirements.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How often is new content added?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We regularly update the app with new puzzles, features, and improvements. The app starts with over 100,000 puzzles to keep you challenged for years!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Final CTA Section -->
     <section class="final-cta">
         <div class="container">
@@ -916,6 +1172,27 @@
             });
         }
 
+        // FAQ Toggle functionality
+        function toggleFAQ(questionElement) {
+            const answer = questionElement.nextElementSibling;
+            const toggle = questionElement.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.textContent = '+';
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                    openAnswer.classList.remove('active');
+                    openAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                });
+                
+                // Open clicked FAQ
+                answer.classList.add('active');
+                toggle.textContent = '-';
+            }
+        }
+
         // Scroll animations
         const observerOptions = {
             threshold: 0.15,
@@ -981,16 +1258,16 @@
         });
 
         // Enhanced hover effects for cards
-        document.querySelectorAll('.free-feature, .mode-card, .level-card').forEach(card => {
+        document.querySelectorAll('.free-feature, .mode-card, .level-card, .support-card').forEach(card => {
             card.addEventListener('mouseenter', function() {
-                const icon = this.querySelector('.free-icon, .mode-icon, .level-icon');
+                const icon = this.querySelector('.free-icon, .mode-icon, .level-icon, .support-icon');
                 if (icon) {
                     icon.style.transform = 'scale(1.2) rotate(10deg)';
                 }
             });
             
             card.addEventListener('mouseleave', function() {
-                const icon = this.querySelector('.free-icon, .mode-icon, .level-icon');
+                const icon = this.querySelector('.free-icon, .mode-icon, .level-icon, .support-icon');
                 if (icon) {
                     icon.style.transform = 'scale(1) rotate(0deg)';
                 }
