@@ -114,7 +114,7 @@ xandr.com, 13799, RESELLER
 xandr.com, 14082, RESELLER
 yieldmo.com, 3591550211052216798, RESELLER, 6a92c77cfc3d2258
 zmaticoo.com, 5135655, RESELLER
-OWNERDOMAIN=dawikk.app
+OWNERDOMAIN=dawikk-apps.vercel.app
 ironsrc.com, 392589, Direct
 rubiconproject.com, 24400, RESELLER, 0bfd66d529a55807
 video.unrulymedia.com, 2464975885, RESELLER
