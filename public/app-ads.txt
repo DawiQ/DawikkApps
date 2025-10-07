@@ -12,6 +12,7 @@ pubmatic.com, 157097, RESELLER, 5d62403b186f2ace
 pubnative.net, 1006951, RESELLER, d641df8625486a7b
 smaato.com, 1100053415, RESELLER, 07bcf65f187117b4
 loopme.com, 9724, RESELLER, 6c8d5f95897a5a3b
+loopme.com, 15665, RESELLER, 6c8d5f95897a5a3b
 zmaticoo.com, 5135082, RESELLER
 zmaticoo.com, 113149, RESELLER
 lijit.com, 502742, RESELLER, fafdf38b16bf6b2b
@@ -61,6 +62,9 @@ smartyads.com, 478, RESELLER, fd2bde0ff2e62c5d
 appnexus.com, 15670, RESELLER
 mobismarter.com, 3294, RESELLER
 contextweb.com, 558638, RESELLER, 89ff185a4c4e857c
+mobupps.com, c74d97b01eae257e44aa9d5bade97baf33094, RESELLER
+bluexad.ai, 1947919201712738304, RESELLER
+tradplusad.com, ba761e9c72f279da, RESELLER
 eliteappgrade.com, 514554, RESELLER
 yellowhead.com, 67b9c0a1d2e345, RESELLER
 voisetech.com, 1023, RESELLER
