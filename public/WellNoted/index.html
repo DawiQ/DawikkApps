@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Opening Tactics - Unleash Your Opening Prowess!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 25%, #2d1b0f 50%, #3d2914 75%, #0a0a0a 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated background chess pieces */
+        .chess-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            pointer-events: none;
+        }
+
+        .chess-piece {
+            position: absolute;
+            font-size: 4rem;
+            animation: float 12s ease-in-out infinite;
+            color: #d4af37;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.03; }
+            50% { transform: translateY(-30px) rotate(180deg); opacity: 0.08; }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #d4af37, #ffd700, #ff8c00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #d4af37, #ffd700);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="1" fill="rgba(212,175,55,0.1)"/><circle cx="80" cy="80" r="1" fill="rgba(255,140,0,0.1)"/><circle cx="50" cy="50" r="1" fill="rgba(255,215,0,0.1)"/></svg>') repeat;
+            background-size: 150px 150px;
+            animation: heroPattern 20s infinite linear;
+        }
+
+        @keyframes heroPattern {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-150px) translateY(-150px); }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #d4af37, #ff8c00);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: glow-pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 50%, #ff8c00 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 0.5)); }
+        }
+
+        .hero .subtitle {
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            color: #cccccc;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-preview {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-badge {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1), rgba(255, 140, 0, 0.1));
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+            animation: float-stat 3s ease-in-out infinite;
+        }
+
+        .stat-badge:nth-child(2) { animation-delay: 0.5s; }
+        .stat-badge:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes float-stat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .stat-badge:hover {
+            transform: translateY(-15px) scale(1.1);
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #d4af37, #ff8c00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #cccccc;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d4af37, #ff8c00);
+            color: white;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #d4af37;
+            border: 2px solid #d4af37;
+        }
+
+        .btn:hover {
+            transform: translateY(-8px) scale(1.05);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #d4af37, #ffd700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.05), rgba(255, 140, 0, 0.05));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #d4af37, #ff8c00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: #cccccc;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        /* Why Choose Section */
+        .why-choose {
+            padding: 120px 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(255, 140, 0, 0.1));
+        }
+
+        .why-choose h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #ff8c00, #d4af37);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .why-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .why-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .why-card h3 {
+            font-size: 1.4rem;
+            color: #d4af37;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .why-card p {
+            color: #cccccc;
+            line-height: 1.6;
+        }
+
+        /* Challenge Section */
+        .challenge {
+            padding: 120px 0;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .challenge h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff8c00, #d4af37);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .challenge p {
+            font-size: 1.3rem;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .challenge-highlight {
+            font-size: 1.5rem;
+            color: #d4af37;
+            font-weight: 700;
+            margin: 30px 0;
+        }
+
+        /* Support Section */
+        .support {
+            padding: 120px 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .support h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #d4af37, #ffd700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .support-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #cccccc;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .support-card {
+            background: linear-gradient(145deg, rgba(212, 175, 55, 0.05), rgba(255, 140, 0, 0.05));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .support-card:hover::before {
+            left: 100%;
+        }
+
+        .support-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(212, 175, 55, 0.2);
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .support-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #d4af37, #ff8c00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .support-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #d4af37;
+            font-weight: 700;
+        }
+
+        .support-card p {
+            color: #cccccc;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            background: rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .email-link {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .email-link:hover {
+            color: #ff8c00;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #d4af37, #ff8c00);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .faq-item {
+            background: rgba(212, 175, 55, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(255, 215, 0, 0.4);
+        }
+
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(212, 175, 55, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .faq-question h4 {
+            color: #d4af37;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .faq-toggle {
+            color: #d4af37;
+            font-size: 1.5rem;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: #cccccc;
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer.active {
+            max-height: 200px;
+        }
+
+        /* Footer CTA */
+        .footer-cta {
+            padding: 120px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(255, 140, 0, 0.2));
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><polygon points="50,5 61,35 95,35 68,57 79,91 50,70 21,91 32,57 5,35 39,35" fill="rgba(212,175,55,0.1)"/></svg>') repeat;
+            background-size: 100px 100px;
+            animation: victory-stars 20s infinite linear;
+        }
+
+        @keyframes victory-stars {
+            0% { transform: translateX(0) translateY(0) rotate(0deg); }
+            100% { transform: translateX(-100px) translateY(-100px) rotate(360deg); }
+        }
+
+        .footer-cta h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #d4af37, #ffd700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-cta p {
+            font-size: 1.3rem;
+            color: #cccccc;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: rgba(0, 0, 0, 0.5);
+            text-align: center;
+            color: #cccccc;
+        }
+
+        footer a:hover {
+            color: #ff8c00 !important;
+            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .stats-preview {
+                gap: 1.5rem;
+            }
+            
+            .stat-badge {
+                padding: 1rem 1.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .support-grid,
+            .features-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .features h2,
+            .support h2,
+            .why-choose h2 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translateY(80px);
+            transition: all 1s ease;
+        }
+
+        .slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="chess-bg">
+        <div class="chess-piece" style="top: 10%; left: 10%; animation-delay: 0s;">♔</div>
+        <div class="chess-piece" style="top: 20%; right: 20%; animation-delay: 2s;">♕</div>
+        <div class="chess-piece" style="top: 60%; left: 15%; animation-delay: 4s;">♖</div>
+        <div class="chess-piece" style="top: 80%; right: 10%; animation-delay: 6s;">♗</div>
+        <div class="chess-piece" style="top: 40%; right: 5%; animation-delay: 8s;">♘</div>
+        <div class="chess-piece" style="top: 70%; left: 80%; animation-delay: 10s;">♙</div>
+        <div class="chess-piece" style="top: 30%; left: 70%; animation-delay: 1s;">♚</div>
+        <div class="chess-piece" style="top: 50%; right: 60%; animation-delay: 3s;">♛</div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">♔ Chess Opening Tactics</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#why-choose">Why Choose</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <div class="hero-badge">🏆 Opening Mastery</div>
+                <h1>Chess Opening Tactics</h1>
+                <p class="subtitle">Unleash Your Opening Prowess!</p>
+                
+                <div class="stats-preview">
+                    <div class="stat-badge">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Tactical Puzzles</div>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-number">Dynamic</div>
+                        <div class="stat-label">Rating System</div>
+                    </div>
+                    <div class="stat-badge">
+                        <div class="stat-number">Offline</div>
+                        <div class="stat-label">Mode Available</div>
+                    </div>
+                </div>
+                
+                <p>
+                    Dive into the cerebral world of chess openings like never before. This isn't just an app—it's your gateway to mastering the most crucial phase of the royal game.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary">
+                        📱 Download Now
+                    </a>
+                    <a href="#features" class="btn btn-secondary">
+                        🔍 Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="fade-in">Powerful Features</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔥</div>
+                    <h3>50,000+ Tactical Puzzles</h3>
+                    <p>Immerse yourself in a vast ocean of opening challenges. From subtle positional nuances to explosive combinations, every puzzle is a step towards greatness.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Adaptive Difficulty</h3>
+                    <p>Face challenges tailored to your skill level. As your rating climbs, so does the complexity. Every solved puzzle is a conquered peak, every mistake a lesson learned.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Dynamic Rating System</h3>
+                    <p>Watch your rating soar with each correct move. But beware—missteps will cost you. Can you reach the pinnacle of opening mastery?</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💡</div>
+                    <h3>Smart Hint System</h3>
+                    <p>Stuck on a devious tactic? Our unique hint system guides you to the right piece, without spoiling the thrill of discovery.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Offline Mode</h3>
+                    <p>No internet? No problem. Sharpen your skills anytime, anywhere. Your chess journey never stops.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📜</div>
+                    <h3>Puzzle History</h3>
+                    <p>Exclusive feature: Revisit your conquered challenges. Analyze, learn, and witness your evolution as a player.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose" id="why-choose">
+        <div class="container">
+            <h2 class="fade-in">Why Chess Opening Tactics?</h2>
+            <div class="why-grid">
+                <div class="why-card fade-in">
+                    <h3>Opening Specialization</h3>
+                    <p>Master the phase that often decides the game before it truly begins. Focus on the most critical moments of chess.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <h3>Universal Appeal</h3>
+                    <p>From novices to grandmasters, there's a challenge waiting for everyone. Progressive difficulty ensures constant growth.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <h3>Constant Evolution</h3>
+                    <p>Our dynamic rating system ensures you're always pushing your limits. Never plateau, always improve.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <h3>Real-world Scenarios</h3>
+                    <p>Face positions from actual games. Prepare for real battles on the board with authentic opening challenges.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <h3>Lightweight & Fast</h3>
+                    <p>Minimal tech requirements, maximum chess action. Perfect for any device, optimized for performance.</p>
+                </div>
+                <div class="why-card fade-in">
+                    <h3>Train Anywhere</h3>
+                    <p>Practice on-the-go, even without internet access. Your chess improvement never has to pause.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Challenge Section -->
+    <section class="challenge">
+        <div class="container fade-in">
+            <h2>But here's the real question: Do you have what it takes?</h2>
+            <p>
+                Can you spot the hidden tactic that turns a seemingly equal position into a decisive advantage? 
+                Will you find the move that transforms a cramped setup into a devastating attack?
+            </p>
+            <p class="challenge-highlight">
+                This isn't just about solving puzzles—it's about transformation.
+            </p>
+            <p>
+                Imagine sitting across the board from your opponent, confidence radiating from you. 
+                As the game begins, you're not just playing moves—you're setting traps, creating weaknesses, 
+                and building your position with the assurance of someone who's faced thousands of opening challenges.
+            </p>
+        </div>
+    </section>
+
+    <!-- Support Section -->
+    <section class="support" id="support">
+        <div class="container">
+            <h2 class="fade-in">Support & Help</h2>
+            <p class="support-subtitle fade-in">Master your opening game with confidence! Get expert support, report issues, or ask questions about Chess Opening Tactics.</p>
+            
+            <div class="support-grid">
+                <div class="support-card fade-in">
+                    <div class="support-icon">📧</div>
+                    <h3>General Support</h3>
+                    <p>Need help with opening tactics or app features? Our chess experts are ready to guide your journey to opening mastery.</p>
+                    <div class="contact-info">
+                        <strong>Email Support:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p><strong>Response Time:</strong> Usually within 24 hours</p>
+                </div>
+                
+                <div class="support-card fade-in">
+                    <div class="support-icon">🐛</div>
+                    <h3>Technical Issues</h3>
+                    <p>Experiencing bugs or technical problems? Help us improve Chess Opening Tactics by reporting any issues you encounter.</p>
+                    <div class="contact-info">
+                        <strong>Bug Reports:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p>Please include device details and steps to reproduce the issue.</p>
+                </div>
+                
+                <div class="support-card fade-in">
+                    <div class="support-icon">💡</div>
+                    <h3>Feature Suggestions</h3>
+                    <p>Have ideas for new opening challenges or features? Share your suggestions with our development team.</p>
+                    <div class="contact-info">
+                        <strong>Ideas & Feedback:</strong><br>
+                        <a href="mailto:dawikk.apps@gmail.com" class="email-link">dawikk.apps@gmail.com</a>
+                    </div>
+                    <p>Your feedback shapes the future of opening training!</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section fade-in">
+                <h3 class="faq-title">Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How does the adaptive difficulty system work?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our system monitors your performance and adjusts puzzle difficulty in real-time. As you improve, you'll face more complex opening challenges. The rating system ensures you're always appropriately challenged.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Can I use the hint system without penalty?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The hint system is designed for learning. Using hints may slightly affect your rating gain, but the focus is on understanding opening principles rather than pure solving speed.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>How does puzzle history help my improvement?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Puzzle history lets you review past challenges, identify patterns in your mistakes, and track your progress over time. It's essential for understanding which opening themes you need to work on.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>Are the puzzles based on real games?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Our puzzles are derived from master games and common opening positions. You'll practice scenarios you're likely to encounter in your own games.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <h4>What skill levels does the app support?</h4>
+                        <span class="faq-toggle">+</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Chess Opening Tactics serves players from beginner to master level. The adaptive system ensures appropriate challenges for ratings from 800 to 2400+ ELO.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <section class="footer-cta" id="download">
+        <div class="container">
+            <h2 class="fade-in">Ready to Redefine Your Chess Journey?</h2>
+            <p class="fade-in">Download Chess Opening Tactics now. The next move is yours—and it could be the beginning of your ascent to chess mastery.</p>
+            <div class="cta-buttons fade-in">
+                <a href="#" class="btn btn-primary">♔ Download for iOS</a>
+                <a href="#" class="btn btn-primary">🤖 Download for Android</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Chess Opening Tactics. In chess, as in life, those who start strong often finish stronger.</p>
+            
+            <!-- Legal Links -->
+            <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(212, 175, 55, 0.2);">
+                <p style="font-size: 0.9rem;">
+                    <a href="https://dawikk-apps.vercel.app/ChessOpenings/privacyPolicy.html" 
+                       target="_blank" 
+                       style="color: #d4af37; text-decoration: none; margin: 0 15px; transition: all 0.3s;">
+                        Privacy Policy
+                    </a>
+                    <span style="color: #666;">|</span>
+                    <a href="https://dawikk-apps.vercel.app/ChessOpenings/termsOfUse.html" 
+                       target="_blank" 
+                       style="color: #d4af37; text-decoration: none; margin: 0 15px; transition: all 0.3s;">
+                        Terms of Use
+                    </a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle functionality
+        function toggleFAQ(questionElement) {
+            const answer = questionElement.nextElementSibling;
+            const toggle = questionElement.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('active')) {
+                answer.classList.remove('active');
+                toggle.textContent = '+';
+                toggle.classList.remove('rotated');
+            } else {
+                // Close all other FAQs
+                document.querySelectorAll('.faq-answer.active').forEach(openAnswer => {
+                    openAnswer.classList.remove('active');
+                    openAnswer.previousElementSibling.querySelector('.faq-toggle').textContent = '+';
+                    openAnswer.previousElementSibling.querySelector('.faq-toggle').classList.remove('rotated');
+                });
+                
+                // Open clicked FAQ
+                answer.classList.add('active');
+                toggle.textContent = '×';
+                toggle.classList.add('rotated');
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in, .slide-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Stat badges animation
+        function animateStatBadges() {
+            const badges = document.querySelectorAll('.stat-badge');
+            badges.forEach((badge, index) => {
+                setTimeout(() => {
+                    badge.style.transform = 'translateY(-15px) scale(1.05)';
+                    setTimeout(() => {
+                        badge.style.transform = 'translateY(0) scale(1)';
+                    }, 300);
+                }, index * 200);
+            });
+        }
+
+        // Animate stat badges every 6 seconds
+        setInterval(animateStatBadges, 6000);
+
+        // Enhanced button interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+            
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create golden spark effect
+                for (let i = 0; i < 8; i++) {
+                    const spark = document.createElement('div');
+                    spark.style.position = 'absolute';
+                    spark.style.width = '6px';
+                    spark.style.height = '6px';
+                    spark.style.background = '#ffd700';
+                    spark.style.borderRadius = '50%';
+                    spark.style.pointerEvents = 'none';
+                    spark.style.left = '50%';
+                    spark.style.top = '50%';
+                    spark.style.boxShadow = '0 0 10px #ffd700';
+                    
+                    const angle = (i / 8) * Math.PI * 2;
+                    const distance = 60;
+                    const endX = Math.cos(angle) * distance;
+                    const endY = Math.sin(angle) * distance;
+                    
+                    spark.style.animation = `spark-burst 0.8s ease-out forwards`;
+                    spark.style.setProperty('--end-x', endX + 'px');
+                    spark.style.setProperty('--end-y', endY + 'px');
+                    
+                    this.appendChild(spark);
+                    
+                    setTimeout(() => spark.remove(), 800);
+                }
+            });
+        });
+
+        // Enhanced hover effects for cards
+        document.querySelectorAll('.feature-card, .support-card, .why-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                const icon = this.querySelector('.feature-icon, .support-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1.2) rotate(15deg)';
+                    icon.style.transition = 'all 0.3s ease';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                const icon = this.querySelector('.feature-icon, .support-icon');
+                if (icon) {
+                    icon.style.transform = 'scale(1) rotate(0deg)';
+                }
+            });
+        });
+
+        // Add hover effects to chess pieces
+        document.querySelectorAll('.chess-piece').forEach(piece => {
+            piece.addEventListener('mouseenter', () => {
+                piece.style.transform = 'scale(1.8) rotate(360deg)';
+                piece.style.transition = 'all 0.5s ease';
+                piece.style.color = '#ffd700';
+            });
+            
+            piece.addEventListener('mouseleave', () => {
+                piece.style.transform = '';
+                piece.style.color = '#d4af37';
+            });
+        });
+
+        // Add spark burst animation CSS
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes spark-burst {
+                to {
+                    transform: translate(var(--end-x), var(--end-y));
+                    opacity: 0;
+                    transform: scale(0);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
