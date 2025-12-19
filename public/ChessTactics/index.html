@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Tactics: Short Puzzles - Sharpen Your Chess Mind</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Lightning background animation */
+        .lightning-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .lightning {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, #ffeb3b, transparent);
+            animation: lightning 3s infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes lightning {
+            0% { opacity: 0; transform: translateY(-100px); }
+            50% { opacity: 1; transform: translateY(50vh); }
+            100% { opacity: 0; transform: translateY(100vh); }
+        }
+
+        /* Quick pulse animation */
+        @keyframes quickPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 235, 59, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800, #f44336);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 235, 59, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ffeb3b;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #ffeb3b 0%, #ff9800 50%, #f44336 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: quickPulse 2s ease-in-out infinite;
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            color: #ffeb3b;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 235, 59, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            color: #e0e0e0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats-banner {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-highlight {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 235, 59, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 235, 59, 0.3);
+        }
+
+        .stat-highlight .number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffeb3b;
+            display: block;
+        }
+
+        .stat-highlight .label {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            color: #000;
+            box-shadow: 0 10px 30px rgba(255, 235, 59, 0.3);
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 235, 59, 0.4);
+            animation: quickPulse 0.5s ease;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #ffeb3b;
+            border: 2px solid #ffeb3b;
+        }
+
+        .btn-secondary:hover {
+            background: #ffeb3b;
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(10px);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: rgba(255, 235, 59, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 235, 59, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 235, 59, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 235, 59, 0.2);
+            border-color: rgba(255, 235, 59, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffeb3b;
+        }
+
+        .feature-card p {
+            color: #e0e0e0;
+            line-height: 1.6;
+        }
+
+        /* Game Modes Section */
+        .game-modes {
+            padding: 100px 0;
+        }
+
+        .game-modes h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            background: linear-gradient(45deg, #ff9800, #f44336);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .modes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .mode-card {
+            background: linear-gradient(135deg, rgba(255, 152, 0, 0.1), rgba(244, 67, 54, 0.1));
+            border-radius: 25px;
+            padding: 50px;
+            text-align: center;
+            border: 1px solid rgba(255, 152, 0, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 235, 59, 0.1) 0%, transparent 70%);
+            transform: scale(0);
+            transition: transform 0.5s ease;
+        }
+
+        .mode-card:hover::after {
+            transform: scale(1);
+        }
+
+        .mode-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(255, 152, 0, 0.3);
+        }
+
+        .mode-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #ffeb3b;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-card p {
+            color: #e0e0e0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-features {
+            list-style: none;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mode-features li {
+            color: #ff9800;
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .mode-features li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            color: #ffeb3b;
+        }
+
+        /* Testimonial Section */
+        .testimonials {
+            padding: 100px 0;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .testimonials h2 {
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #ffffff;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial {
+            background: rgba(255, 235, 59, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 4px solid #ffeb3b;
+        }
+
+        .testimonial p {
+            font-style: italic;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+        }
+
+        .testimonial .author {
+            color: #ffeb3b;
+            font-weight: 600;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 100px 0;
+        }
+
+        .benefits h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .benefits-list {
+            max-width: 800px;
+            margin: 0 auto;
+            list-style: none;
+        }
+
+        .benefits-list li {
+            background: rgba(255, 235, 59, 0.05);
+            margin: 15px 0;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 4px solid #ffeb3b;
+            transition: all 0.3s ease;
+        }
+
+        .benefits-list li:hover {
+            transform: translateX(10px);
+            background: rgba(255, 235, 59, 0.1);
+        }
+
+        .benefits-list li::before {
+            content: '⚡';
+            color: #ffeb3b;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 100px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 235, 59, 0.1), rgba(255, 152, 0, 0.1));
+        }
+
+        .final-cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #ffffff;
+        }
+
+        .final-cta p {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #b0b0b0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero {
+                padding: 80px 0;
+            }
+            
+            .stats-banner {
+                flex-direction: column;
+                gap: 20px;
+                align-items: center;
+            }
+            
+            .modes-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Lightning Background -->
+    <div class="lightning-bg">
+        <div class="lightning" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="lightning" style="left: 30%; animation-delay: 1s;"></div>
+        <div class="lightning" style="left: 50%; animation-delay: 2s;"></div>
+        <div class="lightning" style="left: 70%; animation-delay: 3s;"></div>
+        <div class="lightning" style="left: 90%; animation-delay: 4s;"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">⚡ Chess Tactics</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#modes">Game Modes</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#download">Download</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Sharpen Your Chess Mind</h1>
+                <div class="tagline">Where Quick Thinking Leads to Checkmate!</div>
+                <p>Master chess tactics through rapid-fire puzzle solving. Train your tactical eye with over 50,000 carefully curated short puzzles designed for lightning-fast improvement.</p>
+                
+                <div class="stats-banner">
+                    <div class="stat-highlight">
+                        <span class="number">50K+</span>
+                        <div class="label">Tactical Puzzles</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <span class="number">⚡</span>
+                        <div class="label">Lightning Fast</div>
+                    </div>
+                    <div class="stat-highlight">
+                        <span class="number">🎯</span>
+                        <div class="label">Adaptive Difficulty</div>
+                    </div>
+                </div>
+
+                <div class="cta-buttons">
+                    <a href="#download" class="btn btn-primary">Start Training Now</a>
+                    <a href="#features" class="btn btn-secondary">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="fade-in">Rapid Tactical Training</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Quick Puzzles, Lasting Impact</h3>
+                    <p>Each puzzle crafted for swift solving - perfect for busy schedules. Solve in seconds, but reap benefits that last for games to come.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Adaptive Difficulty</h3>
+                    <p>Smart ranking system ensures you're always challenged at the right level. From beginner to master - we adapt to your skill.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📊</div>
+                    <h3>Comprehensive Tracking</h3>
+                    <p>Monitor your progress with detailed analytics. Solve history, rating graphs, and puzzle insights across different themes.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📱</div>
+                    <h3>Train Anywhere</h3>
+                    <p>Offline play means you can sharpen your tactics during commutes, breaks, or anywhere inspiration strikes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Game Modes Section -->
+    <section class="game-modes" id="modes">
+        <div class="container">
+            <h2 class="fade-in">Two Exciting Training Modes</h2>
+            <div class="modes-container">
+                <div class="mode-card fade-in">
+                    <h3>🎓 Training Mode</h3>
+                    <p>Hone your skills at your own pace with focused, methodical practice.</p>
+                    <ul class="mode-features">
+                        <li>Review and retry puzzles</li>
+                        <li>Perfect your tactical vision</li>
+                        <li>Short, focused exercises</li>
+                        <li>Learn from mistakes</li>
+                    </ul>
+                </div>
+                <div class="mode-card fade-in">
+                    <h3>💥 Puzzle Smash</h3>
+                    <p>Test your limits in this thrilling challenge mode!</p>
+                    <ul class="mode-features">
+                        <li>Start with easier puzzles</li>
+                        <li>Difficulty ramps up with each solution</li>
+                        <li>How high can you climb?</li>
+                        <li>Quick succession challenges</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="fade-in">What Players Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial fade-in">
+                    <p>"Perfect for quick training sessions between work meetings. My tactical vision has improved dramatically!"</p>
+                    <div class="author">- Sarah M., Club Player</div>
+                </div>
+                <div class="testimonial fade-in">
+                    <p>"The adaptive difficulty keeps me engaged. Started as a beginner, now solving advanced puzzles with confidence."</p>
+                    <div class="author">- Mike R., Tournament Player</div>
+                </div>
+                <div class="testimonial fade-in">
+                    <p>"Puzzle Smash mode is addictive! Love the challenge of climbing higher with each session."</p>
+                    <div class="author">- Elena K., Chess Enthusiast</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <h2 class="fade-in">Why Choose Chess Tactics?</h2>
+            <ul class="benefits-list">
+                <li class="fade-in">Lightning-fast pattern recognition development through rapid puzzle solving</li>
+                <li class="fade-in">Perfect for busy schedules - train effectively in just minutes per day</li>
+                <li class="fade-in">Transform how you think about chess with thousands of tactical exercises</li>
+                <li class="fade-in">Spot combinations and identify weaknesses in seconds during real games</li>
+                <li class="fade-in">Build confidence for blitz games and tournament play</li>
+                <li class="fade-in">Regular updates with fresh, challenging puzzles to keep you sharp</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="download">
+        <div class="container fade-in">
+            <h2>Ready for Lightning-Fast Chess Improvement?</h2>
+            <p>Join thousands of players developing tactical brilliance through rapid puzzle training. Your next chess victory is just a short puzzle away!</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-primary">Download for iOS</a>
+                <a href="#" class="btn btn-primary">Download for Android</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Chess Tactics: Short Puzzles. Where quick thinking leads to checkmate!</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Dynamic lightning effect
+        function createLightning() {
+            const lightning = document.createElement('div');
+            lightning.className = 'lightning';
+            lightning.style.left = Math.random() * 100 + '%';
+            lightning.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.querySelector('.lightning-bg').appendChild(lightning);
+            
+            setTimeout(() => {
+                lightning.remove();
+            }, 4000);
+        }
+
+        // Create random lightning effects
+        setInterval(createLightning, 3000);
+
+        // Interactive mode cards
+        document.querySelectorAll('.mode-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'scale(1.05) rotateY(5deg)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1) rotateY(0deg)';
+            });
+        });
+
+        // Add pulse effect to CTA buttons
+        document.querySelectorAll('.btn-primary').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                btn.style.animation = 'quickPulse 0.5s ease infinite';
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.animation = '';
+            });
+        });
+
+        // Progressive number counting for stats
+        function animateNumber(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current) + 'K+';
+            }, 50);
+        }
+
+        // Trigger animations when stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const numberElement = entry.target.querySelector('.number');
+                    if (numberElement && numberElement.textContent === '50K+') {
+                        animateNumber(numberElement, 50);
+                    }
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        document.querySelectorAll('.stat-highlight').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+    </script>
+</body>
+</html>

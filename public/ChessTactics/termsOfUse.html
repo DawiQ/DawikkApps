@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use (EULA) - Chess Tactics</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a2f1a 50%, #2d5a2d 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="1" fill="rgba(255,215,0,0.1)"/></svg>') repeat;
+            background-size: 60px 60px;
+            animation: twinkle 8s infinite linear;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700, #00FF88);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: #cccccc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4AFF4A, #00FF88);
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 255, 74, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Content sections */
+        .section {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(74, 255, 74, 0.1);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 1.4rem;
+            color: #4AFF4A;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+
+        .section ul, .section ol {
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .section li {
+            color: #cccccc;
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .section ul li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-size: 1.2rem;
+        }
+
+        .section ol {
+            counter-reset: item;
+            list-style: none;
+        }
+
+        .section ol li::before {
+            content: counter(item) ". ";
+            counter-increment: item;
+            position: absolute;
+            left: 0;
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        .section a {
+            color: #4AFF4A;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(74, 255, 74, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .section a:hover {
+            border-bottom-color: #4AFF4A;
+            color: #FFD700;
+        }
+
+        .highlight {
+            background: rgba(74, 255, 74, 0.1);
+            border-left: 4px solid #4AFF4A;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight strong {
+            color: #FFD700;
+        }
+
+        .date {
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .warning-box {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid #FF6B35;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .warning-box strong {
+            color: #FF6B35;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2d5a2d 0%, #1a2f1a 50%, #0a0a0a 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #4AFF4A;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #FFD700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1>Terms of Use</h1>
+            <p class="subtitle">End User License Agreement (EULA)</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="section">
+            <p><strong>Effective Date:</strong> <span class="date">July 18, 2024</span></p>
+            <p>These Terms of Use ("Terms") constitute a legally binding agreement made between you, whether personally or on behalf of an entity ("you") and Dawikk ("we," "us" or "our"), concerning your access to and use of the Chess Tactics mobile application as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the "Application").</p>
+            
+            <div class="highlight">
+                <p><strong>PLEASE READ THESE TERMS CAREFULLY.</strong> By using the Application, you agree to be bound by these Terms. If you do not agree with these Terms, you are prohibited from using or accessing this Application.</p>
+            </div>
+        </div>
+
+        <!-- License Grant -->
+        <div class="section">
+            <h2>1. License Grant</h2>
+            <p>Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, revocable license to:</p>
+            <ul>
+                <li>Download, install, and use the Application on a single mobile device that you own or control</li>
+                <li>Access and use the Application strictly in accordance with these Terms</li>
+            </ul>
+
+            <h3>License Restrictions</h3>
+            <p>You shall not:</p>
+            <ul>
+                <li>Copy, modify, or create derivative works based on the Application</li>
+                <li>Distribute, transfer, sublicense, lease, lend, or rent the Application to any third party</li>
+                <li>Reverse engineer, decompile, or disassemble the Application</li>
+                <li>Make the functionality of the Application available to multiple users through any means</li>
+                <li>Use the Application for any revenue generating endeavor, commercial enterprise, or other purpose for which it is not designed or intended</li>
+            </ul>
+        </div>
+
+        <!-- Acceptable Use -->
+        <div class="section">
+            <h2>2. Acceptable Use</h2>
+            <p>You agree not to use the Application:</p>
+            <ul>
+                <li>In any way that violates any applicable national or international law or regulation</li>
+                <li>For the purpose of exploiting, harming, or attempting to exploit or harm minors in any way</li>
+                <li>To transmit, or procure the sending of, any advertising or promotional material without our prior written consent</li>
+                <li>To impersonate or attempt to impersonate us, our employee, another user, or any other person or entity</li>
+                <li>In any way that infringes upon the rights of others, or in any way is illegal, threatening, fraudulent, or harmful</li>
+                <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Application</li>
+            </ul>
+        </div>
+
+        <!-- Subscription Terms -->
+        <div class="section">
+            <h2>3. Subscription Terms</h2>
+            
+            <h3>Auto-Renewable Subscriptions</h3>
+            <p>The Application offers auto-renewable subscription plans that provide access to premium features. By purchasing a subscription, you acknowledge and agree to the following:</p>
+
+            <div class="highlight">
+                <p><strong>Subscription Duration:</strong> Subscriptions are available on a monthly, quarterly, semi-annual, or annual basis, as displayed in the Application.</p>
+                <p><strong>Price:</strong> The subscription price is displayed in the Application at the time of purchase and will be charged to your iTunes Account or Google Play Account.</p>
+                <p><strong>Auto-Renewal:</strong> Your subscription will automatically renew unless auto-renewal is turned off at least 24 hours before the end of the current subscription period.</p>
+                <p><strong>Billing:</strong> Payment will be charged to your account at confirmation of purchase and upon each renewal.</p>
+            </div>
+
+            <h3>Managing Subscriptions</h3>
+            <p>You can manage your subscriptions and turn off auto-renewal by going to your Account Settings after purchase:</p>
+            <ul>
+                <li><strong>iOS:</strong> Settings > [Your Name] > Subscriptions</li>
+                <li><strong>Android:</strong> Google Play Store > Subscriptions</li>
+            </ul>
+
+            <h3>Cancellation</h3>
+            <p>You may cancel your subscription at any time. Cancellation will take effect at the end of the current billing period. No refunds will be provided for the unused portion of any subscription period.</p>
+
+            <h3>Price Changes</h3>
+            <p>We reserve the right to change subscription prices at any time. Price changes will take effect at the start of the next subscription period following the date of the price change. We will notify you in advance of any price changes.</p>
+        </div>
+
+        <!-- One-Time Purchases -->
+        <div class="section">
+            <h2>4. One-Time Purchases</h2>
+            <p>The Application may offer one-time in-app purchases for specific features or content. These purchases are non-refundable except as required by law.</p>
+            <ul>
+                <li>One-time purchases provide permanent access to the purchased content or features</li>
+                <li>Purchases are tied to your account and cannot be transferred</li>
+                <li>All sales are final unless otherwise required by applicable law</li>
+            </ul>
+        </div>
+
+        <!-- Intellectual Property -->
+        <div class="section">
+            <h2>5. Intellectual Property Rights</h2>
+            <p>The Application and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by us, our licensors, or other providers of such material and are protected by international copyright, trademark, patent, trade secret, and other intellectual property laws.</p>
+
+            <div class="warning-box">
+                <p><strong>You must not:</strong> Reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Application, except as generally and ordinarily permitted through the Application according to these Terms.</p>
+            </div>
+        </div>
+
+        <!-- User Data and Privacy -->
+        <div class="section">
+            <h2>6. User Data and Privacy</h2>
+            <p>Your use of the Application is also governed by our Privacy Policy. Please review our <a href="privacy-policy.html">Privacy Policy</a>, which also governs the Application and informs users of our data collection practices.</p>
+            <p>By using the Application, you consent to such processing and you warrant that all data provided by you is accurate.</p>
+        </div>
+
+        <!-- Third-Party Services -->
+        <div class="section">
+            <h2>7. Third-Party Services</h2>
+            <p>The Application may contain links to third-party websites or services that are not owned or controlled by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites or services.</p>
+            <p>The Application uses the following third-party services:</p>
+            <ul>
+                <li>Google Play Services</li>
+                <li>AdMob (for advertising)</li>
+                <li>Unity</li>
+                <li>Expo</li>
+            </ul>
+        </div>
+
+        <!-- Disclaimer of Warranties -->
+        <div class="section">
+            <h2>8. Disclaimer of Warranties</h2>
+            <div class="warning-box">
+                <p><strong>THE APPLICATION IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED.</strong></p>
+                <p>We do not warrant that:</p>
+                <ul>
+                    <li>The Application will function uninterrupted, secure, or available at any particular time or location</li>
+                    <li>Any errors or defects will be corrected</li>
+                    <li>The Application is free of viruses or other harmful components</li>
+                    <li>The results of using the Application will meet your requirements</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Limitation of Liability -->
+        <div class="section">
+            <h2>9. Limitation of Liability</h2>
+            <p>TO THE FULLEST EXTENT PROVIDED BY LAW, IN NO EVENT WILL WE, OUR AFFILIATES, OR OUR LICENSORS, SERVICE PROVIDERS, EMPLOYEES, AGENTS, OFFICERS, OR DIRECTORS BE LIABLE FOR DAMAGES OF ANY KIND, UNDER ANY LEGAL THEORY, ARISING OUT OF OR IN CONNECTION WITH YOUR USE, OR INABILITY TO USE, THE APPLICATION.</p>
+        </div>
+
+        <!-- Indemnification -->
+        <div class="section">
+            <h2>10. Indemnification</h2>
+            <p>You agree to defend, indemnify, and hold us harmless from and against any claims, damages, obligations, losses, liabilities, costs, or debt, and expenses arising from:</p>
+            <ul>
+                <li>Your use and access of the Application</li>
+                <li>Your violation of any term of these Terms</li>
+                <li>Your violation of any third-party right, including without limitation any copyright, property, or privacy right</li>
+            </ul>
+        </div>
+
+        <!-- Termination -->
+        <div class="section">
+            <h2>11. Termination</h2>
+            <p>We may terminate or suspend your access to the Application immediately, without prior notice or liability, for any reason whatsoever, including without limitation if you breach these Terms.</p>
+            <p>Upon termination, your right to use the Application will immediately cease. All provisions of these Terms which by their nature should survive termination shall survive termination.</p>
+        </div>
+
+        <!-- Governing Law -->
+        <div class="section">
+            <h2>12. Governing Law</h2>
+            <p>These Terms shall be governed and construed in accordance with the laws of Poland, without regard to its conflict of law provisions.</p>
+            <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights.</p>
+        </div>
+
+        <!-- Changes to Terms -->
+        <div class="section">
+            <h2>13. Changes to These Terms</h2>
+            <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will try to provide at least 30 days' notice prior to any new terms taking effect.</p>
+            <p>By continuing to access or use our Application after those revisions become effective, you agree to be bound by the revised terms.</p>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="section">
+            <h2>14. Contact Information</h2>
+            <p>If you have any questions about these Terms, please contact us:</p>
+            <p><strong>Email:</strong> <a href="mailto:dawikk.apps@gmail.com" style="font-size: 1.2rem; font-weight: 600;">dawikk.apps@gmail.com</a></p>
+            <p><strong>Service Provider:</strong> Dawikk</p>
+        </div>
+
+        <!-- Acknowledgment -->
+        <div class="section">
+            <div class="highlight">
+                <p><strong>BY USING THE APPLICATION, YOU ACKNOWLEDGE THAT YOU HAVE READ THESE TERMS OF USE AND AGREE TO BE BOUND BY THEM.</strong></p>
+                <p>Last updated: <span class="date">July 18, 2024</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Dawikk Apps. All rights reserved.</p>
+    </div>
+</body>
+</html>
