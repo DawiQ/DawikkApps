@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Tactics - 50,000+ Puzzles to Master Your Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #c9a227;
+            --gold-light: #e6c65c;
+            --dark: #1a1a1a;
+            --darker: #0d0d0d;
+            --light-square: #f0d9b5;
+            --dark-square: #b58863;
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --card: rgba(30, 30, 30, 0.9);
+            --border: rgba(201, 162, 39, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.03;
+            background-image: 
+                linear-gradient(45deg, var(--gold) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--gold) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--gold) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--gold) 75%);
+            background-size: 60px 60px;
+            background-position: 0 0, 0 30px, 30px -30px, -30px 0px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-1 {
+            top: -200px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+        }
+
+        .glow-2 {
+            bottom: -200px;
+            right: -100px;
+            background: var(--dark-square);
+            opacity: 0.1;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .chess-board-mini {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.5),
+                0 0 0 3px var(--gold);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-8px) rotate(-3deg); }
+        }
+
+        .square {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .square.light { background: var(--light-square); }
+        .square.dark { background: var(--dark-square); }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 10px;
+        }
+
+        .title-chess {
+            color: var(--text);
+        }
+
+        .title-tactics {
+            color: var(--gold);
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .hero-text {
+            text-align: center;
+            margin: 25px 0;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 25px 0;
+            margin: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 40px;
+            margin: 25px 0;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--darker);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 
+                0 10px 30px rgba(201, 162, 39, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 162, 39, 0.4);
+        }
+
+        .cta-button svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        section {
+            margin: 35px 0;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .icon {
+            font-size: 1.3rem;
+        }
+
+        .section-title.gold { color: var(--gold); }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(201, 162, 39, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-highlight {
+            background: linear-gradient(135deg, rgba(201, 162, 39, 0.1), rgba(181, 136, 99, 0.1));
+            border: 1px solid var(--gold);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--gold);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feature-bullet {
+            color: var(--gold);
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .feature-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .tactic-chip {
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            transition: all 0.3s ease;
+        }
+
+        .tactic-chip:hover {
+            background: rgba(201, 162, 39, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 14px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(201, 162, 39, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .feature-card .emoji {
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .feature-card p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .chess-piece-divider {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 30px 0;
+            font-size: 1.5rem;
+            opacity: 0.3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-piece {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .footer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .footer-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .free-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(201, 162, 39, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--gold);
+            margin-top: 20px;
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 2.1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tactics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-row {
+                gap: 20px;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="chess-board-mini">
+                    <div class="square light"></div>
+                    <div class="square dark">♞</div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark">♛</div>
+                    <div class="square light"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                    <div class="square dark"></div>
+                    <div class="square dark"></div>
+                    <div class="square light">♟</div>
+                    <div class="square dark"></div>
+                    <div class="square light"></div>
+                </div>
+            </div>
+            <h1><span class="title-chess">Chess</span> <span class="title-tactics">Tactics</span></h1>
+            <p class="tagline">Master Your Tactical Vision</p>
+        </header>
+
+        <div class="hero-text">
+            <p>Improve your chess tactics with 50,000+ carefully crafted puzzles for all skill levels! Whether you're a beginner or an advanced player, elevate your game.</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-value">50K+</div>
+                <div class="stat-label">Puzzles</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">60+</div>
+                <div class="stat-label">Achievements</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Offline</div>
+            </div>
+        </div>
+
+        <a href="https://play.google.com/store/apps/details?id=com.dawikk.chesstacticsmixed" class="cta-button">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+            Download Free
+        </a>
+
+        <section>
+            <h2 class="section-title gold"><span class="icon">⚡</span> Puzzle Smash Mode</h2>
+            <div class="card card-highlight">
+                <p>Race against the clock! Solve as many chess puzzles as you can in 3 minutes. Track your best scores and challenge yourself to improve.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title gold"><span class="icon">🧩</span> Massive Puzzle Collection</h2>
+            <div class="card">
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">50,000+ tactical puzzles from real games</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">All difficulty levels from beginner to master</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">Material wins and positional tactics</span>
+                    </div>
+                </div>
+                <div class="tactics-grid">
+                    <div class="tactic-chip">Checkmates</div>
+                    <div class="tactic-chip">Forks</div>
+                    <div class="tactic-chip">Pins</div>
+                    <div class="tactic-chip">Skewers</div>
+                    <div class="tactic-chip">Discovery</div>
+                    <div class="tactic-chip">Deflection</div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title gold"><span class="icon">📊</span> Smart Training System</h2>
+            <div class="card">
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">AI-powered difficulty adjustment learns your level</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">Detailed statistics track your improvement</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">Tactical rating shows your progress over time</span>
+                    </div>
+                    <div class="feature-item">
+                        <span class="feature-bullet">♔</span>
+                        <span class="feature-text">Daily challenges keep you motivated</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title gold"><span class="icon">🎯</span> Features Players Love</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="emoji">📴</span>
+                    <h4>Works Offline</h4>
+                    <p>Practice anywhere, no internet needed</p>
+                </div>
+                <div class="feature-card">
+                    <span class="emoji">⏱️</span>
+                    <h4>Chess Clock</h4>
+                    <p>Built-in timer for timed training</p>
+                </div>
+                <div class="feature-card">
+                    <span class="emoji">🔬</span>
+                    <h4>Stockfish Engine</h4>
+                    <p>Deep move analysis</p>
+                </div>
+                <div class="feature-card">
+                    <span class="emoji">☁️</span>
+                    <h4>Cloud Sync</h4>
+                    <p>Progress across devices</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title gold"><span class="icon">🏆</span> Daily Missions</h2>
+            <div class="card">
+                <p>Complete daily tasks and unlock 60+ achievements as you master tactical patterns used by grandmasters.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title gold"><span class="icon">📖</span> Opening Database</h2>
+            <div class="card">
+                <p>Study chess openings with our integrated database to complement your tactical training.</p>
+            </div>
+        </section>
+
+        <div class="chess-piece-divider">
+            ♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜
+        </div>
+
+        <footer>
+            <span class="footer-piece">♚</span>
+            <h2 class="footer-title">Your Next Victory Starts Here</h2>
+            <p class="footer-sub">Perfect for adults and kids who want to get better at chess. No subscription required!</p>
+            <a href="https://play.google.com/store/apps/details?id=com.dawikk.chesstacticsmixed" class="cta-button">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                Start Solving Now
+            </a>
+            <div class="free-badge">
+                <span>✓</span> 100% Free • No Subscription
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
