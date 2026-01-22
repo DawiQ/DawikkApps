@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexoid - Rotate, Match, Dominate!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-cyan: #00f5ff;
+            --neon-pink: #ff00aa;
+            --neon-purple: #9d00ff;
+            --neon-yellow: #ffee00;
+            --neon-green: #00ff88;
+            --dark-bg: #0a0a12;
+            --card-bg: rgba(15, 15, 30, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-1 {
+            top: -200px;
+            left: -200px;
+            background: var(--neon-purple);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .glow-2 {
+            bottom: -200px;
+            right: -200px;
+            background: var(--neon-cyan);
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0); }
+            50% { transform: translate(50px, 50px); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            position: relative;
+            display: inline-block;
+        }
+
+        .hexagon-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            position: relative;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .hexagon {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px var(--neon-cyan);
+        }
+
+        .hexagon-inner {
+            width: 85%;
+            height: 85%;
+            background: var(--dark-bg);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hexagon-core {
+            width: 70%;
+            height: 70%;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-yellow));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.95); }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 8px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 40px rgba(0, 245, 255, 0.5);
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-text {
+            text-align: center;
+            margin: 30px 0;
+            padding: 0 10px;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            padding: 20px 40px;
+            margin: 30px 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--dark-bg);
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-green));
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: 
+                0 0 30px rgba(0, 245, 255, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 50px rgba(0, 245, 255, 0.8),
+                inset 0 0 30px rgba(255, 255, 255, 0.3);
+        }
+
+        .cta-button:active {
+            transform: scale(0.98);
+        }
+
+        section {
+            margin: 40px 0;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        section:nth-child(2) { animation-delay: 0.6s; }
+        section:nth-child(3) { animation-delay: 0.7s; }
+        section:nth-child(4) { animation-delay: 0.8s; }
+        section:nth-child(5) { animation-delay: 0.9s; }
+        section:nth-child(6) { animation-delay: 1s; }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title .icon {
+            font-size: 1.5rem;
+        }
+
+        .section-title.cyan { color: var(--neon-cyan); }
+        .section-title.pink { color: var(--neon-pink); }
+        .section-title.yellow { color: var(--neon-yellow); }
+        .section-title.green { color: var(--neon-green); }
+        .section-title.purple { color: var(--neon-purple); }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 245, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.1);
+        }
+
+        .how-to-play-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 18px;
+        }
+
+        .how-to-play-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .how-to-play-item p {
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .game-mode {
+            margin-bottom: 20px;
+        }
+
+        .game-mode:last-child {
+            margin-bottom: 0;
+        }
+
+        .mode-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .mode-icon {
+            font-size: 1.5rem;
+        }
+
+        .mode-name {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .mode-name.classic { color: var(--neon-cyan); }
+        .mode-name.time { color: var(--neon-yellow); }
+
+        .mode-desc {
+            color: rgba(255, 255, 255, 0.75);
+            line-height: 1.6;
+            padding-left: 38px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: rgba(0, 245, 255, 0.05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 245, 255, 0.1);
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: rgba(0, 245, 255, 0.3);
+        }
+
+        .feature-item .check {
+            color: var(--neon-green);
+            font-weight: bold;
+        }
+
+        .themes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .theme-chip {
+            padding: 10px 18px;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 2px solid;
+            transition: all 0.3s ease;
+        }
+
+        .theme-chip:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-classic {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+            color: #fff;
+        }
+
+        .theme-neon {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 245, 255, 0.3);
+        }
+
+        .theme-pastel {
+            background: rgba(255, 182, 193, 0.2);
+            border-color: #ffb6c1;
+            color: #ffb6c1;
+        }
+
+        .theme-retrowave {
+            background: rgba(157, 0, 255, 0.1);
+            border-color: var(--neon-purple);
+            color: var(--neon-purple);
+            box-shadow: 0 0 15px rgba(157, 0, 255, 0.3);
+        }
+
+        .theme-nature {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+
+        .theme-mono {
+            background: rgba(128, 128, 128, 0.2);
+            border-color: #888;
+            color: #aaa;
+        }
+
+        .stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+
+        .stat-icon {
+            font-size: 1.2rem;
+        }
+
+        .stat-text {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+
+        .final-cta {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--neon-yellow), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .trophy {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        .floating-blocks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .block {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            opacity: 0.3;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .block:nth-child(1) { left: 10%; background: var(--neon-cyan); animation-duration: 8s; animation-delay: 0s; }
+        .block:nth-child(2) { left: 20%; background: var(--neon-pink); animation-duration: 12s; animation-delay: 2s; }
+        .block:nth-child(3) { left: 35%; background: var(--neon-yellow); animation-duration: 10s; animation-delay: 4s; }
+        .block:nth-child(4) { left: 50%; background: var(--neon-green); animation-duration: 14s; animation-delay: 1s; }
+        .block:nth-child(5) { left: 65%; background: var(--neon-purple); animation-duration: 9s; animation-delay: 3s; }
+        .block:nth-child(6) { left: 80%; background: var(--neon-cyan); animation-duration: 11s; animation-delay: 5s; }
+        .block:nth-child(7) { left: 90%; background: var(--neon-pink); animation-duration: 13s; animation-delay: 0.5s; }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hexagon-container {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    
+    <div class="floating-blocks">
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+        <div class="block"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="hexagon-container">
+                    <div class="hexagon">
+                        <div class="hexagon-inner">
+                            <div class="hexagon-core"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h1>HEXOID</h1>
+            <p class="tagline">Rotate • Match • Dominate</p>
+        </header>
+
+        <div class="hero-text">
+            <p>Rotate the central hexagon, match colorful blocks and create powerful combos! Easy to learn, hard to master – perfect for quick breaks and long gaming sessions.</p>
+        </div>
+
+        <a href="https://play.google.com/store/apps/details?id=com.dawikk.Hexoid" class="cta-button">Download Now</a>
+
+        <section>
+            <h2 class="section-title cyan"><span class="icon">🎮</span> HOW TO PLAY</h2>
+            <div class="card">
+                <div class="how-to-play-item">
+                    <span class="step-number">1</span>
+                    <p>Rotate the hexagon left or right</p>
+                </div>
+                <div class="how-to-play-item">
+                    <span class="step-number">2</span>
+                    <p>Match 3 or more blocks of the same color</p>
+                </div>
+                <div class="how-to-play-item">
+                    <span class="step-number">3</span>
+                    <p>Build combos for score multipliers</p>
+                </div>
+                <div class="how-to-play-item">
+                    <span class="step-number">4</span>
+                    <p>Don't let the blocks reach the center!</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title pink"><span class="icon">⭐</span> GAME MODES</h2>
+            <div class="card">
+                <div class="game-mode">
+                    <div class="mode-header">
+                        <span class="mode-icon">🎯</span>
+                        <span class="mode-name classic">CLASSIC MODE</span>
+                    </div>
+                    <p class="mode-desc">Play without time limits. How high can you score before the blocks overwhelm you?</p>
+                </div>
+                <div class="game-mode">
+                    <div class="mode-header">
+                        <span class="mode-icon">⚡</span>
+                        <span class="mode-name time">TIME ATTACK</span>
+                    </div>
+                    <p class="mode-desc">2 minutes of intense action! Double points in the last 30 seconds. Race against the clock!</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title green"><span class="icon">🏆</span> FEATURES</h2>
+            <div class="features-grid">
+                <div class="feature-item"><span class="check">✓</span> 22 achievements</div>
+                <div class="feature-item"><span class="check">✓</span> XP system</div>
+                <div class="feature-item"><span class="check">✓</span> 6 color themes</div>
+                <div class="feature-item"><span class="check">✓</span> Leaderboards</div>
+                <div class="feature-item"><span class="check">✓</span> Player stats</div>
+                <div class="feature-item"><span class="check">✓</span> Smooth graphics</div>
+                <div class="feature-item"><span class="check">✓</span> Haptic feedback</div>
+                <div class="feature-item"><span class="check">✓</span> 20 levels</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title purple"><span class="icon">🎨</span> THEMES</h2>
+            <div class="card">
+                <div class="themes-container">
+                    <span class="theme-chip theme-classic">✦ Classic</span>
+                    <span class="theme-chip theme-neon">✦ Neon</span>
+                    <span class="theme-chip theme-pastel">✦ Pastel</span>
+                    <span class="theme-chip theme-retrowave">✦ Retrowave</span>
+                    <span class="theme-chip theme-nature">✦ Nature</span>
+                    <span class="theme-chip theme-mono">✦ Monochrome</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title yellow"><span class="icon">📈</span> PROGRESSION</h2>
+            <div class="card">
+                <div class="stats-list">
+                    <div class="stat-item">
+                        <span class="stat-icon">🎖️</span>
+                        <span class="stat-text">20 levels to achieve</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-text">Earn XP with every game</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">📊</span>
+                        <span class="stat-text">Track games, blocks cleared & best combos</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon">🏅</span>
+                        <span class="stat-text">Compare your Time Attack scores</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span class="trophy">🏅</span>
+            <p class="final-cta">How high can you score?</p>
+            <a href="https://play.google.com/store/apps/details?id=com.dawikk.Hexoid" class="cta-button">Download Hexoid</a>
+            <p>Perfect for fans of Tetris, match-3 and logic puzzles</p>
+        </footer>
+    </div>
+</body>
+</html>
