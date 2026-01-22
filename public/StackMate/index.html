@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StackMate - Professional Sport Stacking Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00d4aa;
+            --primary-dark: #00b894;
+            --accent: #ff6b35;
+            --blue: #4dabf7;
+            --purple: #da77f2;
+            --dark: #0c0c14;
+            --darker: #060609;
+            --card: rgba(20, 20, 35, 0.9);
+            --border: rgba(0, 212, 170, 0.2);
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.6);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 212, 170, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 212, 170, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            top: -150px;
+            right: -100px;
+            background: var(--primary);
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            bottom: 20%;
+            left: -100px;
+            background: var(--accent);
+            opacity: 0.2;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 25px;
+        }
+
+        .timer-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            animation: rotate 20s linear infinite;
+        }
+
+        .timer-ring::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, var(--primary), var(--blue));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(0, 212, 170, 0.3);
+        }
+
+        .cups-icon {
+            font-size: 2.5rem;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, var(--text), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero-text {
+            text-align: center;
+            margin: 25px 0;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+        }
+
+        .cta-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 40px;
+            margin: 25px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--darker);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 170, 0.4);
+        }
+
+        .cta-button svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        .timer-display {
+            font-family: 'JetBrains Mono', monospace;
+            text-align: center;
+            padding: 30px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            margin: 30px 0;
+            animation: fadeIn 0.8s ease-out 0.5s both;
+        }
+
+        .timer-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 30px rgba(0, 212, 170, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .timer-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        section {
+            margin: 35px 0;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+        }
+
+        .section-title .icon {
+            font-size: 1.3rem;
+        }
+
+        .section-title.green { color: var(--primary); }
+        .section-title.orange { color: var(--accent); }
+        .section-title.blue { color: var(--blue); }
+        .section-title.purple { color: var(--purple); }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 212, 170, 0.4);
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .feature-item:first-child {
+            padding-top: 0;
+        }
+
+        .feature-bullet {
+            color: var(--primary);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .mode-chip {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px 10px;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .mode-chip:hover {
+            background: rgba(0, 212, 170, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .stats-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .stat-item {
+            background: rgba(77, 171, 247, 0.1);
+            border: 1px solid rgba(77, 171, 247, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 0.85rem;
+            color: var(--blue);
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .why-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .why-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 15px;
+            background: rgba(255, 107, 53, 0.08);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            border-radius: 14px;
+        }
+
+        .why-item .check {
+            color: var(--accent);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .why-item .content h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .why-item .content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .perfect-for {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .perfect-tag {
+            padding: 10px 16px;
+            background: rgba(218, 119, 242, 0.1);
+            border: 1px solid rgba(218, 119, 242, 0.3);
+            border-radius: 25px;
+            font-size: 0.8rem;
+            color: var(--purple);
+            font-weight: 500;
+        }
+
+        .world-record-box {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(77, 171, 247, 0.1));
+            border: 2px solid var(--primary);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .world-record-box .icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .world-record-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .world-record-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-emoji {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--text), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        .wssa-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            margin-top: 25px;
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .timer-value {
+                font-size: 2.8rem;
+            }
+
+            .modes-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .stats-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="timer-ring"></div>
+                <div class="logo-inner">
+                    <span class="cups-icon">🥤</span>
+                </div>
+            </div>
+            <h1>StackMate</h1>
+            <p class="tagline">Professional Sport Stacking Timer</p>
+        </header>
+
+        <div class="hero-text">
+            <p>Train like a champion with StackMate – the ultimate sport stacking timer designed for competitive athletes and enthusiasts alike!</p>
+        </div>
+
+        <div class="timer-display">
+            <div class="timer-value">00:03.247</div>
+            <div class="timer-label">Millisecond Precision</div>
+        </div>
+
+        <a href="https://play.google.com/store/apps/details?id=com.dawikk.stackmate" class="cta-button">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+            Download Free
+        </a>
+
+        <section>
+            <h2 class="section-title green"><span class="icon">🏆</span> Professional Timing</h2>
+            <div class="card">
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Touch-pad interface mimicking real competition equipment</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Millisecond precision timing for accurate results</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Customizable hold delay (100-1000ms)</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Inspection mode: 8s, 15s, 30s, 60s, unlimited</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title blue"><span class="icon">⚡</span> Official WSSA Modes</h2>
+            <div class="modes-grid">
+                <div class="mode-chip">3-3-3</div>
+                <div class="mode-chip">3-6-3</div>
+                <div class="mode-chip">Cycle</div>
+                <div class="mode-chip">6-6</div>
+                <div class="mode-chip">1-10-1</div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title purple"><span class="icon">📊</span> Statistics</h2>
+            <div class="stats-list">
+                <div class="stat-item">Personal Best</div>
+                <div class="stat-item">Ao5 / Ao12</div>
+                <div class="stat-item">Ao50 / Ao100</div>
+                <div class="stat-item">Std Deviation</div>
+                <div class="stat-item">DNF Tracking</div>
+                <div class="stat-item">Progress Charts</div>
+            </div>
+        </section>
+
+        <div class="world-record-box">
+            <span class="icon">🌍</span>
+            <h3>World Record Comparison</h3>
+            <p>Compare your times directly against official world records! See exactly how close you are to becoming a world-class stacker.</p>
+        </div>
+
+        <section>
+            <h2 class="section-title green"><span class="icon">📁</span> Session Management</h2>
+            <div class="card">
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Create unlimited training sessions</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Track practice time per session</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Archive completed training blocks</span>
+                </div>
+                <div class="feature-item">
+                    <span class="feature-bullet">•</span>
+                    <span class="feature-text">Session-specific statistics</span>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title orange"><span class="icon">✓</span> Why StackMate?</h2>
+            <div class="why-grid">
+                <div class="why-item">
+                    <span class="check">✓</span>
+                    <div class="content">
+                        <h4>Train Anywhere</h4>
+                        <p>No expensive equipment needed. Your phone becomes a professional timer.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="check">✓</span>
+                    <div class="content">
+                        <h4>Track Progress</h4>
+                        <p>Detailed analytics help you identify patterns and improve faster.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="check">✓</span>
+                    <div class="content">
+                        <h4>Competition Ready</h4>
+                        <p>Practice with WSSA-compliant timing and modes.</p>
+                    </div>
+                </div>
+                <div class="why-item">
+                    <span class="check">✓</span>
+                    <div class="content">
+                        <h4>Offline First</h4>
+                        <p>All your data is stored locally. Train without internet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title purple"><span class="icon">👥</span> Perfect For</h2>
+            <div class="perfect-for">
+                <span class="perfect-tag">Competitive Stackers</span>
+                <span class="perfect-tag">Speed Enthusiasts</span>
+                <span class="perfect-tag">Beginners</span>
+                <span class="perfect-tag">Coaches</span>
+                <span class="perfect-tag">PB Chasers</span>
+            </div>
+        </section>
+
+        <footer>
+            <span class="footer-emoji">🏆</span>
+            <h2 class="footer-title">Start Stacking Faster</h2>
+            <p class="footer-sub">Beat your personal best with precision timing</p>
+            <a href="https://play.google.com/store/apps/details?id=com.dawikk.stackmate" class="cta-button">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                Download StackMate
+            </a>
+            <div class="wssa-badge">
+                <span>🥇</span> WSSA Compliant Modes
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
