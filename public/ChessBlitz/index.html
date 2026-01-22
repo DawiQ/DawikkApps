@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chess Tactics Blitz - Train Like a Master</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --electric: #00d9ff;
+            --electric-dark: #00a8c6;
+            --orange: #ff6b00;
+            --orange-light: #ff8533;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --card: rgba(15, 15, 25, 0.9);
+            --text: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.65);
+            --border: rgba(0, 217, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: var(--text);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .bg-lightning {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .bolt {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, var(--electric), transparent);
+            opacity: 0;
+            animation: lightning 4s infinite;
+        }
+
+        .bolt:nth-child(1) { left: 20%; animation-delay: 0s; }
+        .bolt:nth-child(2) { left: 50%; animation-delay: 1.5s; }
+        .bolt:nth-child(3) { left: 80%; animation-delay: 3s; }
+
+        @keyframes lightning {
+            0%, 95%, 100% { opacity: 0; transform: translateY(-100px); }
+            96%, 98% { opacity: 0.6; transform: translateY(100vh); }
+        }
+
+        .glow {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(120px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-1 {
+            width: 400px;
+            height: 400px;
+            top: -150px;
+            left: -100px;
+            background: var(--electric);
+            opacity: 0.15;
+        }
+
+        .glow-2 {
+            width: 350px;
+            height: 350px;
+            bottom: -100px;
+            right: -100px;
+            background: var(--orange);
+            opacity: 0.12;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 0 30px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-container {
+            width: 110px;
+            height: 110px;
+            margin: 0 auto 25px;
+            position: relative;
+        }
+
+        .logo-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--border);
+            border-radius: 50%;
+            animation: spin 8s linear infinite;
+        }
+
+        .logo-ring::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: var(--electric);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--electric);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-inner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--dark), var(--card));
+            border: 2px solid var(--electric);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            box-shadow: 
+                0 0 30px rgba(0, 217, 255, 0.3),
+                inset 0 0 20px rgba(0, 217, 255, 0.1);
+        }
+
+        h1 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+
+        .title-line1 {
+            display: block;
+            color: var(--text);
+        }
+
+        .title-line2 {
+            display: block;
+            background: linear-gradient(135deg, var(--electric), var(--orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .hero-text {
+            text-align: center;
+            margin: 25px 0;
+            animation: fadeIn 0.8s ease-out 0.2s both;
+        }
+
+        .hero-text p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-muted);
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            animation: fadeIn 0.8s ease-out 0.3s both;
+        }
+
+        .timer-digit {
+            width: 50px;
+            height: 65px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            color: var(--electric);
+            text-shadow: 0 0 20px var(--electric);
+        }
+
+        .timer-colon {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 2rem;
+            color: var(--orange);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .cta-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 18px 40px;
+            margin: 25px 0;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--darker);
+            background: linear-gradient(135deg, var(--electric), var(--electric-dark));
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out 0.4s both;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.4);
+        }
+
+        .cta-button svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        section {
+            margin: 35px 0;
+            animation: fadeIn 0.8s ease-out both;
+        }
+
+        .section-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .icon {
+            font-size: 1.2rem;
+        }
+
+        .section-title.cyan { color: var(--electric); }
+        .section-title.orange { color: var(--orange); }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 22px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(0, 217, 255, 0.4);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item:hover {
+            background: rgba(0, 217, 255, 0.1);
+            border-color: rgba(0, 217, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--electric), var(--electric-dark));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(0, 217, 255, 0.1));
+            border: 2px solid var(--orange);
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .highlight-box .emoji {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .highlight-box h3 {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            color: var(--orange);
+        }
+
+        .highlight-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .audience-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .audience-tag {
+            padding: 10px 18px;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: var(--electric);
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-emoji {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 15px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        .footer-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--text), var(--electric));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 400px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .timer-digit {
+                width: 42px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+
+            .logo-container {
+                width: 95px;
+                height: 95px;
+            }
+
+            .logo-inner {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-lightning">
+        <div class="bolt"></div>
+        <div class="bolt"></div>
+        <div class="bolt"></div>
+    </div>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-ring"></div>
+                <div class="logo-inner">♞</div>
+            </div>
+            <h1>
+                <span class="title-line1">Chess Tactics</span>
+                <span class="title-line2">Blitz</span>
+            </h1>
+            <p class="tagline">Train Like a Master</p>
+        </header>
+
+        <div class="hero-text">
+            <p>Challenge yourself with the ultimate tactical training app! Solve carefully selected puzzles against the clock and watch your tactical skills soar.</p>
+        </div>
+
+        <div class="timer-display">
+            <div class="timer-digit">0</div>
+            <div class="timer-digit">3</div>
+            <span class="timer-colon">:</span>
+            <div class="timer-digit">0</div>
+            <div class="timer-digit">0</div>
+        </div>
+
+        <a href="https://play.google.com/store/apps/details?id=com.dawikk.chessblitz" class="cta-button">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+            Start Training
+        </a>
+
+        <section>
+            <h2 class="section-title cyan"><span class="icon">⚡</span> Blitz Challenge</h2>
+            <div class="card">
+                <p>Perfect your tactics through an innovative blitz-style challenge that combines the intensity of Puzzle Rush with the precision of tactical training. Each session presents progressively harder puzzles!</p>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title orange"><span class="icon">🎯</span> Train Like a Master</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">🧩</div>
+                    <span class="feature-text">Diverse tactical themes from basic to advanced</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📈</div>
+                    <span class="feature-text">Dynamic difficulty adjustment based on performance</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <span class="feature-text">Track your progress with detailed statistics</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🌍</div>
+                    <span class="feature-text">Compare your scores with players worldwide</span>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">♔</div>
+                    <span class="feature-text">Practice key patterns used by Grandmasters</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="highlight-box">
+            <span class="emoji">🏆</span>
+            <h3>Daily Challenge</h3>
+            <p>Challenge yourself daily to improve your tactical vision and become a stronger chess player!</p>
+        </div>
+
+        <section>
+            <h2 class="section-title cyan"><span class="icon">👥</span> Perfect For</h2>
+            <div class="audience-tags">
+                <span class="audience-tag">Beginners</span>
+                <span class="audience-tag">Intermediate</span>
+                <span class="audience-tag">Advanced</span>
+                <span class="audience-tag">Puzzle Rush Fans</span>
+                <span class="audience-tag">Competitive Players</span>
+            </div>
+        </section>
+
+        <footer>
+            <span class="footer-emoji">⚡</span>
+            <h2 class="footer-title">Beat the Clock</h2>
+            <p class="footer-sub">Transform your chess game through intensive tactical training that's both fun and effective.</p>
+            <a href="https://play.google.com/store/apps/details?id=com.dawikk.chessblitz" class="cta-button">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                Download Free
+            </a>
+        </footer>
+    </div>
+</body>
+</html>
