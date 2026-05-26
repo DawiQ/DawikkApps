@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Fianchetto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background: #0a0a0a;
+            color: #ffffff;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a2f1a 50%, #2d5a2d 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><circle cx="30" cy="30" r="1" fill="rgba(255,215,0,0.1)"/></svg>') repeat;
+            background-size: 60px 60px;
+            animation: twinkle 8s infinite linear;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700, #00FF88);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .header .subtitle {
+            font-size: 1.3rem;
+            color: #cccccc;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #4AFF4A, #00FF88);
+            color: #0a0a0a;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 255, 74, 0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* Content sections */
+        .section {
+            background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(74, 255, 74, 0.1);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        .section h3 {
+            font-size: 1.4rem;
+            color: #4AFF4A;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section p {
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+
+        .section ul {
+            list-style: none;
+            margin-left: 0;
+            padding-left: 0;
+        }
+
+        .section li {
+            color: #cccccc;
+            margin-bottom: 12px;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .section li::before {
+            content: '⚡';
+            position: absolute;
+            left: 0;
+            background: linear-gradient(135deg, #4AFF4A, #FFD700);
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            font-size: 1.2rem;
+        }
+
+        .section a {
+            color: #4AFF4A;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(74, 255, 74, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .section a:hover {
+            border-bottom-color: #4AFF4A;
+            color: #FFD700;
+        }
+
+        .highlight {
+            background: rgba(74, 255, 74, 0.1);
+            border-left: 4px solid #4AFF4A;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .highlight strong {
+            color: #FFD700;
+        }
+
+        .date {
+            color: #FFD700;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2d5a2d 0%, #1a2f1a 50%, #0a0a0a 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #cccccc;
+            margin-bottom: 10px;
+        }
+
+        .footer a {
+            color: #4AFF4A;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: #FFD700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 25px;
+            }
+
+            .section h2 {
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="header-content">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">Your Privacy Matters to Us</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Introduction -->
+        <div class="section">
+            <p><strong>Effective Date:</strong> <span class="date">May 26, 2026</span></p>
+            <p>This privacy policy applies to the Fianchetto app (hereby referred to as "Application") for mobile devices that was created by Dawikk (hereby referred to as "Service Provider") as an Ad Supported service. This service is intended for use "AS IS".</p>
+            <div class="highlight">
+                <p><strong>In short:</strong> Fianchetto is an offline-first app. Your chess games, analyses, puzzles, statistics and settings are stored <strong>only on your device</strong>. The Service Provider does not operate any servers, does not require an account, and never receives or stores your data. The only data leaving your device is (1) what advertising providers collect to show ads, and (2) the public games you choose to download when you enter a Lichess or Chess.com username.</p>
+            </div>
+        </div>
+
+        <!-- Information Collection -->
+        <div class="section">
+            <h2>Information Collection and Use</h2>
+            <p>The Application is designed to work offline and stores all of your content locally on your device. This includes your games, imported PGN/FEN positions, analyses, puzzles, training progress, statistics and app settings. This information is kept on your device only and is never transmitted to the Service Provider.</p>
+
+            <p>The Application does <strong>not</strong> require you to create an account or provide your name, email address or any other personal contact details to use its core features.</p>
+
+            <h3>Data Used by Advertising</h3>
+            <p>The Application uses Google AdMob (and its mediation partners) to display advertisements. To serve and measure ads, these advertising providers may collect information such as:</p>
+            <ul>
+                <li>Device advertising identifiers (e.g. Google Advertising ID, or the iOS IDFA when you allow tracking)</li>
+                <li>Your device's Internet Protocol (IP) address</li>
+                <li>Device and operating system information</li>
+                <li>Ad interaction data, such as which ads were shown and tapped</li>
+            </ul>
+            <p>This data is collected and processed by the advertising providers under their own privacy policies (see "Third Party Access" below), not by the Service Provider.</p>
+
+            <h3>Optional: Fetching Your Public Games</h3>
+            <p>If you choose to enter a Lichess or Chess.com username, the Application will contact the public Lichess and Chess.com APIs directly to download your publicly available games. No login, password or OAuth is required, and your username is stored only on your device. These requests are subject to the privacy policies of Lichess and Chess.com.</p>
+
+            <h3>Notifications</h3>
+            <p>If you enable the optional daily reminder, the Application schedules a local notification on your device. These notifications are generated entirely on-device; no push server or external messaging service is used.</p>
+
+            <div class="highlight">
+                <p><strong>Location Data:</strong> The Application does not request, collect or gather precise location information from your mobile device.</p>
+            </div>
+        </div>
+
+        <!-- Third Party Access -->
+        <div class="section">
+            <h2>Third Party Access</h2>
+            <p>The Application relies on third-party services that have their own privacy policies governing how they handle data. The Service Provider does not control and is not responsible for the practices of these third parties. Below are links to the privacy policies of the third-party services used by the Application:</p>
+
+            <h3>Advertising</h3>
+            <ul>
+                <li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li>
+                <li><a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank">Google AdMob</a></li>
+                <li><a href="https://www.applovin.com/privacy/" target="_blank">AppLovin</a></li>
+                <li><a href="https://www.pangleglobal.com/privacy" target="_blank">Pangle</a></li>
+                <li><a href="https://developers.is.com/ironsource-mobile/air/ironsource-mobile-privacy-policy/" target="_blank">ironSource (Unity)</a></li>
+                <li><a href="https://www.facebook.com/about/privacy/" target="_blank">Meta Audience Network</a></li>
+                <li><a href="https://vungle.com/privacy/" target="_blank">Liftoff / Vungle</a></li>
+                <li><a href="https://answers.chartboost.com/en-us/articles/115001489411" target="_blank">Chartboost</a></li>
+                <li><a href="https://www.inmobi.com/privacy-policy" target="_blank">InMobi</a></li>
+                <li><a href="https://unity.com/legal/game-player-and-app-user-privacy-policy" target="_blank">Unity Ads</a></li>
+            </ul>
+
+            <h3>App Framework &amp; Game Import</h3>
+            <ul>
+                <li><a href="https://expo.dev/privacy" target="_blank">Expo</a></li>
+                <li><a href="https://lichess.org/privacy" target="_blank">Lichess</a> (only when you fetch games by username)</li>
+                <li><a href="https://www.chess.com/legal/privacy" target="_blank">Chess.com</a> (only when you fetch games by username)</li>
+            </ul>
+
+            <h3>Legal Requirements</h3>
+            <p>The Service Provider does not hold your personal data on any server, so it is generally unable to disclose such data. Where the Service Provider does come into possession of information, it may disclose it:</p>
+            <ul>
+                <li>As required by law, such as to comply with a subpoena or similar legal process</li>
+                <li>When it believes in good faith that disclosure is necessary to protect its rights, protect your safety or the safety of others, investigate fraud, or respond to a government request</li>
+            </ul>
+        </div>
+
+        <!-- Advertising & Consent -->
+        <div class="section">
+            <h2>Advertising and Consent</h2>
+            <p>Fianchetto is supported by advertising. We use Google's User Messaging Platform (UMP) to manage consent:</p>
+            <ul>
+                <li><strong>European Economic Area, UK and similar regions:</strong> a consent form is shown the first time you open the app, letting you choose whether to allow personalized advertising. You can change this choice at any time from <strong>Settings → Privacy / Ad choices</strong>.</li>
+                <li><strong>iOS App Tracking Transparency:</strong> on iOS you will be asked whether to allow tracking. If you decline, only non-personalized ads are shown.</li>
+                <li><strong>If you decline or no decision is made,</strong> the app serves non-personalized ads where permitted. If you refuse all consent options, ads are not shown.</li>
+            </ul>
+        </div>
+
+        <!-- Opt-Out Rights -->
+        <div class="section">
+            <h2>Opt-Out Rights</h2>
+            <p>You have several ways to control your data:</p>
+            <ul>
+                <li><strong>Delete in-app:</strong> use the "Delete all data" option in Settings to remove your games, analyses, puzzles and other content from your device.</li>
+                <li><strong>Uninstall:</strong> uninstalling the Application removes all locally stored data and stops all collection of information by the Application. You may use the standard uninstall process available on your device or app marketplace.</li>
+                <li><strong>Manage ad consent:</strong> change your advertising consent from Settings (EEA users) and your tracking preference from your device's system settings.</li>
+            </ul>
+        </div>
+
+        <!-- Data Retention -->
+        <div class="section">
+            <h2>Data Retention Policy</h2>
+            <p>Because your data is stored only on your device, it is retained for as long as the Application is installed, and is removed when you delete it in-app or uninstall the Application. The Service Provider does not retain copies of your data on any server. If you have any questions about data handling, you can contact the Service Provider at <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> and they will respond in a reasonable time.</p>
+        </div>
+
+        <!-- Children -->
+        <div class="section">
+            <h2>Children</h2>
+            <p>The Service Provider does not use the Application to knowingly solicit data from or market to children under the age of 13.</p>
+
+            <div class="highlight">
+                <p>The Application does not address anyone under the age of 13. The Service Provider does not knowingly collect personally identifiable information from children under 13 years of age. In the event the Service Provider discovers that a child under 13 has provided personal information, such information will be deleted as soon as reasonably possible.</p>
+                <p><strong>If you are a parent or guardian</strong> and you are aware that your child has provided us with personal information, please contact the Service Provider at <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> so that the necessary actions can be taken.</p>
+            </div>
+        </div>
+
+        <!-- Security -->
+        <div class="section">
+            <h2>Security</h2>
+            <p>The Service Provider is concerned about safeguarding the confidentiality of your information.</p>
+
+            <div class="highlight">
+                <h3 style="color: #FFD700; margin-top: 0;">How your information is protected:</h3>
+                <ul>
+                    <li><strong>On-device storage:</strong> Your games, analyses and settings stay on your device and are not uploaded to the Service Provider, removing the risks associated with central data storage.</li>
+                    <li><strong>Encrypted connections:</strong> Network requests the app makes (advertising and optional game fetching from Lichess/Chess.com) use industry-standard HTTPS/TLS encryption.</li>
+                    <li><strong>Data minimization:</strong> The Service Provider does not collect data it does not need; the core app functions without any account or personal information.</li>
+                </ul>
+                <p>Please note that no method of electronic transmission or storage is 100% secure, and the security of data handled by third-party advertising providers is governed by their own policies.</p>
+            </div>
+        </div>
+
+        <!-- GDPR Rights -->
+        <div class="section">
+            <h2>Your Rights (GDPR Compliance)</h2>
+            <p>If you are a resident of the European Economic Area (EEA), you have certain data protection rights. Because the Service Provider does not store your personal data on its own servers, many of these rights are exercised directly on your device:</p>
+            <ul>
+                <li><strong>Right to Access &amp; Portability:</strong> your games and data are already available to you on your device and can be exported as PGN.</li>
+                <li><strong>Right to Rectification:</strong> you can edit or correct your data within the Application.</li>
+                <li><strong>Right to Erasure:</strong> you can delete your data using "Delete all data" in Settings or by uninstalling the Application.</li>
+                <li><strong>Right to Object / Restrict Processing:</strong> you can manage or withdraw advertising consent at any time via the in-app privacy options and your device tracking settings.</li>
+                <li><strong>Right to Withdraw Consent:</strong> you can withdraw advertising consent at any time, after which only non-personalized ads (or no ads) are shown.</li>
+            </ul>
+            <p>For data processed by advertising providers, you may also exercise your rights directly with those providers under their privacy policies. For any other questions, contact <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+        </div>
+
+        <!-- Changes -->
+        <div class="section">
+            <h2>Changes to This Privacy Policy</h2>
+            <p>This Privacy Policy may be updated from time to time for any reason. The Service Provider will notify you of any changes to the Privacy Policy by updating this page with the new Privacy Policy.</p>
+            <p>You are advised to consult this Privacy Policy regularly for any changes, as continued use is deemed approval of all changes.</p>
+            <p><strong>This privacy policy is effective as of:</strong> <span class="date">May 26, 2026</span></p>
+        </div>
+
+        <!-- Consent -->
+        <div class="section">
+            <h2>Your Consent</h2>
+            <p>By using the Application, you are consenting to the processing of your information as set forth in this Privacy Policy now and as amended by us.</p>
+        </div>
+
+        <!-- Contact -->
+        <div class="section">
+            <h2>Contact Us</h2>
+            <p>If you have any questions regarding privacy while using the Application, or have questions about the practices, please contact the Service Provider via email at:</p>
+            <p><a href="mailto:dawikk.apps@gmail.com" style="font-size: 1.2rem; font-weight: 600;">dawikk.apps@gmail.com</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2026 Dawikk Apps. All rights reserved.</p>
+    </div>
+</body>
+</html>
