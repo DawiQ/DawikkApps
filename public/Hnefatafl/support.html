@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hnefatafl – Support &amp; Help Center</title>
+    <meta name="description" content="Support page for the Hnefatafl app. Contact us by email, read the FAQ, report a bug or request a feature.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #1a1816;
+            color: #e6e6e6;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #312e2b 0%, #262522 100%);
+            padding: 60px 0;
+            text-align: center;
+            border-bottom: 3px solid #81b64c;
+        }
+
+        .logo {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        header p {
+            color: #a8a29e;
+            font-size: 1.15em;
+        }
+
+        section {
+            padding: 60px 0;
+        }
+
+        section:nth-of-type(even) {
+            background: #262522;
+        }
+
+        h2 {
+            font-size: 2em;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        h2:after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 4px;
+            background: #81b64c;
+            margin-top: 15px;
+            border-radius: 2px;
+        }
+
+        h3 {
+            color: #ffffff;
+            font-size: 1.25em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #cfcac5;
+            margin-bottom: 15px;
+        }
+
+        a {
+            color: #81b64c;
+        }
+
+        /* Contact card */
+        .contact-card {
+            background: linear-gradient(135deg, #312e2b 0%, #262522 100%);
+            border: 2px solid #81b64c;
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .contact-email {
+            display: inline-block;
+            background: #81b64c;
+            color: #ffffff;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-size: 1.15em;
+            font-weight: 700;
+            text-decoration: none;
+            margin: 15px 0;
+            transition: background 0.3s ease;
+        }
+
+        .contact-email:hover {
+            background: #6fa03d;
+        }
+
+        .response-time {
+            color: #a8a29e;
+            font-size: 0.95em;
+        }
+
+        /* Info list */
+        .info-list {
+            list-style: none;
+            margin: 20px 0 0;
+        }
+
+        .info-list li {
+            color: #cfcac5;
+            padding: 8px 0 8px 28px;
+            position: relative;
+        }
+
+        .info-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #81b64c;
+            font-weight: bold;
+        }
+
+        /* FAQ */
+        .faq-item {
+            background: #1a1816;
+            border: 2px solid #3f3b37;
+            border-radius: 12px;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+        }
+
+        section:nth-of-type(even) .faq-item {
+            background: #211f1d;
+        }
+
+        .faq-item p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Links grid */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .link-card {
+            display: block;
+            background: #1a1816;
+            border: 2px solid #3f3b37;
+            border-radius: 12px;
+            padding: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .link-card:hover {
+            border-color: #81b64c;
+            transform: translateY(-3px);
+        }
+
+        .link-card strong {
+            display: block;
+            color: #ffffff;
+            font-size: 1.1em;
+            margin-bottom: 6px;
+        }
+
+        .link-card span {
+            color: #a8a29e;
+            font-size: 0.95em;
+        }
+
+        footer {
+            background: #0f0d0c;
+            padding: 40px 0;
+            text-align: center;
+            border-top: 3px solid #81b64c;
+        }
+
+        footer p {
+            color: #a8a29e;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: #81b64c;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #6fa03d;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            h2 { font-size: 1.6em; }
+            header { padding: 40px 0; }
+            section { padding: 40px 0; }
+            .contact-card { padding: 25px 20px; }
+            .contact-email { padding: 14px 25px; font-size: 1em; word-break: break-all; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">♔</div>
+            <h1>Hnefatafl Support</h1>
+            <p>Questions, problems or ideas? We are here to help.</p>
+        </div>
+    </header>
+
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="contact-card">
+                <p>The fastest way to reach us is by email. We read every message.</p>
+                <a class="contact-email" href="mailto:dawikk.apps@gmail.com?subject=Hnefatafl%20Support">dawikk.apps@gmail.com</a>
+                <p class="response-time">We usually reply within 1–2 business days.</p>
+            </div>
+            <h3 style="margin-top:35px;">To help us solve your problem faster, please include:</h3>
+            <ul class="info-list">
+                <li>Your device model (e.g. iPhone 14, iPad Air)</li>
+                <li>Your operating system version (e.g. iOS 18.2, Android 15)</li>
+                <li>The app version, if you know it</li>
+                <li>A short description of what happened and what you expected</li>
+                <li>A screenshot or screen recording, if possible</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <h3>How do I play Hnefatafl?</h3>
+                <p>Open the app and choose <strong>Learn to Play</strong>. It contains 14 interactive lessons that take you from the basic rules to advanced strategies, with practice on a real board. Your progress is saved automatically.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>What are the rules of the game?</h3>
+                <p>The attackers (the larger army) try to capture the king by surrounding him, while the defenders try to help the king escape. Pieces move like rooks in chess — any number of empty squares horizontally or vertically — and are captured by being sandwiched between two enemy pieces. Exact victory conditions differ per board variant and are described in the Learn mode and in the in-game rules screen.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Which board variants are available?</h3>
+                <p>Nine historical variants: Brandubh (7×7), Tablut (9×9), Classic, Line, Tawlbwrdd and Lewis (11×11), Parlett (13×13), Walker (15×15) and Alea Evangelii (19×19). You can pick the variant when starting a new game.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Do I need an internet connection?</h3>
+                <p>No. All game modes — Learn to Play, Two Players and Play vs AI — work fully offline. An internet connection is only used to display ads.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Do I need an account to play?</h3>
+                <p>No account and no registration are required. Your progress and settings are stored locally on your device.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>The app crashes, freezes or a move is not accepted. What should I do?</h3>
+                <p>First try closing and reopening the app, and make sure you are running the latest version from the App Store or Google Play. If the problem persists, email us at <a href="mailto:dawikk.apps@gmail.com?subject=Hnefatafl%20Bug%20Report">dawikk.apps@gmail.com</a> with the details listed in the Contact section above, and we will investigate it.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>I lost my progress after reinstalling the app.</h3>
+                <p>Progress in the Learn mode is stored locally on the device, so uninstalling the app removes it. Reinstalling starts the tutorials from the beginning.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I remove ads or manage my purchase?</h3>
+                <p>Purchases are handled by Apple (App Store) or Google (Google Play). If a purchase you made is not recognized, first make sure you are signed in with the same store account you bought it with, and use the restore purchases option if the app offers one. Refunds and subscription management are handled by the store on your account page. If that does not help, contact us and we will look into it.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I request a feature or report a translation error?</h3>
+                <p>We welcome suggestions. Write to <a href="mailto:dawikk.apps@gmail.com?subject=Hnefatafl%20Feature%20Request">dawikk.apps@gmail.com</a> and describe your idea — many features in the app came from player feedback.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I delete my data?</h3>
+                <p>Uninstalling the app removes all data stored on your device. For any additional request, see the <a href="deleteAccount.html">data deletion page</a> or contact us directly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- More resources -->
+    <section id="resources">
+        <div class="container">
+            <h2>More Information</h2>
+            <div class="links-grid">
+                <a class="link-card" href="index.html">
+                    <strong>About the app</strong>
+                    <span>Features, game modes and board variants</span>
+                </a>
+                <a class="link-card" href="privacyPolicy.html">
+                    <strong>Privacy Policy</strong>
+                    <span>What data the app uses and why</span>
+                </a>
+                <a class="link-card" href="termsOfUse.html">
+                    <strong>Terms of Use</strong>
+                    <span>Terms and conditions of the app</span>
+                </a>
+                <a class="link-card" href="deleteAccount.html">
+                    <strong>Data Deletion</strong>
+                    <span>How to remove your data</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>Support: <a href="mailto:dawikk.apps@gmail.com?subject=Hnefatafl%20Support">dawikk.apps@gmail.com</a></p>
+            <p>© 2025 Dawikk. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="support.html">Support</a>
+                <a href="privacyPolicy.html">Privacy Policy</a>
+                <a href="termsOfUse.html">Terms of Use</a>
+                <a href="deleteAccount.html">Data Deletion</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
