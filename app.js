@@ -20,24 +20,19 @@ var options = {
   extensions: ['htm', 'html','css','js','ico','jpg','jpeg','png','svg'],
   index: ['index.html'],
   maxAge: '1m',
-  redirect: false
+  // Must stay true: with redirect disabled a directory URL without a trailing
+  // slash (e.g. /Hnefatafl) never reaches index.html and falls through to the
+  // catch-all handler below, which answers with a raw JSON dump of the request.
+  redirect: true
 }
 app.use(express.static('public', options))
 
 // #############################################################################
-// Catch all handler for all other request.
-app.use('*', (req,res) => {
-  res.json({
-      at: new Date().toISOString(),
-      method: req.method,
-      hostname: req.hostname,
-      ip: req.ip,
-      query: req.query,
-      headers: req.headers,
-      cookies: req.cookies,
-      params: req.params
-    })
-    .end()
+// Catch all handler for all other requests: a plain 404 page. It used to echo
+// the request back as JSON, which made unknown URLs look like a broken endpoint
+// instead of a website.
+app.use('*', (req, res) => {
+  res.status(404).sendFile(path.join(__dirname, 'public', '404.html'))
 })
 
 module.exports = app
