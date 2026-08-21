@@ -7,12 +7,17 @@
     <meta name="description" content="CarNerve Terms of Use (EULA) - licence, safety rules for diagnostics, the limits of an OBD-II scan and liability.">
     <link rel="icon" href="../favicon.ico">
     <script>
+        // Domyślny język to angielski — siedzi w atrybutach <html> i w CSS, więc
+        // obowiązuje także przy wyłączonym JavaScripcie. Na polski przechodzimy
+        // wyłącznie wtedy, gdy odwiedzający sam go wybrał przy poprzedniej wizycie.
+        // Przełączamy przed pierwszym malowaniem, żeby nie było przeskoku treści.
         (function () {
-            var saved = null;
-            try { saved = localStorage.getItem('carnerve.lang'); } catch (e) {}
-            var lang = saved || ((navigator.language || 'en').toLowerCase().indexOf('pl') === 0 ? 'pl' : 'en');
-            document.documentElement.setAttribute('data-lang', lang);
-            document.documentElement.setAttribute('lang', lang);
+            try {
+                if (localStorage.getItem('carnerve.lang') === 'pl') {
+                    document.documentElement.setAttribute('data-lang', 'pl');
+                    document.documentElement.setAttribute('lang', 'pl');
+                }
+            } catch (e) {}
         })();
     </script>
     <style>
