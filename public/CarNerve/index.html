@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarNerve - OBD2 scanner &amp; known engine faults</title>
+    <meta name="description" content="CarNerve reads OBD-II fault codes in plain words, shows the known faults of your engine family and detects codes cleared just before a sale. No account, no cloud, no subscription.">
+    <link rel="icon" href="../favicon.ico">
+    <script>
+        // Ustawiamy język przed pierwszym malowaniem, żeby nie było przeskoku treści.
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('carnerve.lang'); } catch (e) {}
+            var lang = saved || ((navigator.language || 'en').toLowerCase().indexOf('pl') === 0 ? 'pl' : 'en');
+            document.documentElement.setAttribute('data-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #0a0d12;
+            --bg2: #0e131b;
+            --surface: #131924;
+            --surface2: #182030;
+            --line: #212b3b;
+            --line2: #2c3a50;
+            --text: #e9eef6;
+            --muted: #7e8a9e;
+            --signal: #2fe3c0;
+            --signal-soft: #1b7a6c;
+            --on-signal: #04140f;
+            --ok: #3fd07a;
+            --warn: #ffb454;
+            --crit: #ff5c5c;
+            --info: #4da8ff;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(47, 227, 192, 0.10), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Przełącznik języka: pokazujemy tylko bloki aktywnego języka. */
+        [data-lang="en"] .lang-pl { display: none !important; }
+        [data-lang="pl"] .lang-en { display: none !important; }
+
+        .container { max-width: 860px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- pasek języka --- */
+        .langbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(10, 13, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .langbar button {
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--line2);
+            border-radius: 8px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .langbar button:hover { color: var(--text); border-color: var(--signal-soft); }
+
+        [data-lang="pl"] .langbar button[data-set="pl"],
+        [data-lang="en"] .langbar button[data-set="en"] {
+            color: var(--on-signal);
+            background: var(--signal);
+            border-color: var(--signal);
+        }
+
+        /* --- hero --- */
+        header { text-align: center; padding: 56px 0 40px; }
+
+        .logo {
+            width: 88px;
+            height: 88px;
+            margin: 0 auto 22px;
+            border-radius: 24px;
+            background: linear-gradient(145deg, var(--surface2), var(--bg2));
+            border: 1px solid var(--line2);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo svg { width: 46px; height: 46px; }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: var(--signal);
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .lede {
+            font-size: 1.12rem;
+            color: var(--muted);
+            max-width: 620px;
+            margin: 0 auto;
+        }
+
+        .lede strong { color: var(--text); font-weight: 600; }
+
+        /* --- CTA --- */
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 32px 0 12px;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 28px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta svg { width: 20px; height: 20px; }
+
+        .cta-primary {
+            color: var(--on-signal);
+            background: linear-gradient(135deg, var(--signal), #26bda2);
+            box-shadow: 0 12px 30px rgba(47, 227, 192, 0.22);
+        }
+
+        .cta-secondary {
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--line2);
+        }
+
+        .cta:hover { transform: translateY(-2px); }
+        .cta-primary:hover { box-shadow: 0 18px 40px rgba(47, 227, 192, 0.32); }
+        .cta-secondary:hover { border-color: var(--signal-soft); }
+
+        .platform-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        /* --- sekcje --- */
+        section { margin: 52px 0; }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 .num {
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--signal);
+            border: 1px solid var(--signal-soft);
+            border-radius: 6px;
+            padding: 2px 8px;
+            flex-shrink: 0;
+        }
+
+        .section-sub { color: var(--muted); margin-bottom: 22px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            font-size: 1.08rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .card p { color: var(--muted); font-size: 0.97rem; }
+
+        .card p + p { margin-top: 10px; }
+
+        .card strong { color: var(--text); font-weight: 600; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .grid .card { margin-bottom: 0; }
+
+        .badge {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--signal);
+            background: rgba(47, 227, 192, 0.08);
+            border: 1px solid var(--signal-soft);
+            border-radius: 6px;
+            padding: 2px 8px;
+            margin-bottom: 12px;
+        }
+
+        /* --- listy funkcji --- */
+        ul.features { list-style: none; }
+
+        ul.features li {
+            position: relative;
+            padding: 11px 0 11px 30px;
+            color: var(--muted);
+            font-size: 0.97rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        ul.features li:last-child { border-bottom: none; }
+
+        ul.features li::before {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 21px;
+            width: 7px;
+            height: 7px;
+            border-radius: 2px;
+            background: var(--signal);
+        }
+
+        ul.features li strong { color: var(--text); font-weight: 600; }
+
+        /* --- statystyki --- */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 12px;
+            text-align: center;
+        }
+
+        .stat .value {
+            font-family: var(--mono);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--signal);
+            display: block;
+        }
+
+        .stat .label {
+            font-size: 0.78rem;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-top: 4px;
+            display: block;
+        }
+
+        /* --- karta ostrzegawcza --- */
+        .warn-card {
+            background: rgba(255, 180, 84, 0.06);
+            border: 1px solid rgba(255, 180, 84, 0.35);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .warn-card h3 { color: var(--warn); }
+
+        .warn-card p, .warn-card li { color: var(--muted); font-size: 0.97rem; }
+
+        .warn-card ul { list-style: none; margin-top: 12px; }
+
+        .warn-card ul li { padding: 6px 0 6px 24px; position: relative; }
+
+        .warn-card ul li::before {
+            content: '\2715';
+            position: absolute;
+            left: 2px;
+            color: var(--crit);
+            font-size: 0.85rem;
+        }
+
+        /* --- „bez haczyków" --- */
+        .no-catch {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .no-catch div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 16px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font-size: 0.94rem;
+            font-weight: 500;
+        }
+
+        .no-catch div::before {
+            content: '\2713';
+            color: var(--ok);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* --- stopka --- */
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 60px;
+            padding: 40px 0 56px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 22px;
+            margin-bottom: 22px;
+        }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        .footer-note { color: var(--muted); font-size: 0.86rem; }
+
+        .footer-note + .footer-note { margin-top: 6px; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2.1rem; }
+            .grid, .no-catch { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .card { padding: 20px; }
+            .cta { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="langbar">
+        <button type="button" data-set="pl">PL</button>
+        <button type="button" data-set="en">EN</button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="6" y="14" width="36" height="22" rx="5" stroke="#2fe3c0" stroke-width="2.5"/>
+                    <path d="M14 14V10.5A2.5 2.5 0 0 1 16.5 8h15A2.5 2.5 0 0 1 34 10.5V14" stroke="#7e8a9e" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M11 25h6l3-6 5 12 3.5-7 2.5 4h6" stroke="#2fe3c0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+            <h1>CarNerve</h1>
+
+            <p class="tagline lang-pl">OBD2 &middot; wady silnika &middot; przedzakupówka</p>
+            <p class="tagline lang-en">OBD2 &middot; engine faults &middot; pre-purchase check</p>
+
+            <p class="lede lang-pl">Sprawdź auto — swoje albo takie, które chcesz kupić. Darmowy skaner OBD-II, który nie tylko czyta kody usterek, ale mówi, <strong>co one znaczą dla Twojego silnika</strong> — i wykrywa błędy skasowane tuż przed sprzedażą.</p>
+            <p class="lede lang-en">Check a car — yours, or one you are about to buy. A free OBD-II scanner that does not just read fault codes, but tells you <strong>what they mean for your engine</strong> — and spots codes cleared shortly before a sale.</p>
+
+            <div class="cta-row">
+                <a class="cta cta-primary" href="https://play.google.com/store/apps/details?id=com.dawikk.carnerve">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    <span class="lang-pl">Pobierz za darmo</span>
+                    <span class="lang-en">Download free</span>
+                </a>
+                <a class="cta cta-secondary" href="https://github.com/DawiQ/CarNerve">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+                    <span class="lang-pl">Kod źródłowy</span>
+                    <span class="lang-en">Source code</span>
+                </a>
+            </div>
+
+            <p class="platform-note lang-pl">Android &mdash; potwierdzony na sprzęcie. Wersja na iPhone&rsquo;a w przygotowaniu.</p>
+            <p class="platform-note lang-en">Android &mdash; verified on real hardware. The iPhone build is in preparation.</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="value">466</span>
+                <span class="label lang-pl">opisów kodów usterek</span>
+                <span class="label lang-en">fault code descriptions</span>
+            </div>
+            <div class="stat">
+                <span class="value">383</span>
+                <span class="label lang-pl">znanych wad fabrycznych</span>
+                <span class="label lang-en">known factory faults</span>
+            </div>
+            <div class="stat">
+                <span class="value">28</span>
+                <span class="label lang-pl">przepływów krok po kroku</span>
+                <span class="label lang-en">step-by-step flows</span>
+            </div>
+            <div class="stat">
+                <span class="value">2</span>
+                <span class="label lang-pl">języki: PL i EN, w 100%</span>
+                <span class="label lang-en">languages: EN and PL, fully</span>
+            </div>
+        </div>
+
+        <section>
+            <h2><span class="num">01</span> <span class="lang-pl">Sprawdzenie przed zakupem</span><span class="lang-en">Check a car before you buy it</span></h2>
+            <p class="section-sub lang-pl">Trzy rzeczy, których nie robi zwykły czytnik kodów. To pierwsza z nich.</p>
+            <p class="section-sub lang-en">Three things an ordinary code reader does not do. This is the first.</p>
+
+            <div class="card">
+                <span class="badge lang-pl">działa też bez adaptera</span>
+                <span class="badge lang-en">works without an adapter too</span>
+                <p class="lang-pl">CarNerve sprawdza, czy ktoś nie zgasił kontrolki tuż przed Twoim przyjazdem. Zestawia <strong>monitory gotowości</strong>, <strong>dystans od skasowania kodów</strong>, <strong>kody trwałe i oczekujące</strong> oraz <strong>dystans przejechany z zapaloną kontrolką</strong> — i mówi wprost, co z tego wynika.</p>
+                <p class="lang-pl">Do tego kwestionariusz do sprzedającego wyprowadzony ze znanych wad tego konkretnego silnika (ta część działa bez adaptera) i raport PDF, który wyślesz mechanikowi albo pokażesz przy negocjacji.</p>
+                <p class="lang-en">CarNerve checks whether someone cleared the warning light shortly before you turned up. It combines <strong>readiness monitors</strong>, <strong>distance since codes were cleared</strong>, <strong>permanent and pending codes</strong> and <strong>distance driven with the light on</strong> — and says plainly what follows.</p>
+                <p class="lang-en">Plus a questionnaire for the seller derived from the known faults of that exact engine (this part needs no adapter at all), and a PDF report you can send to a mechanic or use when negotiating.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">02</span> <span class="lang-pl">Znane wady Twojego silnika</span><span class="lang-en">Known faults of your engine</span></h2>
+            <p class="section-sub lang-pl">Nie „co znaczy P0299", tylko „co się psuje w moim 2.0 HDi i po czym to poznam".</p>
+            <p class="section-sub lang-en">Not &ldquo;what does P0299 mean&rdquo;, but &ldquo;what tends to break on my 2.0 HDi, and how will I know&rdquo;.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3 class="lang-pl">Kluczowane rodziną silnika</h3>
+                    <h3 class="lang-en">Keyed by engine family</h3>
+                    <p class="lang-pl">383 skuratorowane wpisy o powtarzalnych wadach fabrycznych — dobierane rodziną silnika, a nie modelem handlowym. Objawy, po czym je poznać, powiązane kody i źródła.</p>
+                    <p class="lang-en">383 curated entries on recurring factory faults — matched by engine family, not by the marketing model name. Symptoms, how to spot them, related codes and sources.</p>
+                </div>
+                <div class="card">
+                    <h3 class="lang-pl">Nie zgadujemy</h3>
+                    <h3 class="lang-en">We do not guess</h3>
+                    <p class="lang-pl">Każdy wpis ma źródło i poziom pewności. Gdy czegoś nie da się odczytać z gniazda OBD, mówimy to wprost. Nie podajemy kwot napraw — wycena z jednego rynku i jednej chwili myli.</p>
+                    <p class="lang-en">Every entry carries a source and a confidence level. When something cannot be read from the OBD socket, we say so. We do not quote repair prices — a figure from one market at one moment misleads.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">03</span> <span class="lang-pl">Nie masz kodu? Zacznij od objawu</span><span class="lang-en">No code? Start from the symptom</span></h2>
+            <p class="section-sub lang-pl">Szarpie, dymi, grzechocze? Zaznacz, co obserwujesz.</p>
+            <p class="section-sub lang-en">Hesitation, smoke, a rattle? Tick what you observe.</p>
+
+            <div class="card">
+                <span class="badge lang-pl">bez adaptera</span>
+                <span class="badge lang-en">no adapter needed</span>
+                <p class="lang-pl">Zaznaczasz obserwowane objawy — szarpanie, dym na zimno, hałas, spadek mocy, problem z rozruchem — a aplikacja pokazuje znane wady tej rodziny silnika, które dają takie objawy, z podświetleniem, który objaw trafił. Bez adaptera i bez kodu usterki.</p>
+                <p class="lang-en">Tick the symptoms you see — hesitation, smoke on a cold start, noise, power loss, hard starting — and the app shows the known faults of that engine family which produce them, highlighting which symptom matched. No adapter and no fault code required.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">04</span> <span class="lang-pl">Co jeszcze potrafi</span><span class="lang-en">What else it does</span></h2>
+
+            <div class="card">
+                <ul class="features">
+                    <li class="lang-pl"><strong>Kody usterek po ludzku</strong> — odczyt i kasowanie (tryby 03, 07, 04), kody trwałe i oczekujące, dane zamrożone. Opis dobierany wg <strong>marki i paliwa</strong> z profilu auta, bo to samo P1xxx znaczy co innego u różnych producentów.</li>
+                    <li class="lang-en"><strong>Fault codes in plain words</strong> — read and clear (modes 03, 07, 04), permanent and pending codes, freeze frame data. Descriptions picked by <strong>make and fuel type</strong> from your car profile, because the same P1xxx means different things across manufacturers.</li>
+
+                    <li class="lang-pl"><strong>Monitory gotowości (I/M readiness)</strong> — to samo, co czyta stacja diagnostyczna.</li>
+                    <li class="lang-en"><strong>I/M readiness monitors</strong> — the same thing the test station reads.</li>
+
+                    <li class="lang-pl"><strong>Dane na żywo</strong> — obroty, temperatury, doładowanie, ciśnienie common-rail, napięcie. Dla benzyny dochodzą <strong>korekty paliwowe i sondy tlenu</strong> z oceną, co dana wartość znaczy — korekta wychodzi poza normę, zanim zapali się kontrolka.</li>
+                    <li class="lang-en"><strong>Live data</strong> — rpm, temperatures, boost, common-rail pressure, voltage. For petrol engines also <strong>fuel trims and oxygen sensors</strong>, with an assessment of what a value means — a trim goes out of range before the light ever comes on.</li>
+
+                    <li class="lang-pl"><strong>Parametry DPF</strong> (tryb 22) dla wspieranych diesli — masa sadzy, popiół, regeneracja.</li>
+                    <li class="lang-en"><strong>DPF parameters</strong> (mode 22) for supported diesels — soot mass, ash, regeneration.</li>
+
+                    <li class="lang-pl"><strong>Diagnostyka krok po kroku</strong> — dla 28 najczęstszych kodów: od czego zacząć najtaniej, który parametr obserwować i test potwierdzający.</li>
+                    <li class="lang-en"><strong>Step-by-step troubleshooting</strong> — for the 28 most common codes: where to start cheapest, which parameter to watch and the test that confirms it.</li>
+
+                    <li class="lang-pl"><strong>Historia, z której coś wynika</strong> — który kod wraca i w ilu sprawdzeniach, co przybyło od poprzedniego razu, i osobno: kod, który wrócił <strong>po skasowaniu</strong>.</li>
+                    <li class="lang-en"><strong>A history that tells you something</strong> — which code keeps coming back and in how many checks, what is new since last time, and separately: a code that returned <strong>after being cleared</strong>.</li>
+
+                    <li class="lang-pl"><strong>Terminy auta</strong> — OC, przegląd, olej, rozrząd i wpisy własne, z powiadomieniami lokalnymi 30, 7 i 1 dzień przed oraz w dniu terminu.</li>
+                    <li class="lang-en"><strong>Car reminders</strong> — insurance, roadworthiness test, oil, timing belt and your own entries, with local notifications 30, 7 and 1 day before, and on the day.</li>
+
+                    <li class="lang-pl"><strong>Garaż na wiele aut</strong>, odczyt VIN, plan jazdy próbnej i raport PDF.</li>
+                    <li class="lang-en"><strong>A multi-car garage</strong>, VIN reading, a test-drive plan and a PDF report.</li>
+
+                    <li class="lang-pl"><strong>Polski i angielski w 100%</strong> — interfejs <em>i cała baza wiedzy</em>, nie tylko przyciski.</li>
+                    <li class="lang-en"><strong>Fully bilingual</strong> — the interface <em>and the whole knowledge base</em>, not just the buttons.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="lang-pl">Czego CarNerve NIE czyta</span><span class="lang-en">What CarNerve does NOT read</span></h2>
+
+            <div class="warn-card">
+                <h3 class="lang-pl">Mówimy to na ekranie wyniku, nie drobnym drukiem</h3>
+                <h3 class="lang-en">We say this on the results screen, not in the small print</h3>
+                <p class="lang-pl">Standard OBD-II obejmuje wyłącznie <strong>sterownik silnika i układ emisji</strong>. Poza jego zasięgiem zostają:</p>
+                <p class="lang-en">The OBD-II standard covers only the <strong>engine controller and the emissions system</strong>. Out of its reach:</p>
+                <ul>
+                    <li class="lang-pl">ABS i układy stabilizacji</li>
+                    <li class="lang-en">ABS and stability systems</li>
+                    <li class="lang-pl">poduszki powietrzne (SRS)</li>
+                    <li class="lang-en">airbags (SRS)</li>
+                    <li class="lang-pl">skrzynia automatyczna</li>
+                    <li class="lang-en">automatic transmission</li>
+                    <li class="lang-pl">elektryka nadwozia i komfortu</li>
+                    <li class="lang-en">body and comfort electronics</li>
+                </ul>
+                <p class="lang-pl" style="margin-top: 14px;">Te moduły jadą po własnych protokołach producenta i widzi je dopiero narzędzie markowe. Przy czystym wyniku aplikacja dodaje ostrzeżenie: świecąca kontrolka ABS albo poduszki tego nie wyklucza.</p>
+                <p class="lang-en" style="margin-top: 14px;">Those modules use manufacturer-specific protocols and only a brand tool can see them. On a clean result the app adds a warning: an ABS or airbag light on the dash is not ruled out by this check.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="lang-pl">Czego potrzebujesz</span><span class="lang-en">What you need</span></h2>
+
+            <div class="grid">
+                <div class="card">
+                    <h3 class="lang-pl">Adapter OBD-II (ELM327)</h3>
+                    <h3 class="lang-en">An OBD-II adapter (ELM327)</h3>
+                    <p class="lang-pl">Na iPhonie musi to być adapter <strong>Bluetooth LE</strong>. Na Androidzie działa również <strong>Bluetooth Classic/SPP</strong> — taki najpierw sparuj w ustawieniach telefonu.</p>
+                    <p class="lang-en">On iPhone it must be a <strong>Bluetooth LE</strong> adapter. On Android <strong>Bluetooth Classic/SPP</strong> works too — pair that one in your phone settings first.</p>
+                </div>
+                <div class="card">
+                    <h3 class="lang-pl">Auto z gniazdem OBD-II</h3>
+                    <h3 class="lang-en">A car with an OBD-II socket</h3>
+                    <p class="lang-pl">Każde auto od 2001 (benzyna) i 2004 (diesel) w Unii Europejskiej. Aplikacja sama wykrywa protokół (K-Line albo CAN) i pokazuje, który wykryła.</p>
+                    <p class="lang-en">Every car from 2001 (petrol) and 2004 (diesel) in the EU. The app detects the protocol itself (K-Line or CAN) and shows you which one it found.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="lang-pl">Bez haczyków</span><span class="lang-en">No catches</span></h2>
+            <div class="no-catch">
+                <div class="lang-pl">Bez konta</div>
+                <div class="lang-en">No account</div>
+                <div class="lang-pl">Bez chmury — dane zostają na telefonie</div>
+                <div class="lang-en">No cloud — data stays on your phone</div>
+                <div class="lang-pl">Bez abonamentu</div>
+                <div class="lang-en">No subscription</div>
+                <div class="lang-pl">Bez reklam</div>
+                <div class="lang-en">No ads</div>
+                <div class="lang-pl">Bez śledzenia i analityki</div>
+                <div class="lang-en">No tracking, no analytics</div>
+                <div class="lang-pl">Otwarty kod na licencji MIT</div>
+                <div class="lang-en">Open source under the MIT licence</div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="privacyPolicy.html"><span class="lang-pl">Polityka prywatności</span><span class="lang-en">Privacy Policy</span></a>
+                <a href="termsOfUse.html"><span class="lang-pl">Regulamin</span><span class="lang-en">Terms of Use</span></a>
+                <a href="https://github.com/DawiQ/CarNerve">GitHub</a>
+                <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>
+            </div>
+            <p class="footer-note lang-pl">CarNerve to darmowe narzędzie pomocnicze, a nie zamiennik diagnostyki warsztatowej.</p>
+            <p class="footer-note lang-en">CarNerve is a free helper tool, not a replacement for professional workshop diagnostics.</p>
+            <p class="footer-note">&copy; Dawikk</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.langbar button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var lang = button.getAttribute('data-set');
+                document.documentElement.setAttribute('data-lang', lang);
+                document.documentElement.setAttribute('lang', lang);
+                try { localStorage.setItem('carnerve.lang', lang); } catch (e) {}
+            });
+        });
+    </script>
+</body>
+</html>

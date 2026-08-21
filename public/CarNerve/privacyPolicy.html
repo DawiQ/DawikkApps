@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - CarNerve</title>
+    <meta name="description" content="CarNerve privacy policy. The app has no account, no cloud and no analytics - everything it reads from your car stays on your phone.">
+    <link rel="icon" href="../favicon.ico">
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('carnerve.lang'); } catch (e) {}
+            var lang = saved || ((navigator.language || 'en').toLowerCase().indexOf('pl') === 0 ? 'pl' : 'en');
+            document.documentElement.setAttribute('data-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #0a0d12;
+            --bg2: #0e131b;
+            --surface: #131924;
+            --surface2: #182030;
+            --line: #212b3b;
+            --line2: #2c3a50;
+            --text: #e9eef6;
+            --muted: #7e8a9e;
+            --signal: #2fe3c0;
+            --signal-soft: #1b7a6c;
+            --on-signal: #04140f;
+            --ok: #3fd07a;
+            --warn: #ffb454;
+            --crit: #ff5c5c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(47, 227, 192, 0.08), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [data-lang="en"] .lang-pl { display: none !important; }
+        [data-lang="pl"] .lang-en { display: none !important; }
+
+        .langbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(10, 13, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .langbar button {
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--line2);
+            border-radius: 8px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .langbar button:hover { color: var(--text); border-color: var(--signal-soft); }
+
+        [data-lang="pl"] .langbar button[data-set="pl"],
+        [data-lang="en"] .langbar button[data-set="en"] {
+            color: var(--on-signal);
+            background: var(--signal);
+            border-color: var(--signal);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-bottom: 22px;
+        }
+
+        .back:hover { color: var(--signal); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--signal);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(47, 227, 192, 0.06);
+            border: 1px solid var(--signal-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--signal); }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(255, 180, 84, 0.06);
+            border: 1px solid rgba(255, 180, 84, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        /* Kolumna z nazwami danych/uprawnień: wąska, ale tekst w niej ma się zawijać —
+           bez tego lista uprawnień w jednej linii rozpycha tabelę i dusi opis obok. */
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--signal);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="langbar">
+        <button type="button" data-set="pl">PL</button>
+        <button type="button" data-set="en">EN</button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; <span class="lang-pl">Wróć do CarNerve</span><span class="lang-en">Back to CarNerve</span></a>
+            <p class="app-name">CarNerve</p>
+            <h1 class="lang-pl">Polityka prywatności</h1>
+            <h1 class="lang-en">Privacy Policy</h1>
+            <p class="effective lang-pl"><strong>Data wejścia w życie:</strong> 21 sierpnia 2026</p>
+            <p class="effective lang-en"><strong>Effective date:</strong> August 21, 2026</p>
+        </header>
+
+        <div class="callout">
+            <h3 class="lang-pl">Krótko: aplikacja nie zbiera o Tobie niczego</h3>
+            <h3 class="lang-en">In short: the app collects nothing about you</h3>
+            <p class="lang-pl">CarNerve („Aplikacja") jest tworzona przez <strong>Dawikk</strong> („my", „Usługodawca") i udostępniana bezpłatnie, w stanie „TAK JAK JEST". Aplikacja <strong>nie ma konta użytkownika, nie ma serwera, nie wysyła danych do chmury, nie zawiera reklam ani analityki i nie oferuje płatności</strong>. Wszystko, co odczyta z Twojego auta i co sam wpiszesz, zostaje w pamięci Twojego telefonu.</p>
+            <p class="lang-pl">Nie mamy technicznej możliwości zobaczenia Twoich danych — nie dlatego, że obiecujemy tego nie robić, tylko dlatego, że nie istnieje serwer, na który mogłyby trafić. Kod źródłowy jest otwarty (licencja MIT) i można to sprawdzić: <a href="https://github.com/DawiQ/CarNerve">github.com/DawiQ/CarNerve</a>.</p>
+            <p class="lang-en">CarNerve (the &ldquo;Application&rdquo;) is built by <strong>Dawikk</strong> (&ldquo;we&rdquo;, the &ldquo;Service Provider&rdquo;) and provided free of charge, on an &ldquo;AS IS&rdquo; basis. The Application has <strong>no user account, no server, no cloud sync, no ads, no analytics and no payments</strong>. Everything it reads from your car, and everything you type in, stays in your phone&rsquo;s storage.</p>
+            <p class="lang-en">We have no technical way of seeing your data — not because we promise not to, but because there is no server for it to reach. The source code is open (MIT licence), so you can verify this: <a href="https://github.com/DawiQ/CarNerve">github.com/DawiQ/CarNerve</a>.</p>
+        </div>
+
+        <h2 class="lang-pl">1. Jakie dane powstają i gdzie są przechowywane</h2>
+        <h2 class="lang-en">1. What data is created and where it is stored</h2>
+
+        <p class="lang-pl">Aplikacja zapisuje dane wyłącznie <strong>lokalnie na urządzeniu</strong>, w prywatnej pamięci aplikacji (mechanizm <code>AsyncStorage</code> systemu Android/iOS). Żaden z tych zapisów nie opuszcza telefonu, chyba że sam go udostępnisz (patrz punkt 5).</p>
+        <p class="lang-en">The Application stores data <strong>locally on your device only</strong>, in the app&rsquo;s private storage (the Android/iOS <code>AsyncStorage</code> mechanism). None of it leaves the phone unless you share it yourself (see section 5).</p>
+
+        <div class="table-wrap">
+            <table class="lang-pl">
+                <thead>
+                    <tr><th>Dane</th><th>Skąd pochodzą i po co są</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Garaż i profile aut</td><td>Marka, model, rocznik, silnik, paliwo, opcjonalnie skrzynia — wpisane przez Ciebie. Po nich dobierany jest opis kodu usterki i lista znanych wad.</td></tr>
+                    <tr><td>Numer VIN</td><td>Odczytany ze sterownika silnika (tryb 09) albo wpisany ręcznie. Służy do rozpoznania auta w garażu.</td></tr>
+                    <tr><td>Historia sprawdzeń</td><td>Kody usterek, monitory gotowości, dane zamrożone i data odczytu. Na tym opiera się trend („który kod wraca", „co wróciło po skasowaniu").</td></tr>
+                    <tr><td>Dane sprawdzenia przed zakupem</td><td>Robocza wersja sprawdzenia i odpowiedzi na pytania do sprzedającego.</td></tr>
+                    <tr><td>Terminy auta</td><td>Daty OC, przeglądu, oleju, rozrządu i wpisy własne — do przypomnień lokalnych.</td></tr>
+                    <tr><td>Ostatni adapter</td><td>Nazwa i identyfikator adaptera OBD-II, żeby nie szukać go za każdym razem od nowa.</td></tr>
+                    <tr><td>Ustawienia</td><td>Wybrany język, motyw (jasny/ciemny), wybrane parametry na żywo, stan samouczka.</td></tr>
+                </tbody>
+            </table>
+
+            <table class="lang-en">
+                <thead>
+                    <tr><th>Data</th><th>Where it comes from and what it is for</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Garage and car profiles</td><td>Make, model, year, engine, fuel and optionally the gearbox — typed in by you. Fault code descriptions and the known-fault list are matched against them.</td></tr>
+                    <tr><td>VIN</td><td>Read from the engine controller (mode 09) or typed in by hand. Used to identify a car in your garage.</td></tr>
+                    <tr><td>Check history</td><td>Fault codes, readiness monitors, freeze frame data and the date of the reading. This is what the trend view is built on (&ldquo;which code keeps coming back&rdquo;, &ldquo;what returned after being cleared&rdquo;).</td></tr>
+                    <tr><td>Pre-purchase check data</td><td>A draft of the check and your answers to the seller questionnaire.</td></tr>
+                    <tr><td>Car reminders</td><td>Insurance, roadworthiness test, oil, timing belt dates and your own entries — used for local notifications.</td></tr>
+                    <tr><td>Last adapter</td><td>The name and identifier of your OBD-II adapter, so you do not have to search for it every time.</td></tr>
+                    <tr><td>Settings</td><td>Chosen language, theme (light/dark), selected live parameters, onboarding state.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p class="lang-pl">Dane diagnostyczne odczytywane z auta (kody usterek, parametry na żywo, monitory gotowości) są przetwarzane <strong>na urządzeniu</strong>. Baza opisów kodów i znanych wad jest wbudowana w aplikację — nie jest pobierana z sieci, więc odczyt działa w garażu bez zasięgu.</p>
+        <p class="lang-en">Diagnostic data read from the car (fault codes, live parameters, readiness monitors) is processed <strong>on the device</strong>. The database of code descriptions and known faults is bundled inside the app — it is not downloaded, so a check works in a garage with no signal.</p>
+
+        <h2 class="lang-pl">2. Czego NIE zbieramy</h2>
+        <h2 class="lang-en">2. What we do NOT collect</h2>
+
+        <div class="panel">
+            <ul class="lang-pl">
+                <li><strong>Nie zakładasz konta</strong> — nie prosimy o e-mail, imię ani logowanie Google/Apple.</li>
+                <li><strong>Nie ma analityki ani telemetrii</strong> — aplikacja nie zawiera SDK typu Firebase Analytics, Google Analytics, Sentry, Amplitude ani żadnego innego narzędzia zliczającego użycie.</li>
+                <li><strong>Nie ma reklam</strong> — aplikacja nie zawiera AdMob ani innej sieci reklamowej, więc nie ma też identyfikatorów reklamowych.</li>
+                <li><strong>Nie zbieramy lokalizacji.</strong> Uprawnienie lokalizacji na starszych Androidach jest wymagane przez system do skanowania Bluetooth LE i aplikacja nie odczytuje z niego pozycji (deklaracja <code>neverForLocation</code>) — szczegóły w punkcie 4.</li>
+                <li><strong>Nie zbieramy listy kontaktów, zdjęć, plików ani historii przeglądania.</strong></li>
+                <li><strong>Nie ma płatności</strong> — aplikacja nie ma subskrypcji ani zakupów w aplikacji, więc nie przetwarzamy żadnych danych płatniczych.</li>
+                <li><strong>Nie ma powiadomień push</strong> — przypomnienia o terminach to alarmy lokalne planowane w systemie telefonu, bez serwera i bez tokenu push.</li>
+            </ul>
+            <ul class="lang-en">
+                <li><strong>No account</strong> — we never ask for an e-mail address, a name or a Google/Apple sign-in.</li>
+                <li><strong>No analytics or telemetry</strong> — the app contains no Firebase Analytics, Google Analytics, Sentry, Amplitude or any other usage-tracking SDK.</li>
+                <li><strong>No ads</strong> — the app contains no AdMob or other ad network, and therefore no advertising identifiers.</li>
+                <li><strong>No location data.</strong> The location permission on older Android versions is required by the operating system for Bluetooth LE scanning, and the app does not derive your position from it (it declares <code>neverForLocation</code>) — see section 4.</li>
+                <li><strong>No contacts, photos, files or browsing history.</strong></li>
+                <li><strong>No payments</strong> — there are no subscriptions or in-app purchases, so we process no payment data at all.</li>
+                <li><strong>No push notifications</strong> — reminders are local alarms scheduled by your phone&rsquo;s operating system, with no server and no push token.</li>
+            </ul>
+        </div>
+
+        <h2 class="lang-pl">3. Usługi zewnętrzne</h2>
+        <h2 class="lang-en">3. Third-party services</h2>
+
+        <p class="lang-pl">Aplikacja nie osadza żadnego zestawu SDK, który wysyłałby Twoje dane do nas lub do osób trzecich. Poniższe podmioty mają jednak styczność z dystrybucją aplikacji i działają na podstawie własnych polityk prywatności, na które nie mamy wpływu:</p>
+        <p class="lang-en">The Application embeds no SDK that would send your data to us or to anyone else. The following parties are nevertheless involved in distributing the app and operate under their own privacy policies, which we do not control:</p>
+
+        <ul class="lang-pl">
+            <li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play</a> — sklep, z którego pobierasz i aktualizujesz aplikację. Google zna fakt instalacji i może zbierać raporty o awariach oraz statystyki wydajności zgodnie z ustawieniami Twojego urządzenia i konta Google. Dzieje się to na poziomie systemu i sklepu, a nie w kodzie aplikacji; my otrzymujemy z tego wyłącznie zagregowane, anonimowe statystyki w konsoli Google Play (np. liczba instalacji, zagregowane raporty awarii bez danych identyfikujących).</li>
+            <li><a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">Expo</a> — framework, w którym zbudowana jest aplikacja. Używamy go do budowania paczki; w wersji produkcyjnej nie włączamy aktualizacji przez sieć ani żadnej usługi Expo zbierającej dane w czasie działania aplikacji.</li>
+        </ul>
+        <ul class="lang-en">
+            <li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play</a> — the store you download and update the app from. Google knows the install happened and may collect crash reports and performance statistics according to your device and Google account settings. That happens at the operating system and store level, not in the app&rsquo;s code; all we receive from it are aggregated, anonymous statistics in the Google Play Console (for example install counts, or aggregated crash reports with no identifying data).</li>
+            <li><a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">Expo</a> — the framework the app is built with. We use it to build the package; the production build enables neither over-the-air updates nor any Expo service that collects data at runtime.</li>
+        </ul>
+
+        <p class="lang-pl">Aplikacja może zawierać odnośniki do stron zewnętrznych (np. źródła opisów wad). Otwierają się one w przeglądarce i podlegają politykom prywatności tych stron — nie mamy nad nimi kontroli.</p>
+        <p class="lang-en">The Application may contain links to external websites (for example the sources behind a known-fault entry). Those open in your browser and are governed by the privacy policies of those sites, over which we have no control.</p>
+
+        <h2 class="lang-pl">4. Uprawnienia i po co są</h2>
+        <h2 class="lang-en">4. Permissions and why they are needed</h2>
+
+        <div class="table-wrap">
+            <table class="lang-pl">
+                <thead>
+                    <tr><th>Uprawnienie</th><th>Po co</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Bluetooth<br>(<code>BLUETOOTH</code>, <code>BLUETOOTH_ADMIN</code>, <code>BLUETOOTH_CONNECT</code>, <code>BLUETOOTH_SCAN</code>)</td><td>Wyszukanie adaptera OBD-II i wymiana z nim komend. Bez tego aplikacja nie połączy się z autem. Komunikacja idzie wyłącznie na linii telefon &harr; adapter.</td></tr>
+                    <tr><td>Lokalizacja<br>(<code>ACCESS_FINE_LOCATION</code>, <code>ACCESS_COARSE_LOCATION</code>)</td><td><strong>Tylko Android 11 i starszy</strong> (<code>maxSdkVersion=&quot;30&quot;</code>) i wyłącznie dlatego, że system wymagał tego uprawnienia do skanowania Bluetooth LE. Aplikacja deklaruje <code>neverForLocation</code>, nie odczytuje współrzędnych i nie zapisuje ich nigdzie.</td></tr>
+                    <tr><td>Powiadomienia<br>(<code>POST_NOTIFICATIONS</code>)</td><td>Przypomnienia o terminach auta. O zgodę pytamy dopiero przy zapisaniu pierwszego terminu, a odmowa nie psuje funkcji — znika samo przypomnienie, lista terminów działa dalej.</td></tr>
+                </tbody>
+            </table>
+
+            <table class="lang-en">
+                <thead>
+                    <tr><th>Permission</th><th>What it is for</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Bluetooth<br>(<code>BLUETOOTH</code>, <code>BLUETOOTH_ADMIN</code>, <code>BLUETOOTH_CONNECT</code>, <code>BLUETOOTH_SCAN</code>)</td><td>Finding your OBD-II adapter and exchanging commands with it. Without it the app cannot reach the car. The communication runs strictly between your phone and the adapter.</td></tr>
+                    <tr><td>Location<br>(<code>ACCESS_FINE_LOCATION</code>, <code>ACCESS_COARSE_LOCATION</code>)</td><td><strong>Android 11 and older only</strong> (<code>maxSdkVersion=&quot;30&quot;</code>), and purely because the operating system used to require this permission for Bluetooth LE scanning. The app declares <code>neverForLocation</code>, does not read coordinates and stores none.</td></tr>
+                    <tr><td>Notifications<br>(<code>POST_NOTIFICATIONS</code>)</td><td>Car reminders. We only ask when you save your first reminder, and refusing does not break the feature — you simply lose the alert; the reminder list keeps working.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="lang-pl">5. Kiedy dane opuszczają telefon</h2>
+        <h2 class="lang-en">5. When data leaves your phone</h2>
+
+        <p class="lang-pl">Jest jeden taki moment i zawsze uruchamiasz go Ty: <strong>eksport raportu PDF</strong> (np. sprawdzenia przed zakupem) albo udostępnienie listy wad. Aplikacja tworzy plik lokalnie i przekazuje go do systemowego okna udostępniania — to Ty decydujesz, czy wysłać go mechanikowi, sprzedającemu, czy nigdzie. Plik nie trafia do nas i nie przechodzi przez żaden nasz serwer.</p>
+        <p class="lang-en">There is exactly one such moment, and you always trigger it: <strong>exporting a PDF report</strong> (for example a pre-purchase check) or sharing a list of known faults. The app builds the file locally and hands it to your operating system&rsquo;s share sheet — you decide whether it goes to a mechanic, to a seller, or nowhere. The file never reaches us and never passes through any server of ours.</p>
+
+        <div class="warn-panel">
+            <h3 class="lang-pl">Uwaga na numer VIN w raporcie</h3>
+            <h3 class="lang-en">A note about the VIN in a report</h3>
+            <p class="lang-pl">Raport PDF może zawierać numer VIN, który pozwala zidentyfikować konkretny pojazd. Zanim wyślesz raport osobie trzeciej, zastanów się, czy chcesz go ujawnić — to Twoja decyzja i my nie mamy na nią wpływu.</p>
+            <p class="lang-en">A PDF report may contain the VIN, which identifies a specific vehicle. Before you send a report to a third party, consider whether you want to disclose it — that decision is yours and we have no part in it.</p>
+        </div>
+
+        <h2 class="lang-pl">6. Przechowywanie i usuwanie danych</h2>
+        <h2 class="lang-en">6. Data retention and deletion</h2>
+
+        <p class="lang-pl">Skoro nie mamy serwera, nie przechowujemy Twoich danych ani przez chwilę i nie mamy czego usuwać na Twoją prośbę. Danymi na telefonie sterujesz w całości sam:</p>
+        <p class="lang-en">Since we run no server, we hold none of your data for any length of time and there is nothing on our side to delete on request. The data on your phone is entirely under your control:</p>
+
+        <ul class="lang-pl">
+            <li>usuń pojedyncze auto, wpis w historii albo termin bezpośrednio w aplikacji;</li>
+            <li>wyczyść wszystko naraz przez <em>Ustawienia systemu &rarr; Aplikacje &rarr; CarNerve &rarr; Pamięć &rarr; Wyczyść dane</em>;</li>
+            <li>odinstalowanie aplikacji kasuje wszystkie jej dane wraz z nią.</li>
+        </ul>
+        <ul class="lang-en">
+            <li>delete a single car, a history entry or a reminder from inside the app;</li>
+            <li>wipe everything at once via <em>System Settings &rarr; Apps &rarr; CarNerve &rarr; Storage &rarr; Clear data</em>;</li>
+            <li>uninstalling the app removes all of its data along with it.</li>
+        </ul>
+
+        <p class="lang-pl">Jeśli masz włączoną systemową kopię zapasową Androida lub iCloud, kopia danych aplikacji może trafić na Twoje konto Google albo Apple. To mechanizm systemu operacyjnego, sterowany ustawieniami Twojego telefonu, a nie funkcja CarNerve.</p>
+        <p class="lang-en">If you have Android Backup or iCloud backup switched on, a copy of the app&rsquo;s data may end up in your own Google or Apple account. That is an operating system mechanism, governed by your phone settings, not a CarNerve feature.</p>
+
+        <h2 class="lang-pl">7. Dzieci</h2>
+        <h2 class="lang-en">7. Children</h2>
+
+        <p class="lang-pl">Aplikacja nie jest kierowana do dzieci poniżej 13. roku życia i świadomie nie zbiera od nich żadnych danych. Ponieważ Aplikacja nie zbiera danych osobowych od nikogo, nie gromadzi ich również od dzieci. Jeśli mimo to masz pytania w tej sprawie jako rodzic lub opiekun, napisz na <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+        <p class="lang-en">The Application is not directed at children under 13 and knowingly collects no data from them. As the Application collects no personal data from anyone, it collects none from children either. If you are a parent or guardian and still have questions about this, write to <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+
+        <h2 class="lang-pl">8. Bezpieczeństwo</h2>
+        <h2 class="lang-en">8. Security</h2>
+
+        <p class="lang-pl">Dane aplikacji leżą w prywatnym katalogu aplikacji, chronionym przez system operacyjny i niedostępnym dla innych aplikacji na urządzeniu bez uprawnień administratora (root/jailbreak). Największą ochroną prywatności jest tutaj sama architektura: brak serwera to brak bazy do wycieku. Pamiętaj jednak, że bezpieczeństwo danych zależy też od zabezpieczenia samego telefonu (blokada ekranu, aktualizacje systemu).</p>
+        <p class="lang-en">The app&rsquo;s data lives in the app&rsquo;s private directory, protected by the operating system and inaccessible to other apps on the device without root or jailbreak access. The strongest privacy protection here is the architecture itself: no server means no database to leak. Bear in mind, though, that the safety of the data also depends on how well the phone itself is secured (screen lock, system updates).</p>
+
+        <h2 class="lang-pl">9. Twoje prawa (RODO / GDPR)</h2>
+        <h2 class="lang-en">9. Your rights (GDPR)</h2>
+
+        <p class="lang-pl">Mieszkańcom Europejskiego Obszaru Gospodarczego przysługują prawa dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu wobec przetwarzania. W przypadku CarNerve realizujesz je bezpośrednio i natychmiast: dane są w Twoim telefonie, więc masz do nich pełny dostęp, możesz je poprawić lub usunąć w każdej chwili, a my nie jesteśmy administratorem żadnych Twoich danych osobowych, bo ich nie otrzymujemy.</p>
+        <p class="lang-en">Residents of the European Economic Area have the rights of access, rectification, erasure, restriction of processing, data portability and objection. With CarNerve you exercise them directly and immediately: the data sits in your phone, so you have full access to it and can correct or delete it at any moment — and we are not the controller of any personal data of yours, because none of it ever reaches us.</p>
+
+        <p class="lang-pl">Jeśli uważasz, że coś w tym opisie nie zgadza się ze stanem faktycznym, napisz do nas — albo sprawdź kod źródłowy, który jest publiczny.</p>
+        <p class="lang-en">If you believe anything in this description does not match reality, write to us — or check the source code, which is public.</p>
+
+        <h2 class="lang-pl">10. Zmiany polityki prywatności</h2>
+        <h2 class="lang-en">10. Changes to this Privacy Policy</h2>
+
+        <p class="lang-pl">Polityka może zostać zaktualizowana, np. gdy aplikacja zyska nową funkcję. O zmianach informujemy przez publikację nowej wersji na tej stronie wraz z nową datą wejścia w życie. Zalecamy okresowe zaglądanie tutaj. Korzystanie z Aplikacji po zmianie oznacza akceptację nowej wersji.</p>
+        <p class="lang-en">This policy may be updated, for instance when the app gains a new feature. We announce changes by publishing a new version on this page together with a new effective date. We recommend checking back from time to time. Continued use of the Application after a change means you accept the new version.</p>
+
+        <h2 class="lang-pl">11. Zgoda</h2>
+        <h2 class="lang-en">11. Your consent</h2>
+
+        <p class="lang-pl">Korzystając z Aplikacji, akceptujesz zasady opisane w tej Polityce prywatności.</p>
+        <p class="lang-en">By using the Application, you accept the terms described in this Privacy Policy.</p>
+
+        <div class="contact">
+            <h2 class="lang-pl">Kontakt</h2>
+            <h2 class="lang-en">Contact us</h2>
+            <p class="lang-pl">Pytania o prywatność w CarNerve? Napisz:</p>
+            <p class="lang-en">Questions about privacy in CarNerve? Write to:</p>
+            <p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html"><span class="lang-pl">Strona główna</span><span class="lang-en">Home</span></a>
+                <a href="termsOfUse.html"><span class="lang-pl">Regulamin</span><span class="lang-en">Terms of Use</span></a>
+                <a href="https://github.com/DawiQ/CarNerve">GitHub</a>
+            </div>
+            <p class="footer-note">&copy; Dawikk &middot; CarNerve</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.langbar button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var lang = button.getAttribute('data-set');
+                document.documentElement.setAttribute('data-lang', lang);
+                document.documentElement.setAttribute('lang', lang);
+                try { localStorage.setItem('carnerve.lang', lang); } catch (e) {}
+            });
+        });
+    </script>
+</body>
+</html>

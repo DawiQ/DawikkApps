@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - CarNerve</title>
+    <meta name="description" content="CarNerve Terms of Use (EULA) - licence, safety rules for diagnostics, the limits of an OBD-II scan and liability.">
+    <link rel="icon" href="../favicon.ico">
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('carnerve.lang'); } catch (e) {}
+            var lang = saved || ((navigator.language || 'en').toLowerCase().indexOf('pl') === 0 ? 'pl' : 'en');
+            document.documentElement.setAttribute('data-lang', lang);
+            document.documentElement.setAttribute('lang', lang);
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #0a0d12;
+            --bg2: #0e131b;
+            --surface: #131924;
+            --surface2: #182030;
+            --line: #212b3b;
+            --line2: #2c3a50;
+            --text: #e9eef6;
+            --muted: #7e8a9e;
+            --signal: #2fe3c0;
+            --signal-soft: #1b7a6c;
+            --on-signal: #04140f;
+            --ok: #3fd07a;
+            --warn: #ffb454;
+            --crit: #ff5c5c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(47, 227, 192, 0.08), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [data-lang="en"] .lang-pl { display: none !important; }
+        [data-lang="pl"] .lang-en { display: none !important; }
+
+        .langbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(10, 13, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .langbar button {
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--line2);
+            border-radius: 8px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .langbar button:hover { color: var(--text); border-color: var(--signal-soft); }
+
+        [data-lang="pl"] .langbar button[data-set="pl"],
+        [data-lang="en"] .langbar button[data-set="en"] {
+            color: var(--on-signal);
+            background: var(--signal);
+            border-color: var(--signal);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-bottom: 22px;
+        }
+
+        .back:hover { color: var(--signal); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .subtitle { color: var(--muted); font-size: 0.95rem; }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--signal);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child, .panel ol:last-child { margin-bottom: 0; }
+
+        .panel h3:first-child { margin-top: 0; }
+
+        .callout {
+            background: rgba(47, 227, 192, 0.06);
+            border: 1px solid var(--signal-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout h3 { margin-top: 0; color: var(--signal); }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .danger {
+            background: rgba(255, 92, 92, 0.07);
+            border: 1px solid rgba(255, 92, 92, 0.4);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 24px 0;
+        }
+
+        .danger h3 { margin-top: 0; color: var(--crit); }
+
+        .danger p:last-child, .danger ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(255, 180, 84, 0.06);
+            border: 1px solid rgba(255, 180, 84, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 24px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child, .warn-panel ul:last-child { margin-bottom: 0; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--signal);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="langbar">
+        <button type="button" data-set="pl">PL</button>
+        <button type="button" data-set="en">EN</button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; <span class="lang-pl">Wróć do CarNerve</span><span class="lang-en">Back to CarNerve</span></a>
+            <p class="app-name">CarNerve</p>
+            <h1 class="lang-pl">Regulamin</h1>
+            <h1 class="lang-en">Terms of Use</h1>
+            <p class="subtitle lang-pl">Warunki korzystania z aplikacji (EULA)</p>
+            <p class="subtitle lang-en">End User Licence Agreement (EULA)</p>
+            <p class="effective lang-pl"><strong>Data wejścia w życie:</strong> 21 sierpnia 2026</p>
+            <p class="effective lang-en"><strong>Effective date:</strong> August 21, 2026</p>
+        </header>
+
+        <div class="callout">
+            <h3 class="lang-pl">Przeczytaj, zanim podłączysz adapter</h3>
+            <h3 class="lang-en">Read this before you plug the adapter in</h3>
+            <p class="lang-pl">Niniejszy Regulamin („Regulamin") to umowa między Tobą a <strong>Dawikk</strong> („my", „Usługodawca") dotycząca korzystania z aplikacji mobilnej <strong>CarNerve</strong> („Aplikacja"). Instalując lub używając Aplikacji, akceptujesz Regulamin. Jeśli się z nim nie zgadzasz, nie korzystaj z Aplikacji.</p>
+            <p class="lang-pl">Najważniejsze jest to: CarNerve <strong>pomaga zrozumieć</strong>, co mówi sterownik silnika. Nie jest orzeczeniem rzeczoznawcy, nie zastępuje warsztatu i nie ponosi za Ciebie decyzji o naprawie ani o zakupie auta.</p>
+            <p class="lang-en">These Terms of Use (the &ldquo;Terms&rdquo;) form an agreement between you and <strong>Dawikk</strong> (&ldquo;we&rdquo;, the &ldquo;Service Provider&rdquo;) covering your use of the <strong>CarNerve</strong> mobile application (the &ldquo;Application&rdquo;). By installing or using the Application you accept these Terms. If you do not agree with them, do not use the Application.</p>
+            <p class="lang-en">The essential point: CarNerve <strong>helps you understand</strong> what the engine controller is saying. It is not an expert appraisal, it does not replace a workshop, and it does not make your repair or purchase decision for you.</p>
+        </div>
+
+        <h2 class="lang-pl">1. Licencja</h2>
+        <h2 class="lang-en">1. Licence</h2>
+
+        <p class="lang-pl">Aplikacja jest udostępniana <strong>bezpłatnie</strong>, bez reklam, bez subskrypcji i bez zakupów w aplikacji. Kod źródłowy CarNerve jest otwarty i publikowany na <strong>licencji MIT</strong> pod adresem <a href="https://github.com/DawiQ/CarNerve">github.com/DawiQ/CarNerve</a>. Prawa do korzystania z kodu, jego modyfikowania i rozpowszechniania wynikają wprost z tej licencji i niniejszy Regulamin ich nie ogranicza.</p>
+        <p class="lang-en">The Application is provided <strong>free of charge</strong>, with no ads, no subscriptions and no in-app purchases. The CarNerve source code is open and published under the <strong>MIT licence</strong> at <a href="https://github.com/DawiQ/CarNerve">github.com/DawiQ/CarNerve</a>. Your rights to use, modify and redistribute the code follow directly from that licence, and these Terms do not restrict them.</p>
+
+        <p class="lang-pl">Regulamin dotyczy natomiast korzystania z <strong>gotowej, dystrybuowanej wersji Aplikacji</strong> — w tym zasad bezpieczeństwa, zakresu diagnostyki i odpowiedzialności. Pobranie Aplikacji ze sklepu podlega dodatkowo regulaminowi tego sklepu (Google Play, App Store).</p>
+        <p class="lang-en">These Terms instead govern your use of the <strong>packaged, distributed build of the Application</strong> — including safety rules, the scope of diagnostics and liability. Downloading the Application from a store is additionally subject to that store&rsquo;s own terms (Google Play, App Store).</p>
+
+        <p class="lang-pl">Nazwa „CarNerve", logo oraz materiały graficzne pozostają własnością Usługodawcy i nie są objęte licencją MIT na znaki towarowe.</p>
+        <p class="lang-en">The &ldquo;CarNerve&rdquo; name, logo and graphic assets remain the property of the Service Provider; the MIT licence grants no trademark rights to them.</p>
+
+        <h2 class="lang-pl">2. Bezpieczeństwo — zasady, których musisz przestrzegać</h2>
+        <h2 class="lang-en">2. Safety — rules you must follow</h2>
+
+        <div class="danger">
+            <h3 class="lang-pl">Nie obsługuj Aplikacji podczas jazdy</h3>
+            <h3 class="lang-en">Do not operate the Application while driving</h3>
+            <p class="lang-pl">Obsługa telefonu podczas prowadzenia pojazdu jest niebezpieczna i w wielu krajach zabroniona. Odczyty wykonuj na postoju, przy włączonym zapłonie, w bezpiecznym miejscu. Jeśli potrzebujesz danych na żywo w ruchu — <strong>telefon obsługuje pasażer</strong>. Zgadzasz się przestrzegać przepisów ruchu drogowego obowiązujących w Twoim kraju i przyjmujesz, że wyłączną odpowiedzialność za sposób korzystania z Aplikacji w pojeździe ponosisz Ty.</p>
+            <p class="lang-en">Using a phone while driving is dangerous and illegal in many countries. Take readings while parked, with the ignition on, somewhere safe. If you need live data while the car is moving, <strong>a passenger operates the phone</strong>. You agree to comply with the road traffic laws of your country and accept that you alone are responsible for how the Application is used in a vehicle.</p>
+        </div>
+
+        <div class="warn-panel">
+            <h3 class="lang-pl">Kasowanie kodów usterek nie naprawia usterki</h3>
+            <h3 class="lang-en">Clearing fault codes does not fix the fault</h3>
+            <p class="lang-pl">Kasowanie (tryb 04) gasi kontrolkę i usuwa dowody: dane zamrożone (freeze frame) oraz stan monitorów gotowości. Zanim skasujesz, zapisz kody. Pamiętaj też, że:</p>
+            <ul class="lang-pl">
+                <li>usterka, która nie została naprawiona, wróci — a Ty stracisz kontekst, w jakim wystąpiła pierwszy raz;</li>
+                <li>po skasowaniu monitory gotowości wracają do stanu „niegotowe" i <strong>badanie techniczne może zakończyć się wynikiem negatywnym</strong>, dopóki auto nie przejedzie odpowiedniego cyklu jezdnego;</li>
+                <li>w niektórych autach (zwykle od ok. 2018 r.) bramka bezpieczeństwa producenta może w ogóle nie pozwolić na skasowanie — Aplikacja o tym poinformuje.</li>
+            </ul>
+            <p class="lang-en">Clearing (mode 04) turns the light off and destroys evidence: freeze frame data and the state of the readiness monitors. Save the codes before you clear them. Also bear in mind that:</p>
+            <ul class="lang-en">
+                <li>a fault that was not repaired will come back — and you will have lost the context in which it first appeared;</li>
+                <li>after clearing, readiness monitors reset to &ldquo;not ready&rdquo; and <strong>a roadworthiness test may be failed</strong> until the car has completed the required drive cycle;</li>
+                <li>on some cars (typically from around 2018) the manufacturer&rsquo;s security gateway may refuse the clear entirely — the Application will tell you when that happens.</li>
+            </ul>
+        </div>
+
+        <div class="warn-panel">
+            <h3 class="lang-pl">Adapter OBD-II</h3>
+            <h3 class="lang-en">The OBD-II adapter</h3>
+            <p class="lang-pl">Adapter jest urządzeniem osoby trzeciej — nie sprzedajemy go, nie produkujemy i nie udzielamy na niego gwarancji. Używaj adaptera zgodnie z instrukcją jego producenta. <strong>Wyjmij adapter z gniazda po zakończeniu diagnostyki</strong>: część tanich adapterów nie przechodzi w uśpienie i potrafi rozładować akumulator zaparkowanego auta. Tanie klony ELM327 bywają też zawodne na starszych protokołach (K-Line) i mogą gubić dane.</p>
+            <p class="lang-en">The adapter is a third-party device — we do not sell it, manufacture it or warrant it. Use it in line with its own manufacturer&rsquo;s instructions. <strong>Unplug the adapter when you are done</strong>: some cheap adapters never enter sleep mode and can flatten the battery of a parked car. Cheap ELM327 clones can also be unreliable on older protocols (K-Line) and may drop data.</p>
+        </div>
+
+        <h2 class="lang-pl">3. Zakres diagnostyki i jej granice</h2>
+        <h2 class="lang-en">3. The scope of the diagnostics and its limits</h2>
+
+        <p class="lang-pl">Standard OBD-II obejmuje <strong>wyłącznie sterownik silnika i układ emisji</strong>. Aplikacja <strong>nie czyta</strong> układu ABS, poduszek powietrznych (SRS), skrzyni automatycznej ani elektryki nadwozia — te moduły korzystają z protokołów producenta dostępnych tylko dla narzędzi markowych.</p>
+        <p class="lang-en">The OBD-II standard covers <strong>only the engine controller and the emissions system</strong>. The Application <strong>does not read</strong> ABS, airbags (SRS), the automatic transmission or body electronics — those modules use manufacturer-specific protocols available only to brand tools.</p>
+
+        <div class="panel">
+            <h3 class="lang-pl">Co z tego wynika</h3>
+            <h3 class="lang-en">What follows from that</h3>
+            <ul class="lang-pl">
+                <li><strong>Brak kodów nie znaczy „auto sprawne".</strong> Świecąca kontrolka ABS albo poduszki nie zostanie przez Aplikację wykryta.</li>
+                <li><strong>Brak wpisu w bazie wad nie znaczy „silnik bezawaryjny".</strong> Znaczy tylko tyle, że nie mamy jeszcze skuratorowanych danych o tej rodzinie silnika.</li>
+                <li><strong>Poziomy pewności są częścią odpowiedzi.</strong> Pozycje oznaczone jako prawdopodobne pochodzą ze źródeł społecznościowych i wymagają potwierdzenia narzędziem markowym lub oględzinami.</li>
+                <li><strong>Nie podajemy kwot napraw.</strong> Aplikacja mówi, czy naprawa bywa kosztowna, ale nie wycenia — wycena z jednego rynku i jednej chwili wprowadza w błąd.</li>
+                <li><strong>Trafność zależy od danych auta, które wpiszesz.</strong> Silnik wybrany z listy jest rozpoznawany dokładnie; wpisany ręcznie dopasowuje się po słowach kluczowych, więc bywa mniej precyzyjny. Błędnie wpisana skrzynia zaszkodzi bardziej niż jej brak.</li>
+            </ul>
+            <ul class="lang-en">
+                <li><strong>No codes does not mean &ldquo;the car is fine&rdquo;.</strong> An ABS or airbag light on the dash will not be picked up by the Application.</li>
+                <li><strong>No entry in the known-fault database does not mean &ldquo;this engine never breaks&rdquo;.</strong> It only means we do not have curated data on that engine family yet.</li>
+                <li><strong>Confidence levels are part of the answer.</strong> Entries marked as probable come from community sources and need confirmation with a brand tool or a physical inspection.</li>
+                <li><strong>We do not quote repair prices.</strong> The Application says whether a repair tends to be expensive, but does not price it — a figure from one market at one moment misleads.</li>
+                <li><strong>Accuracy depends on the car details you enter.</strong> An engine picked from the list is matched exactly; one typed by hand is matched on keywords and can be less precise. A wrongly entered gearbox does more harm than leaving it blank.</li>
+            </ul>
+        </div>
+
+        <p class="lang-pl">Informacje w Aplikacji mają charakter <strong>pomocniczy i edukacyjny</strong>. Nie stanowią opinii rzeczoznawcy, ekspertyzy technicznej ani zalecenia serwisowego. Przed naprawą, zwłaszcza kosztowną, potwierdź diagnozę w warsztacie.</p>
+        <p class="lang-en">The information in the Application is <strong>informational and educational</strong>. It is not an expert appraisal, a technical opinion or a service recommendation. Before carrying out a repair, especially an expensive one, confirm the diagnosis with a workshop.</p>
+
+        <h2 class="lang-pl">4. Sprawdzenie przed zakupem</h2>
+        <h2 class="lang-en">4. The pre-purchase check</h2>
+
+        <p class="lang-pl">Funkcja sprawdzenia przed zakupem zestawia dane odczytane z auta (monitory gotowości, dystans od skasowania kodów, kody trwałe i oczekujące, dystans z zapaloną kontrolką) i przedstawia z nich <strong>wniosek orientacyjny</strong>. Werdykt taki jak „ostrożnie" opisuje przesłanki widoczne w danych, a nie stan prawny czy techniczny pojazdu.</p>
+        <p class="lang-en">The pre-purchase check combines data read from the car (readiness monitors, distance since codes were cleared, permanent and pending codes, distance driven with the light on) and turns it into an <strong>indicative conclusion</strong>. A verdict such as &ldquo;be careful&rdquo; describes what the data suggests — not the legal or technical condition of the vehicle.</p>
+
+        <p class="lang-pl">Sprawdzenie <strong>nie zastępuje oględzin u mechanika, jazdy próbnej ani weryfikacji historii pojazdu</strong>. Decyzja o zakupie i jej skutki należą wyłącznie do Ciebie. Raport PDF jest materiałem pomocniczym dla Ciebie i Twojego mechanika, a nie dokumentem urzędowym ani opinią rzeczoznawcy, i nie może być przedstawiany jako taki.</p>
+        <p class="lang-en">The check <strong>does not replace an inspection by a mechanic, a test drive or a vehicle history check</strong>. The decision to buy, and its consequences, are yours alone. The PDF report is a working document for you and your mechanic — not an official document or an expert appraisal, and it must not be presented as one.</p>
+
+        <h2 class="lang-pl">5. Dozwolone korzystanie</h2>
+        <h2 class="lang-en">5. Acceptable use</h2>
+
+        <p class="lang-pl">Zobowiązujesz się korzystać z Aplikacji zgodnie z prawem i nie używać jej:</p>
+        <p class="lang-en">You agree to use the Application lawfully, and not to use it:</p>
+        <ul class="lang-pl">
+            <li>w pojazdach, do których diagnozowania nie masz zgody właściciela;</li>
+            <li>w sposób zagrażający bezpieczeństwu ruchu drogowego;</li>
+            <li>do obchodzenia zabezpieczeń pojazdu, manipulowania odczytami emisji lub ukrywania usterek przed nabywcą, stacją kontroli pojazdów, ubezpieczycielem lub organami państwa;</li>
+            <li>do przedstawiania wyników Aplikacji jako profesjonalnej ekspertyzy technicznej.</li>
+        </ul>
+        <ul class="lang-en">
+            <li>on vehicles you do not have the owner&rsquo;s permission to diagnose;</li>
+            <li>in any way that endangers road safety;</li>
+            <li>to bypass vehicle security, manipulate emissions readings or hide faults from a buyer, a test station, an insurer or a public authority;</li>
+            <li>to present the Application&rsquo;s output as a professional technical appraisal.</li>
+        </ul>
+
+        <h2 class="lang-pl">6. Znaki towarowe producentów</h2>
+        <h2 class="lang-en">6. Manufacturer trademarks</h2>
+
+        <p class="lang-pl">Nazwy marek, modeli i silników (m.in. Peugeot, Citro&euml;n, Volkswagen, BMW, Mercedes-Benz, Ford, Opel, Toyota, Hyundai, Kia, Renault, Volvo, Fiat, Mazda) występują w Aplikacji <strong>wyłącznie w celu identyfikacji pojazdu</strong> i pozostają znakami towarowymi swoich właścicieli. CarNerve nie jest powiązany z żadnym producentem samochodów, nie jest przez nich autoryzowany ani sponsorowany.</p>
+        <p class="lang-en">Brand, model and engine names (among others Peugeot, Citro&euml;n, Volkswagen, BMW, Mercedes-Benz, Ford, Opel, Toyota, Hyundai, Kia, Renault, Volvo, Fiat, Mazda) appear in the Application <strong>purely to identify a vehicle</strong> and remain the trademarks of their respective owners. CarNerve is not affiliated with, authorised by or sponsored by any vehicle manufacturer.</p>
+
+        <h2 class="lang-pl">7. Konto, płatności i dane</h2>
+        <h2 class="lang-en">7. Account, payments and data</h2>
+
+        <p class="lang-pl">Aplikacja nie wymaga zakładania konta i nie oferuje płatności ani subskrypcji. Dane, które powstają podczas korzystania — garaż aut, historia sprawdzeń, terminy, ustawienia — są przechowywane wyłącznie na Twoim urządzeniu. Zasady opisuje <a href="privacyPolicy.html">Polityka prywatności</a>, która stanowi część niniejszego Regulaminu.</p>
+        <p class="lang-en">The Application requires no account and offers no payments or subscriptions. The data created while you use it — your garage, check history, reminders and settings — is stored on your device only. The details are set out in the <a href="privacyPolicy.html">Privacy Policy</a>, which forms part of these Terms.</p>
+
+        <p class="lang-pl"><strong>Kopie zapasowe robisz sam.</strong> Skoro nie ma chmury, usunięcie danych aplikacji, odinstalowanie lub utrata telefonu oznacza utratę historii sprawdzeń. Nie mamy możliwości jej odtworzenia.</p>
+        <p class="lang-en"><strong>Backups are on you.</strong> As there is no cloud, clearing the app&rsquo;s data, uninstalling it or losing the phone means losing your check history. We have no way to restore it.</p>
+
+        <h2 class="lang-pl">8. Dostępność i aktualizacje</h2>
+        <h2 class="lang-en">8. Availability and updates</h2>
+
+        <p class="lang-pl">Aplikacja jest rozwijana etapami i część funkcji może zostać zmieniona, ograniczona lub wycofana. Nie zobowiązujemy się do wydawania aktualizacji, utrzymania zgodności z każdym adapterem ani do zapewnienia nieprzerwanego działania. Aplikacja może przestać działać poprawnie po aktualizacji systemu operacyjnego lub zmianie w oprogramowaniu pojazdu.</p>
+        <p class="lang-en">The Application is developed in stages and some features may be changed, limited or withdrawn. We make no commitment to release updates, to maintain compatibility with every adapter, or to provide uninterrupted operation. The Application may stop working correctly after an operating system update or a change in the vehicle&rsquo;s software.</p>
+
+        <h2 class="lang-pl">9. Wyłączenie gwarancji</h2>
+        <h2 class="lang-en">9. Disclaimer of warranties</h2>
+
+        <p class="lang-pl">Aplikacja jest dostarczana <strong>„TAK JAK JEST" („AS IS")</strong>, bez jakichkolwiek gwarancji wyraźnych ani dorozumianych, w tym gwarancji przydatności do określonego celu, poprawności i kompletności danych diagnostycznych oraz nieprzerwanej dostępności. Baza opisów kodów i znanych wad jest opracowana z należytą starannością i opatrzona źródłami, ale nie gwarantujemy jej bezbłędności ani aktualności dla każdego egzemplarza pojazdu.</p>
+        <p class="lang-en">The Application is provided <strong>&ldquo;AS IS&rdquo;</strong>, without warranties of any kind, express or implied, including fitness for a particular purpose, the accuracy or completeness of diagnostic data, and uninterrupted availability. The database of code descriptions and known faults is compiled with care and carries its sources, but we do not warrant that it is error-free or current for every individual vehicle.</p>
+
+        <h2 class="lang-pl">10. Ograniczenie odpowiedzialności</h2>
+        <h2 class="lang-en">10. Limitation of liability</h2>
+
+        <p class="lang-pl">W najszerszym zakresie dozwolonym przez prawo Usługodawca nie ponosi odpowiedzialności za szkody wynikłe z korzystania z Aplikacji, w szczególności za: uszkodzenie pojazdu lub jego sterowników, rozładowanie akumulatora, skutki skasowania kodów usterek, skutki decyzji o naprawie lub jej zaniechaniu, skutki decyzji o zakupie lub sprzedaży pojazdu, negatywny wynik badania technicznego, utratę danych zapisanych w Aplikacji ani za działanie adapterów osób trzecich.</p>
+        <p class="lang-en">To the fullest extent permitted by law, the Service Provider is not liable for damages arising from use of the Application, in particular: damage to a vehicle or its controllers, a flat battery, the consequences of clearing fault codes, the consequences of a decision to repair or not to repair, the consequences of a decision to buy or sell a vehicle, a failed roadworthiness test, loss of data stored in the Application, or the behaviour of third-party adapters.</p>
+
+        <p class="lang-pl">Ponieważ Aplikacja jest bezpłatna, nie istnieje świadczenie, którego zwrotu można by żądać. Powyższe ograniczenia nie wyłączają odpowiedzialności, której zgodnie z bezwzględnie obowiązującymi przepisami — w tym przepisami o ochronie konsumentów oraz za szkodę wyrządzoną umyślnie lub na osobie — wyłączyć nie można.</p>
+        <p class="lang-en">As the Application is free of charge, there is no payment that could be refunded. The limitations above do not exclude liability that cannot be excluded under mandatory law — including consumer protection law and liability for intentional harm or personal injury.</p>
+
+        <h2 class="lang-pl">11. Zmiany Regulaminu</h2>
+        <h2 class="lang-en">11. Changes to these Terms</h2>
+
+        <p class="lang-pl">Regulamin może zostać zmieniony, np. wraz z rozwojem funkcji Aplikacji. Nowa wersja jest publikowana na tej stronie z nową datą wejścia w życie. Dalsze korzystanie z Aplikacji po opublikowaniu zmian oznacza ich akceptację; jeśli nie akceptujesz zmian, odinstaluj Aplikację.</p>
+        <p class="lang-en">These Terms may change, for example as the Application&rsquo;s features develop. A new version is published on this page with a new effective date. Continued use of the Application after a change is published means you accept it; if you do not, uninstall the Application.</p>
+
+        <h2 class="lang-pl">12. Prawo właściwe</h2>
+        <h2 class="lang-en">12. Governing law</h2>
+
+        <p class="lang-pl">Regulamin podlega prawu polskiemu. Jeśli jesteś konsumentem, zachowujesz ochronę wynikającą z bezwzględnie obowiązujących przepisów kraju swojego zwykłego pobytu. Jeżeli którekolwiek postanowienie Regulaminu okaże się nieważne, pozostałe zachowują moc.</p>
+        <p class="lang-en">These Terms are governed by Polish law. If you are a consumer, you keep the protection granted by the mandatory rules of the country in which you habitually reside. If any provision of these Terms is found invalid, the remaining provisions stay in force.</p>
+
+        <div class="contact">
+            <h2 class="lang-pl">Kontakt</h2>
+            <h2 class="lang-en">Contact us</h2>
+            <p class="lang-pl">Pytania do Regulaminu albo zgłoszenie błędu w bazie wiedzy:</p>
+            <p class="lang-en">Questions about these Terms, or a correction to the knowledge base:</p>
+            <p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html"><span class="lang-pl">Strona główna</span><span class="lang-en">Home</span></a>
+                <a href="privacyPolicy.html"><span class="lang-pl">Polityka prywatności</span><span class="lang-en">Privacy Policy</span></a>
+                <a href="https://github.com/DawiQ/CarNerve">GitHub</a>
+            </div>
+            <p class="footer-note">&copy; Dawikk &middot; CarNerve</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.langbar button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var lang = button.getAttribute('data-set');
+                document.documentElement.setAttribute('data-lang', lang);
+                document.documentElement.setAttribute('lang', lang);
+                try { localStorage.setItem('carnerve.lang', lang); } catch (e) {}
+            });
+        });
+    </script>
+</body>
+</html>
