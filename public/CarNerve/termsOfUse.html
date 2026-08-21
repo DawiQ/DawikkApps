@@ -7,12 +7,17 @@
     <meta name="description" content="CarNerve Terms of Use (EULA) - licence, safety rules for diagnostics, the limits of an OBD-II scan and liability.">
     <link rel="icon" href="../favicon.ico">
     <script>
+        // Domyślny język to angielski — siedzi w atrybutach <html> i w CSS, więc
+        // obowiązuje także przy wyłączonym JavaScripcie. Na polski przechodzimy
+        // wyłącznie wtedy, gdy odwiedzający sam go wybrał przy poprzedniej wizycie.
+        // Przełączamy przed pierwszym malowaniem, żeby nie było przeskoku treści.
         (function () {
-            var saved = null;
-            try { saved = localStorage.getItem('carnerve.lang'); } catch (e) {}
-            var lang = saved || ((navigator.language || 'en').toLowerCase().indexOf('pl') === 0 ? 'pl' : 'en');
-            document.documentElement.setAttribute('data-lang', lang);
-            document.documentElement.setAttribute('lang', lang);
+            try {
+                if (localStorage.getItem('carnerve.lang') === 'pl') {
+                    document.documentElement.setAttribute('data-lang', 'pl');
+                    document.documentElement.setAttribute('lang', 'pl');
+                }
+            } catch (e) {}
         })();
     </script>
     <style>
@@ -254,14 +259,28 @@
         <h2 class="lang-pl">1. Licencja</h2>
         <h2 class="lang-en">1. Licence</h2>
 
-        <p class="lang-pl">Aplikacja jest udostępniana <strong>bezpłatnie</strong>, bez reklam, bez subskrypcji i bez zakupów w aplikacji. Kod źródłowy CarNerve jest otwarty i publikowany na <strong>licencji MIT</strong> pod adresem <a href="https://github.com/DawiQ/CarNerve">github.com/DawiQ/CarNerve</a>. Prawa do korzystania z kodu, jego modyfikowania i rozpowszechniania wynikają wprost z tej licencji i niniejszy Regulamin ich nie ogranicza.</p>
-        <p class="lang-en">The Application is provided <strong>free of charge</strong>, with no ads, no subscriptions and no in-app purchases. The CarNerve source code is open and published under the <strong>MIT licence</strong> at <a href="https://github.com/DawiQ/CarNerve">github.com/DawiQ/CarNerve</a>. Your rights to use, modify and redistribute the code follow directly from that licence, and these Terms do not restrict them.</p>
+        <p class="lang-pl">Aplikacja jest udostępniana <strong>bezpłatnie</strong>, bez reklam, bez subskrypcji i bez zakupów w aplikacji. Bezpłatna nie znaczy jednak niczyja: Usługodawca udziela Ci <strong>ograniczonej, niewyłącznej, nieprzenoszalnej i odwoływalnej licencji</strong> na zainstalowanie i używanie Aplikacji na urządzeniach, które posiadasz lub którymi dysponujesz, na własny użytek — w tym do sprawdzania aut swoich i cudzych za zgodą właściciela.</p>
+        <p class="lang-pl">Aplikacja jest <strong>oprogramowaniem zastrzeżonym</strong>. Jej kod nie jest publikowany. Bez naszej pisemnej zgody nie wolno w szczególności:</p>
+        <ul class="lang-pl">
+            <li>kopiować, odsprzedawać, wypożyczać ani rozpowszechniać Aplikacji lub jej części;</li>
+            <li>tworzyć opracowań, modyfikacji ani wersji pochodnych;</li>
+            <li>wydobywać, kopiować lub odtwarzać <strong>bazy opisów kodów usterek i znanych wad</strong> — ani ręcznie, ani automatycznie — w celu zbudowania własnego zbioru danych lub konkurencyjnej usługi;</li>
+            <li>dekompilować ani odtwarzać kodu źródłowego, <em>z zastrzeżeniem</em> uprawnień przysługujących Ci bezwzględnie na mocy przepisów prawa, w tym prawa do dekompilacji w zakresie niezbędnym do uzyskania współdziałania z innym programem.</li>
+        </ul>
+        <p class="lang-en">The Application is provided <strong>free of charge</strong>, with no ads, no subscriptions and no in-app purchases. Free does not mean unowned, though: the Service Provider grants you a <strong>limited, non-exclusive, non-transferable and revocable licence</strong> to install and use the Application on devices you own or control, for your own use — including checking your own cars and other people&rsquo;s cars with the owner&rsquo;s permission.</p>
+        <p class="lang-en">The Application is <strong>proprietary software</strong>. Its source code is not published. Without our written consent you may not, in particular:</p>
+        <ul class="lang-en">
+            <li>copy, resell, rent or redistribute the Application or any part of it;</li>
+            <li>create adaptations, modifications or derivative versions;</li>
+            <li>extract, copy or reconstruct the <strong>database of fault code descriptions and known faults</strong> — whether by hand or automatically — in order to build your own dataset or a competing service;</li>
+            <li>decompile or reverse engineer the code, <em>save for</em> the rights granted to you by mandatory law, including the right to decompile to the extent necessary to achieve interoperability with another program.</li>
+        </ul>
 
         <p class="lang-pl">Regulamin dotyczy natomiast korzystania z <strong>gotowej, dystrybuowanej wersji Aplikacji</strong> — w tym zasad bezpieczeństwa, zakresu diagnostyki i odpowiedzialności. Pobranie Aplikacji ze sklepu podlega dodatkowo regulaminowi tego sklepu (Google Play, App Store).</p>
         <p class="lang-en">These Terms instead govern your use of the <strong>packaged, distributed build of the Application</strong> — including safety rules, the scope of diagnostics and liability. Downloading the Application from a store is additionally subject to that store&rsquo;s own terms (Google Play, App Store).</p>
 
-        <p class="lang-pl">Nazwa „CarNerve", logo oraz materiały graficzne pozostają własnością Usługodawcy i nie są objęte licencją MIT na znaki towarowe.</p>
-        <p class="lang-en">The &ldquo;CarNerve&rdquo; name, logo and graphic assets remain the property of the Service Provider; the MIT licence grants no trademark rights to them.</p>
+        <p class="lang-pl">Nazwa „CarNerve", logo, materiały graficzne oraz treść bazy wiedzy pozostają własnością Usługodawcy. Licencja opisana wyżej dotyczy korzystania z Aplikacji i nie przenosi na Ciebie żadnych praw do tych oznaczeń ani treści.</p>
+        <p class="lang-en">The &ldquo;CarNerve&rdquo; name, logo, graphic assets and the content of the knowledge base remain the property of the Service Provider. The licence described above covers use of the Application and transfers no rights in those marks or that content to you.</p>
 
         <h2 class="lang-pl">2. Bezpieczeństwo — zasady, których musisz przestrzegać</h2>
         <h2 class="lang-en">2. Safety — rules you must follow</h2>
@@ -412,7 +431,6 @@
             <div class="footer-links">
                 <a href="index.html"><span class="lang-pl">Strona główna</span><span class="lang-en">Home</span></a>
                 <a href="privacyPolicy.html"><span class="lang-pl">Polityka prywatności</span><span class="lang-en">Privacy Policy</span></a>
-                <a href="https://github.com/DawiQ/CarNerve">GitHub</a>
             </div>
             <p class="footer-note">&copy; Dawikk &middot; CarNerve</p>
         </footer>

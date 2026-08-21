@@ -7,13 +7,17 @@
     <meta name="description" content="CarNerve reads OBD-II fault codes in plain words, shows the known faults of your engine family and detects codes cleared just before a sale. No account, no cloud, no subscription.">
     <link rel="icon" href="../favicon.ico">
     <script>
-        // Ustawiamy język przed pierwszym malowaniem, żeby nie było przeskoku treści.
+        // Domyślny język to angielski — siedzi w atrybutach <html> i w CSS, więc
+        // obowiązuje także przy wyłączonym JavaScripcie. Na polski przechodzimy
+        // wyłącznie wtedy, gdy odwiedzający sam go wybrał przy poprzedniej wizycie.
+        // Przełączamy przed pierwszym malowaniem, żeby nie było przeskoku treści.
         (function () {
-            var saved = null;
-            try { saved = localStorage.getItem('carnerve.lang'); } catch (e) {}
-            var lang = saved || ((navigator.language || 'en').toLowerCase().indexOf('pl') === 0 ? 'pl' : 'en');
-            document.documentElement.setAttribute('data-lang', lang);
-            document.documentElement.setAttribute('lang', lang);
+            try {
+                if (localStorage.getItem('carnerve.lang') === 'pl') {
+                    document.documentElement.setAttribute('data-lang', 'pl');
+                    document.documentElement.setAttribute('lang', 'pl');
+                }
+            } catch (e) {}
         })();
     </script>
     <style>
@@ -416,11 +420,6 @@
                     <span class="lang-pl">Pobierz za darmo</span>
                     <span class="lang-en">Download free</span>
                 </a>
-                <a class="cta cta-secondary" href="https://github.com/DawiQ/CarNerve">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02.8-.22 1.65-.33 2.5-.33.85 0 1.7.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.94.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48A10.01 10.01 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
-                    <span class="lang-pl">Kod źródłowy</span>
-                    <span class="lang-en">Source code</span>
-                </a>
             </div>
 
             <p class="platform-note lang-pl">Android &mdash; potwierdzony na sprzęcie. Wersja na iPhone&rsquo;a w przygotowaniu.</p>
@@ -589,8 +588,8 @@
                 <div class="lang-en">No ads</div>
                 <div class="lang-pl">Bez śledzenia i analityki</div>
                 <div class="lang-en">No tracking, no analytics</div>
-                <div class="lang-pl">Otwarty kod na licencji MIT</div>
-                <div class="lang-en">Open source under the MIT licence</div>
+                <div class="lang-pl">Bez internetu — baza wiedzy w telefonie</div>
+                <div class="lang-en">No internet needed — the knowledge base ships with the app</div>
             </div>
         </section>
 
@@ -598,7 +597,6 @@
             <div class="footer-links">
                 <a href="privacyPolicy.html"><span class="lang-pl">Polityka prywatności</span><span class="lang-en">Privacy Policy</span></a>
                 <a href="termsOfUse.html"><span class="lang-pl">Regulamin</span><span class="lang-en">Terms of Use</span></a>
-                <a href="https://github.com/DawiQ/CarNerve">GitHub</a>
                 <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>
             </div>
             <p class="footer-note lang-pl">CarNerve to darmowe narzędzie pomocnicze, a nie zamiennik diagnostyki warsztatowej.</p>
