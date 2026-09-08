@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - Xiangqi Master</title>
+    <meta name="description" content="Terms of Use for the Xiangqi Master app: a free, ad-supported Chinese Chess app with no account and no purchases. Licence, ads, open-source notices, warranties and liability.">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #12100d;
+            --surface: #1d1913;
+            --surface2: #262019;
+            --line: #322a20;
+            --line2: #453a2c;
+            --text: #f2e9d8;
+            --muted: #a3927a;
+            --red: #d9483c;
+            --gold: #dda94a;
+            --gold-soft: #7a5c24;
+            --warn: #e8b45c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(217, 72, 60, 0.10), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back { display: inline-block; font-size: 0.88rem; color: var(--muted); text-decoration: none; margin-bottom: 22px; }
+
+        .back:hover { color: var(--gold); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--red);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--gold); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(221, 169, 74, 0.07);
+            border: 1px solid var(--gold-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout h3 { margin-top: 0; color: var(--gold); }
+
+        .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel h3 { margin-top: 0; }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(232, 180, 92, 0.06);
+            border: 1px solid rgba(232, 180, 92, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        th:first-child, td:first-child { width: 32%; }
+
+        tr:last-child td { border-bottom: none; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--gold);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; Back to Xiangqi Master</a>
+            <p class="app-name">Xiangqi Master</p>
+            <h1>Terms of Use</h1>
+            <p class="effective"><strong>Effective date:</strong> 8 September 2026</p>
+        </header>
+
+        <p>These Terms of Use (the &ldquo;Terms&rdquo;) govern your use of the mobile application <strong>Xiangqi Master</strong> (the &ldquo;App&rdquo;), published by <strong>Dawikk</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;), distributed under the identifier <code>com.dawikk.xiangqi</code>. By installing or using the App you accept these Terms. If you do not accept them, do not use the App and uninstall it.</p>
+
+        <div class="callout">
+            <h3>The short version</h3>
+            <p>The App is a <strong>free, ad-supported</strong> game of xiangqi. There is no account, nothing to buy inside it, and no subscription. Play it, learn from it, keep it &mdash; but do not resell it, take it apart or pretend it is yours.</p>
+        </div>
+
+        <h2>1. What the App is</h2>
+
+        <p>Xiangqi Master is a single-device game of xiangqi (Chinese chess). It offers play against a computer opponent, hot-seat play between two people on one device, mate puzzles, lessons, a post-game review and a record of your games. It runs on your device and does not require an internet connection to play.</p>
+
+        <p>The App is <strong>not</strong> an online service: there are no accounts, no servers of ours, no online opponents, no leaderboards, no chat and no way for one player to contact another.</p>
+
+        <h2>2. Licence</h2>
+
+        <p>We grant you a personal, non-exclusive, non-transferable, revocable licence to install and use the App on devices you own or control, for your own non-commercial use, in accordance with these Terms and with the rules of the store you obtained it from.</p>
+
+        <p>You may not:</p>
+
+        <ul>
+            <li>sell, rent, sub-license or otherwise distribute the App or a modified version of it;</li>
+            <li>reverse-engineer, decompile or disassemble the App, except to the extent that applicable law expressly permits this despite this restriction, and except for the open-source components described in section 8, whose own licences govern;</li>
+            <li>remove or obscure the advertising, or use the App with software intended to block, falsify or automatically interact with the ads;</li>
+            <li>use the App to break the law, or in a way that interferes with anyone else's use of their device.</li>
+        </ul>
+
+        <h2>3. Age</h2>
+
+        <p>The App is suitable for a general audience and contains no chat, no user-generated content and no social features. It is not directed at children under 13. If you are a minor in your country, use the App only with the consent of a parent or guardian, who accepts these Terms on your behalf.</p>
+
+        <h2>4. Advertising</h2>
+
+        <p>The App is free and is funded by advertising served through <strong>Google AdMob</strong>. Concretely:</p>
+
+        <ul>
+            <li>one <strong>anchored banner</strong>, which sits in its own row at the foot of the screen and never covers the board;</li>
+            <li>one <strong>interstitial</strong>, shown between games &mdash; never during one.</li>
+        </ul>
+
+        <p>Where required, you are asked for consent through Google's certified consent form, and on iOS through the system App Tracking Transparency prompt. You may change those choices at any time via <em>Settings &rarr; Ad privacy choices</em> in the App. Declining does not remove any part of the game; ads simply become non-personalised. What ad-related data is collected and by whom is described in our <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+
+        <p>We do not choose, endorse or control the individual ads shown. Any dealing with an advertiser is between you and that advertiser. If you see an ad you believe breaks the rules, tell us and we will report it to the network.</p>
+
+        <h2>5. No purchases, and what that means</h2>
+
+        <p>There is currently <strong>nothing to buy inside the App</strong>: no subscription, no one-off unlock, no consumables, and no billing SDK in the build. Features that a paid tier would ordinarily gate &mdash; the post-game review and the harder puzzles &mdash; are available to everyone.</p>
+
+        <div class="warn-panel">
+            <h3>If that ever changes</h3>
+            <p>We may introduce a paid tier in a future version. It would be optional, priced and described in the store before you pay anything, and any purchase would then be handled by Google Play or the App Store under <em>their</em> payment and refund terms &mdash; we can neither take payment nor issue a refund directly. Nothing you have today would be taken away and put behind a paywall.</p>
+        </div>
+
+        <h2>6. Your data and your device</h2>
+
+        <p>Your games, ratings, puzzle progress, streak and settings are stored on your device. <strong>Uninstalling the App, or clearing its storage, deletes them permanently.</strong> We hold no copy and cannot restore anything. If a record matters to you, keep it yourself.</p>
+
+        <p>Data handling is described in full in the <a href="privacyPolicy.html">Privacy Policy</a>, which forms part of these Terms.</p>
+
+        <h2>7. About the game content</h2>
+
+        <div class="panel">
+            <h3>The engine and the rules</h3>
+            <p>The App implements the rules of xiangqi as commonly played in Asian competition, including the rule that <strong>perpetual check loses</strong>. Rule sets differ between federations and between clubs; the App's interpretation is not an arbitration and may not match the rules of a particular tournament you are entering.</p>
+        </div>
+
+        <div class="panel">
+            <h3>Ratings and the review</h3>
+            <p>The rating shown in the App is calculated by the App, from games you played against its own engine, and by design it also moves faster during your first ten games. It is a private yardstick for your own progress &mdash; <strong>not</strong> a federation rating, and not comparable with an official one.</p>
+            <p>The post-game review is an engine's opinion. Engine evaluations are strong but not infallible, particularly in quiet positions and in endgames, and a move labelled a mistake may be perfectly playable in a human game.</p>
+        </div>
+
+        <div class="panel">
+            <h3>Puzzles and lessons</h3>
+            <p>The puzzles were generated and verified automatically &mdash; each is checked for a unique fastest mate and replayed through the rules engine &mdash; and the lessons' goal moves are verified the same way. If you nonetheless find a position with a second solution or a lesson that misstates a rule, please write to us; that is a bug and we will fix it.</p>
+        </div>
+
+        <h2>8. Intellectual property and open-source notices</h2>
+
+        <p>The App, its name, its interface, its artwork, its texts and its puzzle set are ours or are used with permission, and are protected by copyright. Nothing in these Terms transfers any of it to you beyond the licence in section 2.</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>The rules of xiangqi</td>
+                        <td>Public domain. &ldquo;Xiangqi&rdquo; and &ldquo;Chinese Chess&rdquo; are used descriptively to name the game; the product name is ours.</td>
+                    </tr>
+                    <tr>
+                        <td>Fairy-Stockfish (the computer opponent)</td>
+                        <td>Licensed under the <strong>GNU GPL v3</strong>. It is run as a separate component over the UCI protocol and is not linked into the App. Our modifications and the exact build recipe are published with the project's source, and the licence text is reproduced in the App under <em>Settings &rarr; Open Source Licenses</em>.</td>
+                    </tr>
+                    <tr>
+                        <td>Other open-source libraries</td>
+                        <td>Each under its own licence, listed in the App under <em>Settings &rarr; Open Source Licenses</em>.</td>
+                    </tr>
+                    <tr>
+                        <td>Sound effects</td>
+                        <td>Synthesised for this App from a script that ships with its source &mdash; no third-party recordings are bundled.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Where an open-source licence grants you rights broader than section 2 in respect of that component, that licence prevails for that component.</p>
+
+        <h2>9. Updates and availability</h2>
+
+        <p>We may release updates that add, change or remove features, and the App may fetch a corrected version of its own code over the air. We may also stop publishing or supporting the App. An installed copy keeps working as long as your device and operating system allow it, but we do not guarantee that any particular version, feature or store listing will remain available.</p>
+
+        <h2>10. Disclaimer of warranties</h2>
+
+        <p>The App is provided <strong>&ldquo;as is&rdquo; and &ldquo;as available&rdquo;</strong>, without warranty of any kind, express or implied, including any implied warranty of merchantability, fitness for a particular purpose or non-infringement. We do not warrant that the App will be uninterrupted or error-free, that every evaluation or hint is correct, or that it is compatible with every device.</p>
+
+        <p>Nothing here excludes rights you have as a consumer under the mandatory law of your country, including statutory warranty rights, which apply regardless of this section.</p>
+
+        <h2>11. Limitation of liability</h2>
+
+        <p>To the fullest extent permitted by law, we are not liable for indirect, incidental, special or consequential damages, nor for lost data, arising out of your use of or inability to use the App. Since the App is supplied free of charge, our total aggregate liability to you in connection with it is limited to the amount you paid for it &mdash; which is zero &mdash; or to the minimum that applicable law permits.</p>
+
+        <p>This limitation does not apply to liability for death or personal injury caused by negligence, for fraud, or to any other liability that cannot be excluded by law.</p>
+
+        <h2>12. The stores</h2>
+
+        <p>These Terms are between you and Dawikk, not with Google or Apple. The store from which you obtained the App is not responsible for it or for supporting it, and its own terms apply alongside these. On iOS, Apple and its subsidiaries are third-party beneficiaries of these Terms and may enforce them; and any claim about the App &mdash; product liability, a legal-compliance claim, or a claim under consumer-protection law &mdash; is directed to us, not to Apple.</p>
+
+        <h2>13. Termination</h2>
+
+        <p>You may end this licence at any time by uninstalling the App. We may end it if you materially breach these Terms. On termination, the rights granted in section 2 cease and you must stop using the App; sections 8 and 10 to 15 survive.</p>
+
+        <h2>14. Changes to these Terms</h2>
+
+        <p>We may update these Terms &mdash; for instance when a feature changes. The current version is always the one published on this page, with its effective date. Continued use of the App after a change means you accept the updated Terms; if you do not, uninstall the App.</p>
+
+        <h2>15. Governing law</h2>
+
+        <p>These Terms are governed by the law of the Republic of Poland, without regard to its conflict-of-law rules. If you are a consumer, you also keep the protection of the mandatory provisions of the law of your country of residence, and you may bring proceedings before the courts competent for you there.</p>
+
+        <div class="contact">
+            <h2>Contact</h2>
+            <p>Questions about these Terms, a bug in a puzzle, or an ad that should not be there?</p>
+            <p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">Xiangqi Master</a>
+                <a href="privacyPolicy.html">Privacy Policy</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dawikk.xiangqi">Google Play</a>
+            </div>
+            <p class="footer-note">&copy; Dawikk</p>
+        </footer>
+    </div>
+</body>
+</html>

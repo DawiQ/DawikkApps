@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Xiangqi Master</title>
+    <meta name="description" content="Privacy policy for the Xiangqi Master app. No account, no cloud, no analytics of our own - your games, ratings and settings stay on your device. Ads are served by Google AdMob under your consent choices.">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #12100d;
+            --surface: #1d1913;
+            --surface2: #262019;
+            --line: #322a20;
+            --line2: #453a2c;
+            --text: #f2e9d8;
+            --muted: #a3927a;
+            --red: #d9483c;
+            --red-soft: #7c2a23;
+            --gold: #dda94a;
+            --gold-soft: #7a5c24;
+            --warn: #e8b45c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            --han: 'Noto Serif TC', 'Songti TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(217, 72, 60, 0.10), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back { display: inline-block; font-size: 0.88rem; color: var(--muted); text-decoration: none; margin-bottom: 22px; }
+
+        .back:hover { color: var(--gold); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--red);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--gold); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(221, 169, 74, 0.07);
+            border: 1px solid var(--gold-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout h3 { margin-top: 0; color: var(--gold); }
+
+        .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(232, 180, 92, 0.06);
+            border: 1px solid rgba(232, 180, 92, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        th:first-child, td:first-child { width: 32%; }
+
+        tr:last-child td { border-bottom: none; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--gold);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; Back to Xiangqi Master</a>
+            <p class="app-name">Xiangqi Master</p>
+            <h1>Privacy Policy</h1>
+            <p class="effective"><strong>Effective date:</strong> 8 September 2026</p>
+        </header>
+
+        <p>This policy describes how the mobile application <strong>Xiangqi Master</strong> (the &ldquo;App&rdquo;), published by <strong>Dawikk</strong> (&ldquo;we&rdquo;), handles data. It covers the Android and iOS builds distributed under the identifier <code>com.dawikk.xiangqi</code>.</p>
+
+        <div class="callout">
+            <h3>In short</h3>
+            <p>There is <strong>no account and no server of ours</strong>. Your games, ratings, puzzle progress, streak and settings are written to storage on your own device and stay there. We run no analytics and no crash reporting, and we cannot see how you play.</p>
+            <p>The App is free and shows ads. Ads are served by <strong>Google AdMob</strong>, which does collect data from your device according to <em>your</em> consent choices &mdash; that is the one part of the App where information leaves the phone.</p>
+        </div>
+
+        <h2>1. What the App stores, and where</h2>
+
+        <p>Everything below is stored <strong>locally on your device</strong>. It is not uploaded, backed up to us, or shared with anyone.</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>What</th>
+                        <th>Where and why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Your games</td>
+                        <td>A local SQLite database on the device, so the history screen and the post-game review can replay them.</td>
+                    </tr>
+                    <tr>
+                        <td>Puzzle progress and hint use</td>
+                        <td>The same local database &mdash; which puzzles you solved and how.</td>
+                    </tr>
+                    <tr>
+                        <td>Your two ratings and your streak</td>
+                        <td>Local key&ndash;value storage on the device.</td>
+                    </tr>
+                    <tr>
+                        <td>Settings</td>
+                        <td>Local key&ndash;value storage: language, piece style, notation, sound, haptics, engine strength, reminder time.</td>
+                    </tr>
+                    <tr>
+                        <td>Your consent choices</td>
+                        <td>Recorded by the Google UMP consent SDK on the device, so you are not asked again on every launch.</td>
+                    </tr>
+                    <tr>
+                        <td>The engine file</td>
+                        <td>The chess engine ships inside the App and is unpacked into the App's own cache directory at first launch. It is a program file, not your data.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>We do not ask for your name, e-mail address, phone number, contacts, photos, microphone, camera or location, and the App has no field in which to type any of them.</p>
+
+        <h2>2. What we do NOT do</h2>
+
+        <ul>
+            <li>No account, no registration, no login.</li>
+            <li>No server of ours &mdash; there is nothing to sync to and nothing for us to read.</li>
+            <li>No analytics, telemetry or usage statistics of our own.</li>
+            <li>No crash-reporting SDK.</li>
+            <li>No advertising or marketing e-mail, because we have no address to send it to.</li>
+            <li>No sale of personal data. We have none to sell.</li>
+            <li>No location, contacts, photos, files, microphone or camera access.</li>
+        </ul>
+
+        <h2>3. Ads, and the choice you are given</h2>
+
+        <p>The App is free and is supported by advertising through <strong>Google AdMob</strong>. There is one anchored banner and one interstitial shown between games; neither ever covers a position on the board.</p>
+
+        <p>To serve an ad, the AdMob SDK sends information from your device to Google &mdash; typically an advertising identifier, IP address, device model, operating system version, coarse region and information about the ad itself (that it was requested, shown or tapped). What is collected depends on the choice you make:</p>
+
+        <ul>
+            <li><strong>In the European Economic Area, the UK and Switzerland</strong> you are shown Google's certified <strong>UMP consent form</strong> before ads are personalised. A short screen of our own explains what the form is about first; the actual accept-or-decline choice is made in Google's dialog, not in ours.</li>
+            <li><strong>On iOS</strong> the system <strong>App Tracking Transparency</strong> prompt asks whether the App may track you across other companies' apps and websites. If you decline, you still see ads &mdash; they are simply not personalised.</li>
+            <li><strong>You can change your mind.</strong> Open <em>Settings &rarr; Ad privacy choices</em> in the App to reopen the consent form. On iOS, tracking permission is also under the system Settings for the App; on Android you can reset or delete your advertising ID in the device settings.</li>
+        </ul>
+
+        <p>Google acts as an independent controller for the data it collects this way. Its practices are described in <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses information from sites or apps that use our services</a> and in the <a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank" rel="noopener noreferrer">AdMob privacy information</a>.</p>
+
+        <h2>4. Third-party services</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Service</th>
+                        <th>What it is for and what it sees</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Google AdMob (Google Ireland Ltd. / Google LLC)</td>
+                        <td>Serves the banner and the interstitial. Receives device and ad-request data as described in section 3, subject to your consent choices. <a href="https://support.google.com/admob/answer/6128543?hl=en" target="_blank" rel="noopener noreferrer">Privacy information</a></td>
+                    </tr>
+                    <tr>
+                        <td>Google Play services / App Store</td>
+                        <td>Distribution, installation and updates of the App itself, plus aggregate, anonymous install and crash statistics that the stores produce for every app. We see only store-level aggregates, never an individual. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a> &middot; <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a></td>
+                    </tr>
+                    <tr>
+                        <td>Expo (Expo, Inc.) &mdash; over-the-air updates</td>
+                        <td>The App may check Expo's update server for a corrected JavaScript bundle. Such a request carries the technical data any HTTPS request carries &mdash; IP address, App version, platform and runtime version. No game data is sent. <a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">Expo privacy policy</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>There is no other SDK in the App. In particular there is <strong>no billing or subscription SDK</strong>, no social login, and no third-party analytics.</p>
+
+        <h2>5. Permissions and why they are asked for</h2>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Internet access</td>
+                        <td>Only to fetch ads and, occasionally, an App update. The game itself &mdash; engine, puzzles, lessons and review &mdash; runs offline.</td>
+                    </tr>
+                    <tr>
+                        <td>Advertising ID (Android: <code>AD_ID</code>)</td>
+                        <td>Used by AdMob for ad delivery and frequency capping, within your consent choices. You can reset or delete it in the device settings.</td>
+                    </tr>
+                    <tr>
+                        <td>Notifications</td>
+                        <td>Only for the single daily reminder you ask for. It is scheduled <strong>on the device</strong>; there is no push server and we send nothing. Off until you turn it on, and removable at any time.</td>
+                    </tr>
+                    <tr>
+                        <td>App Tracking Transparency (iOS)</td>
+                        <td>The system prompt described in section 3. Declining costs you nothing in the game.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>6. Children</h2>
+
+        <p>The App is a board game with no chat, no user-generated content, no social features and no way for one player to reach another. It is not directed at children under 13, and we do not knowingly collect personal information from them.</p>
+
+        <p>Because the App shows ads, we ask the ad network to treat requests in line with the store's family policies and with your consent choices. If you are a parent or guardian and believe a child has provided personal information through the App, write to us at <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> and we will act &mdash; noting that, as described above, we hold no such data ourselves.</p>
+
+        <h2>7. Data retention and deletion</h2>
+
+        <p>Because all of your data lives on your device, you control it entirely:</p>
+
+        <ul>
+            <li><strong>Uninstalling the App deletes everything it stored</strong> &mdash; games, ratings, puzzle progress, streak, settings and the unpacked engine file.</li>
+            <li>Clearing the App's storage in the device settings has the same effect without removing the App.</li>
+            <li>There is nothing on our side to request the deletion of, because nothing of yours reaches us. Data collected by Google through AdMob is handled under Google's own policy and its controls, linked above.</li>
+        </ul>
+
+        <div class="warn-panel">
+            <h3>Device backups</h3>
+            <p>If your phone backs itself up (Android Auto Backup, iCloud), that backup may include the App's local data. Those backups belong to Google or Apple and to you, not to us, and are governed by their policies.</p>
+        </div>
+
+        <h2>8. Security</h2>
+
+        <p>Data stored by the App is protected by the operating system's own application sandbox, which keeps other apps out. Network requests made by the ad and update SDKs use HTTPS. No system is perfect &mdash; but the honest reassurance here is that there is very little to protect: the App holds no identity, no credentials and no personal information about you.</p>
+
+        <h2>9. Your rights (GDPR and similar laws)</h2>
+
+        <p>Where the GDPR applies, we are the controller for the App, and our lawful basis for the local processing described in section 1 is the performance of the game you asked for. Ads are served on the basis of your <strong>consent</strong>, which you may withdraw at any time via <em>Settings &rarr; Ad privacy choices</em>.</p>
+
+        <p>You have the rights of access, rectification, erasure, restriction, objection and portability. In practice, for the App itself, all of them are satisfied by the device in your hand: the data is on it, visible in the App, and deleted with the App. For data Google collects through AdMob, please use Google's own controls or contact Google, which is the controller for that processing. You also have the right to lodge a complaint with your local supervisory authority.</p>
+
+        <h2>10. Changes to this policy</h2>
+
+        <p>This policy may be updated &mdash; for example if a service is added to or removed from the App. The new version is published on this page with a new effective date. Continued use of the App after a change means acceptance of the updated policy.</p>
+
+        <h2>11. Your consent</h2>
+
+        <p>By using the App you agree to the handling of information described here.</p>
+
+        <div class="contact">
+            <h2>Contact</h2>
+            <p>Questions about privacy in Xiangqi Master?</p>
+            <p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">Xiangqi Master</a>
+                <a href="termsOfUse.html">Terms of Use</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dawikk.xiangqi">Google Play</a>
+            </div>
+            <p class="footer-note">&copy; Dawikk</p>
+        </footer>
+    </div>
+</body>
+</html>

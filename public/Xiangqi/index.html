@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xiangqi Master - Chinese Chess with a real engine and real English</title>
+    <meta name="description" content="Xiangqi Master is a Chinese Chess app with a genuine Elo scale (600-2500), post-game AI review, verified mate puzzles with a hint ladder, Chinese notation and proper English. Plays offline, no account.">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #12100d;
+            --bg2: #191510;
+            --surface: #1d1913;
+            --surface2: #262019;
+            --line: #322a20;
+            --line2: #453a2c;
+            --text: #f2e9d8;
+            --muted: #a3927a;
+            --red: #d9483c;
+            --red-soft: #7c2a23;
+            --gold: #dda94a;
+            --gold-soft: #7a5c24;
+            --on-red: #fff4ee;
+            --ok: #6fbf73;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            --han: 'Noto Serif TC', 'Songti TC', 'PingFang TC', 'Microsoft JhengHei', serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 520px at 50% -10%, rgba(217, 72, 60, 0.14), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 880px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- hero --- */
+        header { text-align: center; padding: 60px 0 40px; }
+
+        .logo {
+            width: 92px;
+            height: 92px;
+            margin: 0 auto 24px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #f0e2c4, #d8c39a);
+            border: 3px solid #b99a63;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo span {
+            font-family: var(--han);
+            font-size: 3rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--red);
+        }
+
+        h1 { font-size: 2.9rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
+
+        .tagline {
+            color: var(--gold);
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .lede {
+            font-size: 1.12rem;
+            color: var(--muted);
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .lede strong { color: var(--text); font-weight: 600; }
+
+        /* --- CTA --- */
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin: 32px 0 12px;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 28px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .cta svg { width: 20px; height: 20px; }
+
+        .cta-primary {
+            color: var(--on-red);
+            background: linear-gradient(135deg, var(--red), #b8362c);
+            box-shadow: 0 12px 30px rgba(217, 72, 60, 0.28);
+        }
+
+        .cta-secondary {
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--line2);
+        }
+
+        .cta:hover { transform: translateY(-2px); }
+        .cta-primary:hover { box-shadow: 0 18px 40px rgba(217, 72, 60, 0.38); }
+        .cta-secondary:hover { border-color: var(--gold-soft); }
+
+        .platform-note { text-align: center; font-size: 0.85rem; color: var(--muted); }
+
+        /* --- statystyki --- */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin: 34px 0 10px;
+        }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 12px;
+            text-align: center;
+        }
+
+        .stat .value {
+            font-family: var(--mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+        }
+
+        .stat .label { font-size: 0.78rem; color: var(--muted); line-height: 1.4; margin-top: 4px; display: block; }
+
+        /* --- sekcje --- */
+        section { margin: 54px 0; }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2 .num {
+            font-family: var(--han);
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--red);
+            border: 1px solid var(--red-soft);
+            border-radius: 6px;
+            padding: 1px 9px;
+            flex-shrink: 0;
+        }
+
+        .section-sub { color: var(--muted); margin-bottom: 22px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 8px; }
+
+        .card p { color: var(--muted); font-size: 0.97rem; }
+
+        .card p + p { margin-top: 10px; }
+
+        .card strong { color: var(--text); font-weight: 600; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+        .grid .card { margin-bottom: 0; }
+
+        .badge {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(221, 169, 74, 0.08);
+            border: 1px solid var(--gold-soft);
+            border-radius: 6px;
+            padding: 2px 8px;
+            margin-bottom: 12px;
+        }
+
+        /* --- tabela „zwykle / u nas" --- */
+        .table-wrap { overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+
+        th, td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        th:first-child, td:first-child { width: 44%; }
+
+        tr:last-child td { border-bottom: none; }
+
+        /* --- listy funkcji --- */
+        ul.features { list-style: none; }
+
+        ul.features li {
+            position: relative;
+            padding: 11px 0 11px 30px;
+            color: var(--muted);
+            font-size: 0.97rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        ul.features li:last-child { border-bottom: none; }
+
+        ul.features li::before {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 20px;
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            border: 2px solid var(--red);
+        }
+
+        ul.features li strong { color: var(--text); font-weight: 600; }
+
+        /* --- notacja --- */
+        .notation {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin: 4px 0 4px;
+        }
+
+        .move {
+            text-align: center;
+            background: var(--surface2);
+            border: 1px solid var(--line2);
+            border-radius: 12px;
+            padding: 14px 22px;
+            min-width: 128px;
+        }
+
+        .move .cn { font-family: var(--han); font-size: 1.5rem; color: var(--text); display: block; }
+
+        .move .cn.black { color: var(--muted); }
+
+        .move .coord { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); display: block; margin-top: 2px; }
+
+        /* --- „bez haczyków" --- */
+        .no-catch { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+        .no-catch div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 16px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font-size: 0.94rem;
+            font-weight: 500;
+        }
+
+        .no-catch div::before { content: '\2713'; color: var(--ok); font-weight: 700; flex-shrink: 0; }
+
+        /* --- stopka --- */
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 62px;
+            padding: 40px 0 56px;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px 22px;
+            margin-bottom: 22px;
+        }
+
+        a { color: var(--gold); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--gold);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .footer-note { color: var(--muted); font-size: 0.86rem; }
+
+        .footer-note + .footer-note { margin-top: 6px; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2.1rem; }
+            .grid, .no-catch { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .card { padding: 20px; }
+            .cta { width: 100%; justify-content: center; }
+            th:first-child, td:first-child { width: 42%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><span>&#28846;</span></div>
+            <h1>Xiangqi Master</h1>
+            <p class="tagline">Chinese Chess &middot; Xiangqi &middot; 象棋</p>
+            <p class="lede">Chinese Chess written for people who read English &mdash; with a <strong>real engine</strong>, a <strong>real Elo scale</strong> and a review that tells you what you should have played instead. Plays entirely offline, with no account and no daily limits.</p>
+
+            <div class="cta-row">
+                <a class="cta cta-primary" href="https://play.google.com/store/apps/details?id=com.dawikk.xiangqi">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    Get it on Google Play
+                </a>
+                <a class="cta cta-secondary" href="#features">See what it does</a>
+            </div>
+
+            <p class="platform-note">Free. Supported by one banner and one interstitial between games &mdash; never over the board.</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="value">600&ndash;2500</span>
+                <span class="label">Elo range of the engine</span>
+            </div>
+            <div class="stat">
+                <span class="value">42</span>
+                <span class="label">double-verified mate puzzles</span>
+            </div>
+            <div class="stat">
+                <span class="value">10</span>
+                <span class="label">lessons from board to mate</span>
+            </div>
+            <div class="stat">
+                <span class="value">3</span>
+                <span class="label">languages: EN, Tiếng Việt, 繁體中文</span>
+            </div>
+        </div>
+
+        <section id="features">
+            <h2><span class="num">一</span> A difficulty setting that means something</h2>
+            <p class="section-sub">Not &ldquo;pretty girl&rdquo; and &ldquo;old man&rdquo; &mdash; a number you can compare with your own.</p>
+
+            <div class="card">
+                <span class="badge">Fairy-Stockfish, on your phone</span>
+                <p>The opponent is <strong>Fairy-Stockfish</strong> playing the xiangqi variant, and the strength slider drives its real <code>UCI_Elo</code> limiter from <strong>600 to 2500</strong>. Pick 1100 and you get an opponent that plays like 1100, not like a name someone invented for a menu.</p>
+                <p>The engine runs on the device. There is no server between you and your move, so it works on a plane, on the underground and with the phone in airplane mode.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">二</span> A review that says what to have played</h2>
+            <p class="section-sub">Every finished game against the engine can be replayed with the engine's own reading of it.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>The evaluation graph</h3>
+                    <p>See where the game turned. The graph marks the moment the position slipped, so you look at the move that lost it &mdash; not the move you lost on.</p>
+                </div>
+                <div class="card">
+                    <h3>Every move classified</h3>
+                    <p>Best, good, inaccuracy, mistake, blunder &mdash; and for each mistake, the move the engine wanted, played out on the board so you can see the idea rather than read a code.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">三</span> Puzzles that do not punish one slip</h2>
+            <p class="section-sub">Forced mates in one, two and three &mdash; generated, then verified twice.</p>
+
+            <div class="card">
+                <p>Every puzzle was checked by the engine for a <strong>unique fastest mate</strong> (a second, equally fast move would make the answer ambiguous) and then replayed through the app's own rules engine, which has to agree that the line ends in checkmate. Positions must also be legally reachable &mdash; no elephant across the river, no soldier that changed file before crossing it.</p>
+                <p><strong>The first wrong move costs nothing.</strong> The board shows what you played in a quiet colour and lets you carry on. Miss twice and the puzzle is a miss.</p>
+                <p>Stuck instead of wrong? The <strong>hint ladder</strong> has three rungs &mdash; the idea in words, then the piece to move, then the move itself &mdash; and each rung halves what solving is worth. A solve with hints is still a solve: the tick, the progress and the day on your streak all count. The screen tells you what the rating change will be in real numbers.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">四</span> The moves, written the way the game writes them</h2>
+            <p class="section-sub">炮二平五, with the coordinates set small beneath.</p>
+
+            <div class="card">
+                <div class="notation">
+                    <div class="move">
+                        <span class="cn">炮二平五</span>
+                        <span class="coord">h2e2</span>
+                    </div>
+                    <div class="move">
+                        <span class="cn black">馬８進７</span>
+                        <span class="coord">b9c7</span>
+                    </div>
+                    <div class="move">
+                        <span class="cn">前車進一</span>
+                        <span class="coord">i2i3</span>
+                    </div>
+                </div>
+                <p style="margin-top:16px">Files are counted from each player's own right, Red in Chinese numerals and Black in full-width Arabic ones; a chariot or cannon moving along a file names a <em>number of ranks</em>, while a horse or elephant names its <em>destination file</em>. Two of a kind on one file become 前 and 後.</p>
+                <p>Settings collapse the record to Chinese notation alone or to coordinates alone, whichever you read faster.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2><span class="num">五</span> Everything else it does</h2>
+
+            <div class="card">
+                <ul class="features">
+                    <li><strong>Asian rules, not western ones</strong> &mdash; perpetual check loses, as the rules require. Plain repetition is still a draw.</li>
+                    <li><strong>Your own rating</strong> &mdash; two of them, actually: one for games and one for puzzles, because solving a forced mate and holding a position for forty moves are not the same skill. The first ten games move it twice as far, so a badly chosen starting point corrects itself in an evening.</li>
+                    <li><strong>Hot-seat two-player</strong> &mdash; one phone, two people, and you choose Red or Black against the engine.</li>
+                    <li><strong>Learn</strong> &mdash; ten lessons from the board and the river through each piece's move to check and mate, every goal move verified against the rules engine.</li>
+                    <li><strong>Hanzi or western letters</strong> &mdash; the pieces read 車馬炮 or R H C, on a switch, for as long as you need it.</li>
+                    <li><strong>The Chronicle</strong> &mdash; a streak with three doors: the daily problem, a lesson <em>or</em> a game. No red counter, no warning that it is about to break, and no way to buy one back.</li>
+                    <li><strong>One reminder a day</strong>, at an hour you pick, off until you ask for it. It is a local notification &mdash; nothing is sent anywhere.</li>
+                    <li><strong>Sound and touch</strong> &mdash; five wood-and-bell cues plus haptics, both switchable off. Sound follows the silent switch and mixes with your music instead of interrupting it.</li>
+                    <li><strong>History</strong> &mdash; every game stored on the device, replayable move by move, in Chinese notation.</li>
+                    <li><strong>Written English</strong> &mdash; and Tiếng Việt and 繁體中文. The two non-English files are the author's drafts rather than translations by a xiangqi player who speaks the language, and the app says so on its own language screen.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>What people complain about, and what we did</h2>
+
+            <div class="table-wrap card" style="padding:8px 4px">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>The usual complaint</th>
+                            <th>Xiangqi Master</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Machine-translated English</td>
+                            <td>Written in English from the first screen, with a test that fails the build on a missing or empty string.</td>
+                        </tr>
+                        <tr>
+                            <td>Vague difficulty levels</td>
+                            <td>A genuine Elo scale, 600 to 2500, driving the engine's own strength limiter.</td>
+                        </tr>
+                        <tr>
+                            <td>No analysis after the game</td>
+                            <td>Evaluation graph, every move classified, and the move you should have played.</td>
+                        </tr>
+                        <tr>
+                            <td>Pop-up ads over the board</td>
+                            <td>One anchored banner in its own row and one interstitial between games. Never over a position.</td>
+                        </tr>
+                        <tr>
+                            <td>Daily limits on play or puzzles</td>
+                            <td>None. Play and solve as much as you like.</td>
+                        </tr>
+                        <tr>
+                            <td>One wrong move ends the puzzle</td>
+                            <td>A free first miss, then a three-rung hint ladder.</td>
+                        </tr>
+                        <tr>
+                            <td>Repetition scored like western chess</td>
+                            <td>Perpetual check loses, as the Asian rules require.</td>
+                        </tr>
+                        <tr>
+                            <td>Moves shown as &ldquo;h2e2&rdquo;</td>
+                            <td>炮二平五, with the coordinates beneath &mdash; or either one alone.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2>No catches</h2>
+            <div class="no-catch">
+                <div>No account, no sign-in</div>
+                <div>No cloud &mdash; your games stay on the phone</div>
+                <div>Plays fully offline</div>
+                <div>No daily limits</div>
+                <div>No pop-ups over the board</div>
+                <div>Everything unlocked, nothing to buy today</div>
+            </div>
+            <p class="section-sub" style="margin-top:16px">The app is free and shows ads. There is no purchase inside it: the review and the harder puzzles that a paid tier would have gated are simply available to everyone.</p>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="privacyPolicy.html">Privacy Policy</a>
+                <a href="termsOfUse.html">Terms of Use</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dawikk.xiangqi">Google Play</a>
+                <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>
+            </div>
+            <p class="footer-note">The engine is Fairy-Stockfish (GPLv3), run as a separate component and never linked into the app. Its source and build recipe ship with the project.</p>
+            <p class="footer-note">&ldquo;Xiangqi&rdquo; and &ldquo;Chinese Chess&rdquo; are used descriptively; the rules of the game are in the public domain.</p>
+            <p class="footer-note">&copy; Dawikk</p>
+        </footer>
+    </div>
+</body>
+</html>
