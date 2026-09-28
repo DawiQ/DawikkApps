@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulamin – Bulgot</title>
+    <meta name="description" content="Regulamin aplikacji Bulgot – dziennika fermentacji: licencja, bezpieczeństwo żywności, granice wskazówek, kopia zapasowa i odpowiedzialność.">
+    <meta name="theme-color" content="#0F1110">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #0f1110;
+            --bg2: #131614;
+            --surface: #181b19;
+            --surface2: #1e221f;
+            --line: #262a27;
+            --line2: #343934;
+            --text: #e8eae7;
+            --muted: #a7ada8;
+            --signal: #e9b949;
+            --signal-soft: #7a5f25;
+            --on-signal: #0f1110;
+            --ok: #4cc38a;
+            --warn: #e9b949;
+            --crit: #e7565a;
+            --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(233, 185, 73, 0.08), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-bottom: 22px;
+        }
+
+        .back:hover { color: var(--signal); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--signal);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(233, 185, 73, 0.06);
+            border: 1px solid var(--signal-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--signal); }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(233, 185, 73, 0.06);
+            border: 1px solid rgba(233, 185, 73, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        /* Kolumna z nazwami danych/uprawnień: wąska, ale tekst w niej ma się zawijać —
+           bez tego lista uprawnień w jednej linii rozpycha tabelę i dusi opis obok. */
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--signal);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a class="back" href="./">&larr; Bulgot</a>
+            <p class="app-name">Bulgot</p>
+            <h1>Regulamin</h1>
+            <p class="effective"><strong>Data wejścia w życie:</strong> 28 września 2026</p>
+        </header>
+
+        <div class="callout">
+            <p>Niniejszy Regulamin („Regulamin”) to umowa między Tobą a <strong>Dawikk</strong> („my”, „Usługodawca”) dotycząca korzystania z aplikacji mobilnej <strong>Bulgot – dziennik fermentacji</strong> („Aplikacja”). Instalując lub używając Aplikacji, akceptujesz Regulamin. Jeśli się z nim nie zgadzasz, nie korzystaj z Aplikacji.</p>
+        </div>
+
+        <h2>1. Licencja</h2>
+
+        <p>Aplikacja jest udostępniana <strong>bezpłatnie</strong>, bez reklam, bez subskrypcji i bez zakupów w aplikacji. Usługodawca udziela Ci <strong>ograniczonej, niewyłącznej, nieprzenoszalnej i odwoływalnej licencji</strong> na zainstalowanie i używanie Aplikacji na urządzeniach, które posiadasz lub którymi dysponujesz, na własny, niekomercyjny użytek.</p>
+
+        <p>Nazwa „Bulgot”, logo, materiały graficzne oraz treści Aplikacji – presety, wskazówki na dziś, opisy na ekranie „Coś nie tak?” – pozostają własnością Usługodawcy. Licencja dotyczy korzystania z Aplikacji i nie przenosi na Ciebie żadnych praw do tych oznaczeń ani treści.</p>
+
+        <h2>2. Bezpieczeństwo żywności – zasady, o których musisz pamiętać</h2>
+
+        <div class="warn-panel">
+            <h3>Aplikacja nie widzi Twojego słoika</h3>
+            <p>Bulgot jest dziennikiem i zbiorem wskazówek, a nie narzędziem do oceny bezpieczeństwa żywności. Decyzję, czy fermentat nadaje się do jedzenia lub picia, podejmujesz Ty. <strong>Przy wątpliwościach wyrzuć partię. Nie jest warta zatrucia.</strong></p>
+        </div>
+
+        <ul>
+            <li><strong>Wskazówki opisują typowe przebiegi.</strong> Rzeczywisty przebieg fermentacji zależy od temperatury, surowca, wody, soli, higieny naczyń i kultur, których Aplikacja nie zna. Czasy z presetów są orientacyjne, a nie gwarancją, że partia jest gotowa lub bezpieczna.</li>
+            <li><strong>Ekran „Coś nie tak?” nie jest diagnozą.</strong> Opisuje, co zwykle odróżnia kożuch drożdżowy od pleśni i inne częste objawy, żebyś mógł rozstrzygnąć sam. Zdjęcie w Aplikacji nie jest przez nią analizowane.</li>
+            <li><strong>Pleśń oznacza koniec partii.</strong> Na kiszonkach wyrzuć całą zawartość razem z solanką; przy kombuchy – napój i SCOBY. Nie zbieraj pleśni łyżką w nadziei, że reszta jest dobra.</li>
+            <li><strong>Gnilny zapach, śluz z nieprzyjemnym zapachem, nietypowe przebarwienia</strong> – to sygnały, żeby partię wyrzucić, niezależnie od tego, co mówi dzień w Aplikacji.</li>
+            <li><strong>Kalkulatory liczą to, co wpiszesz.</strong> Sprawdź wynik, zanim odważysz sól – błąd we wpisanej wadze warzyw daje błąd w soli, a za mała ilość soli sprzyja niepożądanym drobnoustrojom.</li>
+            <li><strong>Szczególną ostrożność</strong> zachowaj, jeśli jesteś w ciąży, karmisz piersią, masz obniżoną odporność, chorujesz przewlekle lub przygotowujesz fermentaty dla dzieci – w razie wątpliwości skonsultuj się z lekarzem. Kombucha i piwo mogą zawierać alkohol.</li>
+            <li><strong>Fermentacja w zamkniętych butelkach</strong> (np. druga faza kombuchy, piwo) wytwarza ciśnienie. Używaj butelek przeznaczonych do napojów gazowanych i odgazowuj je – pęknięta butelka może zranić.</li>
+            <li><strong>Piwo warzone w domu</strong> podlega przepisom kraju, w którym mieszkasz; odpowiadasz za ich przestrzeganie. Wartości ABV w Aplikacji są szacunkiem wyliczonym z wpisanych gęstości.</li>
+        </ul>
+
+        <h2>3. Wskazówki, przypomnienia i bilans</h2>
+
+        <p>Przypomnienia o karmieniu, sprawdzaniu i próbowaniu są liczone z danych, które wpiszesz, i z typowych czasów dla presetów. Powiadomienia są planowane przez system telefonu, który może je opóźnić lub pominąć (np. w trybie oszczędzania baterii albo gdy odmówisz zgody na powiadomienia). Nie opieraj się wyłącznie na nich, jeśli spóźnienie ma dla Ciebie znaczenie.</p>
+
+        <p>Wnioski w bilansie (np. porównanie średnich ocen partii z różną ilością soli) są prostym zestawieniem Twoich własnych ocen. Przy niewielkiej liczbie partii mogą wynikać z przypadku – traktuj je jako podpowiedź, a nie regułę.</p>
+
+        <h2>4. Twoje dane i kopia zapasowa</h2>
+
+        <p>Aplikacja nie ma konta, serwera ani chmury – wszystkie dane są przechowywane wyłącznie na Twoim urządzeniu. Szczegóły opisuje <a href="privacyPolicy.html">Polityka prywatności</a>.</p>
+
+        <ul>
+            <li><strong>Odpowiadasz za kopię zapasową.</strong> Odinstalowanie Aplikacji, wyczyszczenie jej danych, utrata lub zniszczenie telefonu kasują dane bezpowrotnie. Nie mamy ich kopii i nie jesteśmy w stanie ich odtworzyć. Regularnie eksportuj kopię zapasową i przechowuj ją poza telefonem.</li>
+            <li><strong>Wczytanie kopii</strong> dopisuje brakujące dane i niczego nie nadpisuje. Wpisy uszkodzone lub niepasujące do żadnej partii mogą zostać pominięte – Aplikacja informuje o tym przed wczytaniem.</li>
+            <li><strong>Plik kopii i karta partii</strong> po wyeksportowaniu są Twoimi plikami. Za to, komu je przekażesz i co zawierają (notatki, zdjęcia), odpowiadasz Ty.</li>
+        </ul>
+
+        <h2>5. Dozwolone korzystanie</h2>
+
+        <p>Zobowiązujesz się nie:</p>
+
+        <ul>
+            <li>modyfikować, dekompilować ani odtwarzać kodu źródłowego Aplikacji, z wyjątkiem przypadków dozwolonych przez bezwzględnie obowiązujące przepisy;</li>
+            <li>rozpowszechniać, sprzedawać ani udostępniać Aplikacji lub jej treści (w tym presetów i wskazówek) jako własnych;</li>
+            <li>używać Aplikacji w sposób niezgodny z prawem.</li>
+        </ul>
+
+        <p>Karty partii, które tworzysz ze swoich zdjęć i danych, możesz swobodnie udostępniać.</p>
+
+        <h2>6. Konto i płatności</h2>
+
+        <p>Aplikacja nie wymaga konta i nie pobiera żadnych opłat. Nie zawiera reklam, subskrypcji ani zakupów w aplikacji. Jeśli w przyszłości pojawiłaby się jakakolwiek funkcja płatna, zostanie wyraźnie oznaczona, a ten Regulamin zaktualizowany, zanim taka wersja trafi do sklepu.</p>
+
+        <h2>7. Dostępność i aktualizacje</h2>
+
+        <p>Aplikacja działa bez dostępu do internetu. Możemy wydawać aktualizacje, które zmieniają, dodają lub usuwają funkcje, a także zakończyć rozwój lub dystrybucję Aplikacji. Nie gwarantujemy, że Aplikacja będzie działać na każdym urządzeniu i każdej wersji systemu. Staramy się, aby aktualizacje nie usuwały zapisanych danych, ale przed aktualizacją warto mieć świeżą kopię zapasową.</p>
+
+        <h2>8. Wyłączenie gwarancji</h2>
+
+        <p>Aplikacja jest dostarczana <strong>„tak jak jest”</strong> i „w miarę dostępności”, bez jakichkolwiek gwarancji – wyraźnych ani dorozumianych – w tym gwarancji przydatności do określonego celu, poprawności wskazówek, presetów i wyników kalkulatorów, ciągłości działania ani braku błędów. Treści Aplikacji mają charakter informacyjny i nie stanowią porady medycznej, dietetycznej ani z zakresu bezpieczeństwa żywności.</p>
+
+        <h2>9. Ograniczenie odpowiedzialności</h2>
+
+        <p>W najszerszym zakresie dozwolonym przez prawo Usługodawca nie ponosi odpowiedzialności za szkody wynikłe z korzystania z Aplikacji, w szczególności za: skutki spożycia żywności lub napojów przygotowanych z użyciem Aplikacji, zepsute lub nieudane partie, straty surowców, obrażenia spowodowane przez naczynia pod ciśnieniem, niedostarczone lub spóźnione przypomnienia, błędy we wpisanych danych i wynikach kalkulatorów ani utratę danych zapisanych w Aplikacji.</p>
+
+        <p>Ponieważ Aplikacja jest bezpłatna, nie istnieje świadczenie, którego zwrotu można by żądać. Powyższe ograniczenia nie wyłączają odpowiedzialności, której zgodnie z bezwzględnie obowiązującymi przepisami – w tym przepisami o ochronie konsumentów oraz za szkodę wyrządzoną umyślnie lub na osobie – wyłączyć nie można.</p>
+
+        <h2>10. Zmiany Regulaminu</h2>
+
+        <p>Regulamin może zostać zaktualizowany. O zmianach informujemy przez publikację nowej wersji na tej stronie wraz z nową datą wejścia w życie. Dalsze korzystanie z Aplikacji po zmianie oznacza akceptację nowej wersji.</p>
+
+        <h2>11. Prawo właściwe</h2>
+
+        <p>Regulamin podlega prawu polskiemu. Jeśli jesteś konsumentem, zachowujesz ochronę wynikającą z bezwzględnie obowiązujących przepisów kraju swojego zwykłego pobytu. Jeżeli którekolwiek postanowienie Regulaminu okaże się nieważne, pozostałe zachowują moc.</p>
+
+        <div class="contact">
+            <h2>Kontakt</h2>
+            <p>Pytania, uwagi, błąd we wskazówkach? Napisz:</p>
+            <p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="./">Bulgot</a>
+                <a href="privacyPolicy.html">Polityka prywatności</a>
+            </div>
+            <p class="footer-note">&copy; Dawikk &middot; Bulgot</p>
+        </footer>
+    </div>
+</body>
+</html>

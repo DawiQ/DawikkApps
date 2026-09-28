@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polityka prywatności – Bulgot</title>
+    <meta name="description" content="Polityka prywatności aplikacji Bulgot – dziennika fermentacji. Bez konta, bez serwera, bez reklam i analityki: wszystkie dane zostają na telefonie.">
+    <meta name="theme-color" content="#0F1110">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #0f1110;
+            --bg2: #131614;
+            --surface: #181b19;
+            --surface2: #1e221f;
+            --line: #262a27;
+            --line2: #343934;
+            --text: #e8eae7;
+            --muted: #a7ada8;
+            --signal: #e9b949;
+            --signal-soft: #7a5f25;
+            --on-signal: #0f1110;
+            --ok: #4cc38a;
+            --warn: #e9b949;
+            --crit: #e7565a;
+            --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(233, 185, 73, 0.08), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-bottom: 22px;
+        }
+
+        .back:hover { color: var(--signal); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--signal);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(233, 185, 73, 0.06);
+            border: 1px solid var(--signal-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--signal); }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(233, 185, 73, 0.06);
+            border: 1px solid rgba(233, 185, 73, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        /* Kolumna z nazwami danych/uprawnień: wąska, ale tekst w niej ma się zawijać —
+           bez tego lista uprawnień w jednej linii rozpycha tabelę i dusi opis obok. */
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--signal);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a class="back" href="./">&larr; Bulgot</a>
+            <p class="app-name">Bulgot</p>
+            <h1>Polityka prywatności</h1>
+            <p class="effective"><strong>Data wejścia w życie:</strong> 28 września 2026</p>
+        </header>
+
+        <div class="callout">
+            <h3>Krótko: aplikacja nie zbiera o Tobie niczego</h3>
+            <p>Bulgot – dziennik fermentacji („Aplikacja”) jest tworzony przez <strong>Dawikk</strong> („my”, „Usługodawca”) i udostępniany bezpłatnie, w stanie „tak jak jest”. Aplikacja <strong>nie ma konta użytkownika, nie ma serwera, nie wysyła danych do chmury, nie zawiera reklam ani analityki i nie oferuje płatności</strong>. Wszystko, co zapiszesz – partie, kultury, pomiary, notatki i zdjęcia – zostaje w pamięci Twojego telefonu.</p>
+            <p>Nie mamy technicznej możliwości zobaczenia Twoich danych – nie dlatego, że obiecujemy tego nie robić, tylko dlatego, że nie istnieje serwer, na który mogłyby trafić. Możesz to sprawdzić bez wiary na słowo: <strong>włącz tryb samolotowy i używaj Aplikacji jak zwykle</strong>. Zadziała tak samo, bo presety, wskazówki i kalkulatory są wbudowane w Aplikację.</p>
+        </div>
+
+        <h2>1. Jakie dane powstają i gdzie są przechowywane</h2>
+
+        <p>Aplikacja zapisuje dane wyłącznie <strong>lokalnie na urządzeniu</strong>, w prywatnej pamięci aplikacji: w lokalnej bazie danych SQLite oraz – w przypadku zdjęć – w prywatnym katalogu dokumentów aplikacji. Żaden z tych zapisów nie opuszcza telefonu, chyba że sam go udostępnisz (patrz punkt 5).</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Dane</th><th>Skąd pochodzą i po co są</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Partie fermentacji</td><td>Typ, preset, nazwa, daty, parametry (np. procent soli, proporcja karmienia, faza kombuchy, OG/FG) – wpisane przez Ciebie. Na nich opiera się dzień partii, wskazówki na dziś i terminy przypomnień.</td></tr>
+                    <tr><td>Pomiary i obserwacje</td><td>Temperatura, pH, gęstość, wzrost startera oraz obserwacje wybrane jednym dotknięciem. Służą do wykresów, porównania partii i bilansu.</td></tr>
+                    <tr><td>Kultury</td><td>Zakwas, SCOBY, ziarna kefiru: data założenia, historia karmień, rodowód i powiązane partie.</td></tr>
+                    <tr><td>Zdjęcia</td><td>Zrobione aparatem albo wybrane z galerii przy wpisie. Aplikacja zapisuje własną kopię zdjęcia w swoim prywatnym katalogu, żeby nie zniknęła, gdy system wyczyści pliki tymczasowe.</td></tr>
+                    <tr><td>Oceny i notatki</td><td>Ocena 1–5, przyczyny niepowodzenia i notatka na przyszłość przy zakończeniu partii. Na nich liczony jest wniosek w bilansie.</td></tr>
+                    <tr><td>Przypomnienia</td><td>Terminy karmienia, sprawdzania i próbowania wyliczone z danych partii – do powiadomień lokalnych.</td></tr>
+                    <tr><td>Ustawienia</td><td>Motyw (jasny/ciemny/systemowy), język i podobne preferencje.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Nie musisz wpisywać żadnych danych osobowych, żeby korzystać z Aplikacji. Jeśli sam umieścisz je w notatce albo na zdjęciu, zostają one – jak cała reszta – wyłącznie na Twoim urządzeniu.</p>
+
+        <h2>2. Czego NIE zbieramy</h2>
+
+        <div class="panel">
+            <ul>
+                <li><strong>Nie zakładasz konta</strong> – nie prosimy o e-mail, imię ani logowanie Google/Apple.</li>
+                <li><strong>Nie ma analityki ani telemetrii</strong> – Aplikacja nie zawiera SDK typu Firebase Analytics, Google Analytics, Sentry, Amplitude ani żadnego innego narzędzia zliczającego użycie.</li>
+                <li><strong>Nie ma reklam</strong> – Aplikacja nie zawiera AdMob ani innej sieci reklamowej, więc nie ma też identyfikatorów reklamowych.</li>
+                <li><strong>Nie zbieramy lokalizacji</strong> – Aplikacja nie prosi o uprawnienie lokalizacji.</li>
+                <li><strong>Nie nagrywamy dźwięku</strong> – uprawnienie mikrofonu jest w Aplikacji zablokowane.</li>
+                <li><strong>Nie przeglądamy Twojej galerii</strong> – Aplikacja widzi tylko to zdjęcie, które sam wybierzesz, i tylko w chwili wyboru.</li>
+                <li><strong>Nie zbieramy listy kontaktów ani historii przeglądania.</strong></li>
+                <li><strong>Nie ma płatności</strong> – Aplikacja nie ma subskrypcji ani zakupów w aplikacji, więc nie przetwarzamy żadnych danych płatniczych.</li>
+                <li><strong>Nie ma powiadomień push</strong> – przypomnienia to powiadomienia lokalne planowane w systemie telefonu, bez serwera i bez tokenu push.</li>
+            </ul>
+        </div>
+
+        <h2>3. Usługi zewnętrzne</h2>
+
+        <p>Aplikacja nie osadza żadnego zestawu SDK, który wysyłałby Twoje dane do nas lub do osób trzecich. Poniższe podmioty mają jednak styczność z dystrybucją Aplikacji i działają na podstawie własnych polityk prywatności, na które nie mamy wpływu:</p>
+
+        <ul>
+            <li><a href="https://www.google.com/policies/privacy/" target="_blank" rel="noopener noreferrer">Google Play</a> – sklep, z którego pobierasz i aktualizujesz Aplikację. Google zna fakt instalacji i może zbierać raporty o awariach oraz statystyki wydajności zgodnie z ustawieniami Twojego urządzenia i konta Google. Dzieje się to na poziomie systemu i sklepu, a nie w kodzie Aplikacji; my otrzymujemy z tego wyłącznie zagregowane, anonimowe statystyki w konsoli Google Play (np. liczba instalacji, zagregowane raporty awarii bez danych identyfikujących).</li>
+            <li><a href="https://expo.dev/privacy" target="_blank" rel="noopener noreferrer">Expo</a> – framework, w którym zbudowana jest Aplikacja. Używamy go do budowania paczki; w wersji produkcyjnej nie włączamy aktualizacji przez sieć ani żadnej usługi Expo zbierającej dane w czasie działania Aplikacji.</li>
+        </ul>
+
+        <h2>4. Uprawnienia i po co są</h2>
+
+        <p>O każde uprawnienie Aplikacja pyta dopiero wtedy, gdy jest potrzebne – nie przy pierwszym uruchomieniu. Odmowa nie blokuje reszty Aplikacji.</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Uprawnienie</th><th>Po co</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Aparat<br>(<code>CAMERA</code>)</td><td>Zrobienie zdjęcia słoika, zakwasu czy kombuchy i dołączenie go do wpisu. Pytamy dopiero po wybraniu „zrób zdjęcie”. Bez zgody zdjęcie można nadal dodać z galerii albo nie dodawać go wcale.</td></tr>
+                    <tr><td>Zdjęcia / galeria</td><td>Wybranie istniejącego zdjęcia do wpisu. Na nowszych wersjach Androida używany jest systemowy wybór zdjęć, który przekazuje Aplikacji wyłącznie wskazany plik – bez dostępu do reszty galerii.</td></tr>
+                    <tr><td>Powiadomienia<br>(<code>POST_NOTIFICATIONS</code>)</td><td>Przypomnienia o karmieniu, sprawdzaniu i próbowaniu. O zgodę pytamy przy planowaniu pierwszego przypomnienia. Bez niej terminy są nadal widoczne na pulpicie Aplikacji – znika tylko powiadomienie.</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Uprawnienie do mikrofonu (<code>RECORD_AUDIO</code>) jest w Aplikacji wprost zablokowane i nie może zostać przyznane.</p>
+
+        <h2>5. Kiedy dane opuszczają telefon</h2>
+
+        <p>Są dwa takie momenty i zawsze uruchamiasz je Ty:</p>
+
+        <ul>
+            <li><strong>Karta partii</strong> – Aplikacja składa na telefonie obraz PNG ze zdjęciem, parametrami i oceną partii i przekazuje go do systemowego okna udostępniania.</li>
+            <li><strong>Kopia zapasowa</strong> – Aplikacja zapisuje jeden plik JSON z Twoimi partiami, kulturami, pomiarami, notatkami i przypomnieniami (a jeśli tak wybierzesz – także ze zdjęciami) i przekazuje go do systemowego okna udostępniania.</li>
+        </ul>
+
+        <p>To Ty decydujesz, dokąd plik trafi – do znajomego, na Twój dysk w chmurze, do poczty albo nigdzie. Plik nie trafia do nas i nie przechodzi przez żaden nasz serwer. Od chwili, w której przekażesz go innej aplikacji lub usłudze, dotyczą go zasady tej aplikacji lub usługi.</p>
+
+        <div class="warn-panel">
+            <h3>Kopia zapasowa nie jest szyfrowana</h3>
+            <p>Plik kopii to zwykły tekst w formacie JSON. Każdy, kto go dostanie, może odczytać jego zawartość, w tym notatki i – jeśli je dołączyłeś – zdjęcia. Przechowuj go tam, gdzie przechowujesz inne prywatne pliki. Zdjęcia mogą też zawierać metadane zapisane przez aparat telefonu.</p>
+        </div>
+
+        <p><strong>Wczytanie kopii</strong> działa w drugą stronę: wybierasz plik w systemowym oknie wyboru plików, a Aplikacja odczytuje tylko ten plik. Import dopisuje brakujące dane i niczego nie nadpisuje.</p>
+
+        <h2>6. Przechowywanie i usuwanie danych</h2>
+
+        <p>Skoro nie mamy serwera, nie przechowujemy Twoich danych ani przez chwilę i nie mamy czego usuwać na Twoją prośbę. Danymi na telefonie sterujesz w całości sam:</p>
+
+        <ul>
+            <li>usuń pojedynczą partię, kulturę, wpis albo zdjęcie bezpośrednio w Aplikacji;</li>
+            <li>usuń wszystko naraz w <em>Ustawienia &rarr; Dane &rarr; Wyczyść wszystkie dane</em> w Aplikacji;</li>
+            <li>albo przez <em>Ustawienia systemu &rarr; Aplikacje &rarr; Bulgot &rarr; Pamięć &rarr; Wyczyść dane</em>;</li>
+            <li>odinstalowanie Aplikacji kasuje wszystkie jej dane wraz z nią – bezpowrotnie, jeśli nie masz kopii zapasowej.</li>
+        </ul>
+
+        <p>Pliki kopii zapasowej, które wyeksportowałeś, oraz karty partii wysłane innym osobom nie są usuwane razem z Aplikacją – leżą tam, dokąd je wysłałeś.</p>
+
+        <p>Jeśli masz włączoną systemową kopię zapasową Androida lub iCloud, kopia danych Aplikacji może trafić na Twoje konto Google albo Apple. To mechanizm systemu operacyjnego, sterowany ustawieniami Twojego telefonu, a nie funkcja Bulgota.</p>
+
+        <h2>7. Dzieci</h2>
+
+        <p>Aplikacja nie jest kierowana do dzieci poniżej 13. roku życia i świadomie nie zbiera od nich żadnych danych. Ponieważ Aplikacja nie zbiera danych osobowych od nikogo, nie gromadzi ich również od dzieci. Jeśli mimo to masz pytania w tej sprawie jako rodzic lub opiekun, napisz na <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+
+        <h2>8. Bezpieczeństwo</h2>
+
+        <p>Dane Aplikacji leżą w jej prywatnym katalogu, chronionym przez system operacyjny i niedostępnym dla innych aplikacji na urządzeniu bez uprawnień administratora (root/jailbreak). Największą ochroną prywatności jest tutaj sama architektura: brak serwera to brak bazy do wycieku. Pamiętaj jednak, że bezpieczeństwo danych zależy też od zabezpieczenia samego telefonu (blokada ekranu, aktualizacje systemu) i od tego, gdzie przechowujesz wyeksportowane kopie.</p>
+
+        <h2>9. Twoje prawa (RODO)</h2>
+
+        <p>Mieszkańcom Europejskiego Obszaru Gospodarczego przysługują prawa dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz sprzeciwu wobec przetwarzania. W przypadku Bulgota realizujesz je bezpośrednio i natychmiast: dane są w Twoim telefonie, więc masz do nich pełny dostęp, możesz je poprawić lub usunąć w każdej chwili, a kopia zapasowa w otwartym formacie JSON pozwala je przenieść. Nie jesteśmy administratorem żadnych Twoich danych osobowych, bo ich nie otrzymujemy.</p>
+
+        <p>Jeśli uważasz, że coś w tym opisie nie zgadza się ze stanem faktycznym, napisz do nas – sprawdzimy to i poprawimy.</p>
+
+        <h2>10. Zmiany polityki prywatności</h2>
+
+        <p>Polityka może zostać zaktualizowana, np. gdy Aplikacja zyska nową funkcję. O zmianach informujemy przez publikację nowej wersji na tej stronie wraz z nową datą wejścia w życie. Jeśli kiedykolwiek Aplikacja miałaby zacząć przesyłać jakiekolwiek dane poza urządzenie, opiszemy to tutaj, zanim taka wersja trafi do sklepu.</p>
+
+        <h2>11. Zgoda</h2>
+
+        <p>Korzystając z Aplikacji, akceptujesz zasady opisane w tej Polityce prywatności.</p>
+
+        <div class="contact">
+            <h2>Kontakt</h2>
+            <p>Pytania o prywatność w Bulgocie? Napisz:</p>
+            <p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="./">Bulgot</a>
+                <a href="termsOfUse.html">Regulamin</a>
+            </div>
+            <p class="footer-note">&copy; Dawikk &middot; Bulgot</p>
+        </footer>
+    </div>
+</body>
+</html>
