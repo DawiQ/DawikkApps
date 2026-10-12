@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy – Restie</title>
+    <meta name="description" content="Privacy policy of Restie, the baby sleep tracker: what stays on your phone, what is stored when you turn on family sync, how purchases of Restie Unlimited are handled and how to delete your data.">
+    <meta name="theme-color" content="#110F1E">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <a class="brand" href="./"><span class="brand-mark">☾</span> Restie</a>
+        <nav class="nav-links">
+            <a href="./#faq">Help</a>
+            <a href="termsOfUse.html">Terms</a>
+            <a href="deleteAccount.html">Delete account</a>
+        </nav>
+    </div>
+
+    <header class="doc">
+        <div class="eyebrow">Restie</div>
+        <h1>Privacy Policy</h1>
+        <p class="effective">Effective date: 12 October 2026</p>
+    </header>
+
+    <div class="callout">
+        <h3>In short</h3>
+        <ul>
+            <li>Restie works fully <strong>without an account</strong>. Without one, everything you log stays on your phone.</li>
+            <li>Only if you turn on <strong>Family &amp; sync</strong> are your child's entries stored on our servers (Google Cloud, Warsaw, Poland), with your explicit consent, so the other caregivers see them.</li>
+            <li>There are <strong>no ads</strong>, no advertising IDs and no tracking. We do not sell data.</li>
+            <li>Anonymous usage statistics and crash reports are <strong>off until you allow them</strong>, and never include names, dates, notes or entries.</li>
+            <li>Purchases of Restie Unlimited are made through the App Store or Google Play and processed by RevenueCat. We never see your card details.</li>
+            <li>You can delete your account in the app at any time: <strong>Settings → Family &amp; sync → Delete account</strong>.</li>
+        </ul>
+    </div>
+
+    <nav class="toc" aria-label="Contents">
+        <ol>
+            <li><a href="#who">Who we are</a></li>
+            <li><a href="#local">Data on your phone</a></li>
+            <li><a href="#sync">Family &amp; sync (account)</a></li>
+            <li><a href="#purchases">Purchases (Restie Unlimited)</a></li>
+            <li><a href="#analytics">Usage statistics and crash reports</a></li>
+            <li><a href="#notifications">Notifications</a></li>
+            <li><a href="#exports">Exports and backups</a></li>
+            <li><a href="#processors">Service providers</a></li>
+            <li><a href="#bases">Legal bases</a></li>
+            <li><a href="#retention">How long we keep data</a></li>
+            <li><a href="#rights">Your rights</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#changes">Changes</a></li>
+        </ol>
+    </nav>
+
+    <h2 id="who">1. Who we are</h2>
+    <p>Restie (the “App”) is a baby sleep, feeding and nappy tracker developed by <strong>Dawikk Apps</strong> (“we”, “us”), who is the controller of the personal data described here. Contact for anything about privacy: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+    <p>The App is meant for parents and other adult caregivers. The person using it is the adult; the child is the person the entries are about.</p>
+
+    <h2 id="local">2. Data on your phone</h2>
+    <p>Everything you enter is saved in the App's private storage on your device. Without an account none of it leaves the phone, except when you export or share it yourself (section 7).</p>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Data</th><th>What it is used for</th></tr></thead>
+            <tbody>
+                <tr><td>Child profile</td><td>Name, date of birth, due date and prematurity (optional), gender (optional), avatar colour, usual bedtime and wake-up time. Used for age-appropriate sleep norms, nap windows and forecasts.</td></tr>
+                <tr><td>Entries</td><td>Sleep (start, end, bedtime), feeds (type, side, amount), nappies and notes. Used for the timeline, history, statistics, forecasts and the PDF report.</td></tr>
+                <tr><td>Tasks and notes</td><td>Tasks, notes and shift hand-overs you write, with due dates and reminders.</td></tr>
+                <tr><td>Settings</td><td>Language, theme, clock format, reminder preferences, your answer about usage statistics.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>On Android, the App allows the system backup to your Google account only when it is end-to-end encrypted with your screen lock, and allows phone-to-phone transfer. On iOS, App data may be included in your iCloud or device backup according to your phone's settings.</p>
+
+    <h2 id="sync">3. Family &amp; sync (account)</h2>
+    <p>Sync is optional. When you turn it on, you sign in with <strong>Apple</strong> or <strong>Google</strong> and tick a separate consent to store your child's entries on our servers. Restie has no password of its own.</p>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Data</th><th>Details</th></tr></thead>
+            <tbody>
+                <tr><td>Account</td><td>A user ID created by Firebase Authentication, the ID of your Apple or Google account, the email address that provider shares (with Apple you can hide it) and sign-in times. We do not store your email or name in the sync database.</td></tr>
+                <tr><td>Consent</td><td>The version of the consent you accepted and when.</td></tr>
+                <tr><td>Family</td><td>Members (up to 6), their role (owner or caregiver), the name each person chose to be shown as (e.g. “Mum”, “Grandma”) and when they joined.</td></tr>
+                <tr><td>Children, entries, tasks</td><td>The same data as in section 2, plus who logged or changed an entry and when, so caregivers can see who did what.</td></tr>
+                <tr><td>Invites</td><td>Only a one-way hash of an invite code, who created it, and its expiry (24 hours) and use.</td></tr>
+                <tr><td>Push notifications</td><td>For each phone: a Firebase Cloud Messaging token, platform, language and whether notification content should be hidden on the lock screen.</td></tr>
+                <tr><td>Abuse protection</td><td>A counter of failed attempts to join a family (5 per hour), and Firebase App Check, which uses Play Integrity (Android) or App Attest (iOS) to confirm requests come from the genuine App.</td></tr>
+                <tr><td>Unlimited status</td><td>Whether your Restie Unlimited is active and until when, copied from RevenueCat, and which member's purchase the family uses (see section 4).</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Sync data is stored in <strong>Google Cloud Firestore and Cloud Functions in the europe-central2 region (Warsaw, Poland)</strong>. Everyone in your family sees the family's children, entries and tasks. The phone always keeps its own full copy, and the App keeps working offline.</p>
+    <p>Signing out stops sync and does not delete anything. Leaving a family removes you from it. Deleting your account is described in section 11 and on <a href="deleteAccount.html">this page</a>.</p>
+
+    <h2 id="purchases">4. Purchases (Restie Unlimited)</h2>
+    <p>Restie Unlimited is sold as an auto-renewing subscription (monthly or yearly) or a one-time lifetime purchase. Payment is handled entirely by the <strong>Apple App Store</strong> or <strong>Google Play</strong> under their own terms. We never receive your card or bank details.</p>
+    <p>To validate purchases and unlock features we use <strong>RevenueCat</strong> (RevenueCat, Inc., USA). The App sends RevenueCat:</p>
+    <ul>
+        <li>an app user ID: your Firebase user ID when you are signed in, otherwise a random anonymous ID generated by RevenueCat;</li>
+        <li>the store's purchase receipt or token, with product, price, currency, store country, purchase, renewal, trial and cancellation dates;</li>
+        <li>basic technical data: platform, OS and App version, and the device's IP address when connecting.</li>
+    </ul>
+    <p>When you are signed in, our server reads your subscription status from RevenueCat and stores whether Unlimited is active and until when. If you are in a family, every member gets Unlimited from one member's purchase; the others can see that it is active and the display name of the member who paid. The App shows your RevenueCat customer ID in Settings so support can find a purchase if you contact us.</p>
+    <p>Learn more: <a href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener noreferrer">RevenueCat privacy policy</a>.</p>
+
+    <h2 id="analytics">5. Usage statistics and crash reports</h2>
+    <p>The App uses <strong>Firebase Analytics</strong> and <strong>Firebase Crashlytics</strong> only if you allow it (the switch during onboarding is off by default; you can change it any time in <strong>Settings → Privacy</strong>). Until you answer, nothing is sent.</p>
+    <ul>
+        <li><strong>Usage statistics</strong>: which screens and features are used (e.g. “a sleep was logged from night mode”), an app instance ID, device model, OS version, App version, language and approximate country.</li>
+        <li><strong>Crash reports</strong>: the error, technical state of the App at the time, device model, OS and App version, and an installation ID.</li>
+    </ul>
+    <p>They <strong>never</strong> include names, dates of birth, notes, entry times, sleep durations or anything else describing your child's health. Collection of the advertising ID, IDFV and Android ID is turned off, as is ad personalisation.</p>
+
+    <h2 id="notifications">6. Notifications</h2>
+    <p>Nap-window, task and trial-end reminders are local notifications scheduled on your phone. With Family &amp; sync, the server sends push notifications to members when a task is given to them or a shift is handed over. You can hide the child's name and task text on the lock screen in <strong>Settings → Privacy</strong>, and turn notifications off in the App or system settings.</p>
+
+    <h2 id="exports">7. Exports and backups</h2>
+    <p>The PDF report for your paediatrician, the CSV export and the backup file are created on your phone and handed to the system share sheet. You decide where they go; they never pass through our servers. The files are not encrypted, so keep them where you keep other private files. Restoring reads only the file you pick.</p>
+
+    <h2 id="processors">8. Service providers</h2>
+    <p>We use these providers, each under its own privacy policy and a data processing agreement where they act on our behalf:</p>
+    <div class="table-wrap">
+        <table>
+            <thead><tr><th>Provider</th><th>Purpose</th><th>Location</th></tr></thead>
+            <tbody>
+                <tr><td>Google (Firebase: Authentication, Firestore, Cloud Functions, Cloud Messaging, App Check)</td><td>Account, sync, push notifications, abuse protection</td><td>Sync data: Warsaw, Poland. Authentication and messaging may be processed globally.</td></tr>
+                <tr><td>Google (Firebase Analytics, Crashlytics)</td><td>Opt-in usage statistics and crash reports</td><td>May be processed outside the EEA</td></tr>
+                <tr><td>Apple, Google</td><td>Sign in with Apple / Google; App Store and Google Play payments</td><td>Global</td></tr>
+                <tr><td>RevenueCat, Inc.</td><td>Validating purchases and subscription status</td><td>USA</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>Where data leaves the European Economic Area, the transfer relies on the EU–US Data Privacy Framework or the European Commission's Standard Contractual Clauses.</p>
+    <p>Policies: <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer">Firebase</a>, <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google</a>, <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple</a>, <a href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener noreferrer">RevenueCat</a>.</p>
+    <p>We do not sell or rent personal data and do not share it for advertising. We may disclose data if required by law.</p>
+
+    <h2 id="bases">9. Legal bases (GDPR)</h2>
+    <ul>
+        <li><strong>Your explicit consent</strong> (Art. 6(1)(a) and 9(2)(a)) to store your child's sleep, feeding and nappy entries on our servers for sync, and to send usage statistics and crash reports. You can withdraw it at any time (by deleting your account, or with the switch in Settings), without affecting earlier processing.</li>
+        <li><strong>Performance of a contract</strong> (Art. 6(1)(b)): providing the account, family sync and Restie Unlimited you bought.</li>
+        <li><strong>Legitimate interests</strong> (Art. 6(1)(f)): protecting the service from abuse (App Check, attempt limits) and handling support requests.</li>
+        <li><strong>Legal obligation</strong> (Art. 6(1)(c)): keeping purchase records as required by tax and accounting law.</li>
+    </ul>
+
+    <h2 id="retention">10. How long we keep data</h2>
+    <ul>
+        <li><strong>On your phone</strong>: until you delete it in the App or uninstall the App.</li>
+        <li><strong>Account and sync data</strong>: until you delete your account. Family data stays while the family has members; it is deleted when the last member leaves or the owner deletes the family. Deleted entries leave a marker so other phones learn about the deletion; markers are removed after 90 days.</li>
+        <li><strong>Invites</strong>: expire after 24 hours.</li>
+        <li><strong>Unlimited status on our server</strong>: deleted with your account.</li>
+        <li><strong>RevenueCat and store purchase records</strong>: kept by RevenueCat, Apple and Google as long as required for billing, refunds and legal obligations.</li>
+        <li><strong>Crash reports</strong>: 90 days. <strong>Usage statistics</strong>: no longer than 14 months.</li>
+        <li><strong>Support emails</strong>: as long as needed to resolve your request.</li>
+    </ul>
+
+    <h2 id="rights">11. Your rights</h2>
+    <p>You have the right to access, rectify, erase, restrict and port your data, to object to processing based on legitimate interests, and to withdraw consent. Most of it you can do directly in the App:</p>
+    <ul>
+        <li>edit or delete any entry, child or task;</li>
+        <li>export your data (CSV, PDF, backup file);</li>
+        <li>turn usage statistics and crash reports off in <strong>Settings → Privacy</strong>;</li>
+        <li>delete your account and its server data in <strong>Settings → Family &amp; sync → Delete account</strong> (details on <a href="deleteAccount.html">Delete account</a>);</li>
+        <li>delete RevenueCat purchase data linked to you, or anything else: write to <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</li>
+    </ul>
+    <p>We reply within one month. You may also lodge a complaint with a data protection authority; in Poland it is the President of the Personal Data Protection Office (UODO, <a href="https://uodo.gov.pl" target="_blank" rel="noopener noreferrer">uodo.gov.pl</a>).</p>
+
+    <h2 id="children">12. Children</h2>
+    <p>The App is intended for adults (18+) caring for a child, and is not directed at children. The child's data is entered and controlled by the parent or caregiver, who decides whether to sync it. If you believe a child has used the App to give us personal data, contact us and we will delete it.</p>
+
+    <h2 id="security">13. Security</h2>
+    <p>Connections use TLS. Server access is limited by security rules so that only members of a family can read its data, and only our Cloud Functions can change membership or Unlimited status. Requests must come from the genuine App (App Check). Sign-in tokens are stored by the system keychain/keystore. No system is perfectly secure, so please also protect your phone with a screen lock.</p>
+
+    <h2 id="changes">14. Changes</h2>
+    <p>We may update this policy, for example when the App gains a feature. The new version is published on this page with a new effective date; important changes are also announced in the App.</p>
+
+    <div class="contact">
+        <p>Questions about privacy in Restie?</p>
+        <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>
+    </div>
+
+    <footer class="site">
+        <span>&copy; 2026 Dawikk Apps · Restie</span>
+        <nav>
+            <a href="./">Restie</a>
+            <a href="termsOfUse.html">Terms of Use</a>
+            <a href="deleteAccount.html">Delete account</a>
+        </nav>
+    </footer>
+</div>
+</body>
+</html>
