@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Expressjs Hello World example to provide faster start deploying on Cyclic platform",
   "main": "server.js",
+  "engines": {
+    "node": "24.x"
+  },
   "scripts": {
     "serve": "nodemon --watch . server.js",
     "start": "node server.js",
