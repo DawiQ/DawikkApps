@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fianchetto - Chess game review, analysis and training from your own mistakes</title>
+    <meta name="description" content="Fianchetto is a personal chess coach on your phone: import your Lichess and Chess.com games, get a full engine review with a written story of the game, and train on puzzles built from your own mistakes. Two engines, fully offline, no account.">
+    <meta name="theme-color" content="#262421">
+    <meta property="og:title" content="Fianchetto - your personal chess coach">
+    <meta property="og:description" content="Game review, analysis and training from your own mistakes. Two engines, fully offline, no account.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #1f1d1a;
+            --bg2: #262421;
+            --surface: #2b2926;
+            --surface2: #34312d;
+            --line: #3a3733;
+            --line2: #4a4640;
+            --text: #f1efea;
+            --muted: #aaa49a;
+            --green: #81b64c;
+            --green-dark: #5d8c33;
+            --green-soft: rgba(129, 182, 76, 0.12);
+            --on-green: #1a2410;
+            --sq-light: #ebecd0;
+            --sq-dark: #779556;
+            --gold: #f0c24b;
+            --blunder: #e05a4f;
+            --mistake: #e6912c;
+            --inacc: #f2c94c;
+            --best: #81b64c;
+            --brilliant: #26c2a3;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background:
+                radial-gradient(900px 540px at 50% -10%, rgba(129, 182, 76, 0.16), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+        a { color: var(--green); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* --- nav --- */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            font-size: 0.92rem;
+        }
+
+        nav .brand { color: var(--text); font-weight: 700; display: flex; align-items: center; gap: 10px; }
+        nav .brand:hover { text-decoration: none; }
+        nav .links { display: flex; gap: 20px; }
+        nav .links a { color: var(--muted); }
+        nav .links a:hover { color: var(--text); text-decoration: none; }
+
+        .mini-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        /* --- hero --- */
+        header { text-align: center; padding: 44px 0 36px; }
+
+        .logo {
+            width: 104px;
+            height: 104px;
+            margin: 0 auto 26px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 18px 44px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.06);
+        }
+
+        .logo svg, .mini-logo svg { width: 100%; height: 100%; display: block; }
+
+        h1 { font-size: 3rem; font-weight: 800; letter-spacing: -1.2px; margin-bottom: 10px; }
+
+        .tagline {
+            color: var(--green);
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .lede { font-size: 1.14rem; color: var(--muted); max-width: 660px; margin: 0 auto; }
+        .lede strong { color: var(--text); font-weight: 600; }
+
+        .cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 32px 0 12px; }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .cta:hover { text-decoration: none; transform: translateY(-2px); }
+        .cta svg { width: 20px; height: 20px; }
+
+        .cta-primary {
+            color: var(--on-green);
+            background: var(--green);
+            box-shadow: 0 5px 0 var(--green-dark), 0 14px 30px rgba(129, 182, 76, 0.25);
+        }
+
+        .cta-primary:hover { box-shadow: 0 5px 0 var(--green-dark), 0 18px 40px rgba(129, 182, 76, 0.35); }
+
+        .cta-secondary { color: var(--text); background: var(--surface); border: 1px solid var(--line2); }
+        .cta-secondary:hover { border-color: var(--green); }
+
+        .platform-note { text-align: center; font-size: 0.86rem; color: var(--muted); }
+
+        /* --- stats --- */
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 34px 0 10px; }
+
+        .stat {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 12px;
+            text-align: center;
+        }
+
+        .stat .value { font-family: var(--mono); font-size: 1.5rem; font-weight: 700; color: var(--green); display: block; }
+        .stat .label { font-size: 0.78rem; color: var(--muted); line-height: 1.4; margin-top: 4px; display: block; }
+
+        /* --- loop --- */
+        .loop { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; counter-reset: step; }
+
+        .loop div {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 18px 16px 16px;
+            position: relative;
+            counter-increment: step;
+        }
+
+        .loop div::before {
+            content: counter(step);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--green);
+            color: var(--on-green);
+            font-weight: 800;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+
+        .loop h3 { font-size: 1rem; margin-bottom: 4px; }
+        .loop p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+        /* --- sections --- */
+        section { margin: 58px 0; scroll-margin-top: 16px; }
+
+        h2 { font-size: 1.55rem; font-weight: 750; letter-spacing: -0.3px; margin-bottom: 8px; }
+
+        .section-sub { color: var(--muted); margin-bottom: 22px; }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: 8px; }
+        .card p { color: var(--muted); font-size: 0.97rem; }
+        .card p + p { margin-top: 10px; }
+        .card strong { color: var(--text); font-weight: 600; }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .grid .card { margin-bottom: 0; }
+
+        .badge {
+            display: inline-block;
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--green);
+            background: var(--green-soft);
+            border: 1px solid rgba(129, 182, 76, 0.35);
+            border-radius: 6px;
+            padding: 2px 8px;
+            margin-bottom: 12px;
+        }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--green);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        /* --- review mock --- */
+        .review { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
+
+        .moves { list-style: none; font-size: 0.93rem; }
+
+        .moves li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--line);
+            color: var(--muted);
+        }
+
+        .moves li:last-child { border-bottom: none; }
+        .moves .san { font-family: var(--mono); color: var(--text); min-width: 86px; white-space: nowrap; }
+
+        .dot {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: #1b1b1b;
+        }
+
+        .dot.brilliant { background: var(--brilliant); }
+        .dot.best { background: var(--best); }
+        .dot.inacc { background: var(--inacc); }
+        .dot.mistake { background: var(--mistake); }
+        .dot.blunder { background: var(--blunder); color: #fff; }
+
+        .evalgraph { width: 100%; height: auto; display: block; border-radius: 10px; background: #1a1917; }
+
+        .acc { display: flex; gap: 10px; margin-top: 14px; }
+
+        .acc div {
+            flex: 1;
+            text-align: center;
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            padding: 10px 6px;
+        }
+
+        .acc .v { font-family: var(--mono); font-weight: 700; font-size: 1.2rem; display: block; }
+        .acc .l { font-size: 0.75rem; color: var(--muted); }
+
+        .quote {
+            border-left: 3px solid var(--green);
+            padding: 4px 0 4px 16px;
+            margin-top: 14px;
+            color: var(--text);
+            font-style: italic;
+            font-size: 0.96rem;
+        }
+
+        /* --- engines --- */
+        .engine-head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+        .engine-head h3 { margin-bottom: 0; }
+        .elo { font-family: var(--mono); color: var(--green); font-weight: 700; font-size: 0.9rem; white-space: nowrap; }
+
+        /* --- feature list --- */
+        ul.features { list-style: none; }
+
+        ul.features li {
+            position: relative;
+            padding: 11px 0 11px 30px;
+            color: var(--muted);
+            font-size: 0.97rem;
+            border-bottom: 1px solid var(--line);
+        }
+
+        ul.features li:last-child { border-bottom: none; }
+
+        ul.features li::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 19px;
+            width: 11px;
+            height: 11px;
+            background: var(--green);
+            transform: rotate(45deg);
+            border-radius: 2px;
+        }
+
+        ul.features li strong { color: var(--text); font-weight: 600; }
+
+        /* --- table --- */
+        .table-wrap { overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; }
+
+        td { color: var(--muted); }
+        td:first-child { color: var(--text); font-weight: 500; }
+        td.c { text-align: center; color: var(--text); white-space: nowrap; }
+        th.c { text-align: center; }
+        tr:last-child td { border-bottom: none; }
+
+        .yes { color: var(--green); font-weight: 700; }
+
+        /* --- no catches --- */
+        .no-catch { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+        .no-catch div {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 16px;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            font-size: 0.94rem;
+            font-weight: 500;
+        }
+
+        .no-catch div::before { content: '\2713'; color: var(--green); font-weight: 800; flex-shrink: 0; }
+
+        /* --- FAQ --- */
+        details {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        details[open] { border-color: var(--line2); }
+
+        summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 16px 48px 16px 18px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::after {
+            content: '+';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--green);
+            font-size: 1.3rem;
+            font-weight: 400;
+        }
+
+        details[open] summary::after { content: '\2212'; }
+
+        details .answer { padding: 0 18px 16px; color: var(--muted); font-size: 0.96rem; }
+        details .answer p + p, details .answer p + ul, details .answer ul + p { margin-top: 8px; }
+        details .answer ul { padding-left: 20px; }
+        details .answer strong { color: var(--text); font-weight: 600; }
+
+        /* --- contact --- */
+        .contact {
+            text-align: center;
+            background: linear-gradient(160deg, rgba(129, 182, 76, 0.14), rgba(129, 182, 76, 0.03));
+            border: 1px solid rgba(129, 182, 76, 0.3);
+            border-radius: 18px;
+            padding: 34px 24px;
+        }
+
+        .contact h2 { margin-bottom: 6px; }
+        .contact p { color: var(--muted); max-width: 560px; margin: 0 auto 18px; }
+        .contact .mail { font-size: 1.15rem; font-weight: 700; }
+        .contact .hint { font-size: 0.86rem; margin-top: 14px; margin-bottom: 0; }
+
+        /* --- footer --- */
+        footer { border-top: 1px solid var(--line); margin-top: 62px; padding: 40px 0 56px; text-align: center; }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 22px; }
+
+        .footer-note { color: var(--muted); font-size: 0.86rem; }
+        .footer-note + .footer-note { margin-top: 6px; }
+
+        @media (max-width: 760px) {
+            .loop { grid-template-columns: 1fr 1fr; }
+            .review { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 2.3rem; }
+            nav .links { display: none; }
+            .grid, .no-catch { grid-template-columns: 1fr; }
+            .stats { grid-template-columns: 1fr 1fr; }
+            .card { padding: 20px; }
+            .cta { width: 100%; justify-content: center; }
+        }
+
+        @media (max-width: 420px) {
+            .loop { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="fianchetto-logo" viewBox="0 0 64 64">
+                <rect width="64" height="64" fill="#779556"/>
+                <rect width="16" height="16" fill="#ebecd0"/>
+                <rect x="32" width="16" height="16" fill="#ebecd0"/>
+                <rect x="16" y="16" width="16" height="16" fill="#ebecd0"/>
+                <rect x="48" y="16" width="16" height="16" fill="#ebecd0"/>
+                <rect y="32" width="16" height="16" fill="#ebecd0"/>
+                <rect x="32" y="32" width="16" height="16" fill="#ebecd0"/>
+                <rect x="16" y="48" width="16" height="16" fill="#ebecd0"/>
+                <rect x="48" y="48" width="16" height="16" fill="#ebecd0"/>
+                <path d="M4 60 L60 4" stroke="#81b64c" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+                <g transform="translate(17 13)">
+                    <circle cx="15" cy="4" r="3.2" fill="#262421"/>
+                    <path d="M15 7 C7 14 7 24 10.5 28 L19.5 28 C23 24 23 14 15 7 Z" fill="#262421"/>
+                    <path d="M17.5 13 L13.5 19" stroke="#ebecd0" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="8" y="29" width="14" height="4" rx="1.5" fill="#262421"/>
+                    <rect x="5" y="34" width="20" height="5" rx="2" fill="#262421"/>
+                </g>
+            </symbol>
+        </defs>
+    </svg>
+
+    <div class="container">
+        <nav>
+            <a class="brand" href="#top"><span class="mini-logo"><svg><use href="#fianchetto-logo"/></svg></span>Fianchetto</a>
+            <div class="links">
+                <a href="#features">Features</a>
+                <a href="#unlimited">Unlimited</a>
+                <a href="#faq">FAQ</a>
+                <a href="#support">Support</a>
+            </div>
+        </nav>
+
+        <header id="top">
+            <div class="logo"><svg><use href="#fianchetto-logo"/></svg></div>
+            <h1>Fianchetto</h1>
+            <p class="tagline">Review &middot; Analyse &middot; Train</p>
+            <p class="lede">A personal chess coach on your phone. Import your <strong>Lichess</strong> and <strong>Chess.com</strong> games, get a full engine review that <strong>tells the story of the game</strong>, and train on puzzles built from <strong>your own mistakes</strong>. Two engines run on the device &mdash; nothing goes to a cloud, and there is no account.</p>
+
+            <div class="cta-row">
+                <a class="cta cta-primary" href="https://play.google.com/store/apps/details?id=com.dawikk.fianchetto">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    Get it on Google Play
+                </a>
+                <a class="cta cta-secondary" href="#features">See what it does</a>
+            </div>
+
+            <p class="platform-note">For Android, iPhone and iPad. Free with ads &mdash; Fianchetto Unlimited is optional.</p>
+        </header>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="value">2</span>
+                <span class="label">engines on the device: Caissa &amp; Arasan</span>
+            </div>
+            <div class="stat">
+                <span class="value">100%</span>
+                <span class="label">offline analysis, no cloud</span>
+            </div>
+            <div class="stat">
+                <span class="value">10</span>
+                <span class="label">move grades, from brilliant to blunder</span>
+            </div>
+            <div class="stat">
+                <span class="value">EN&nbsp;/&nbsp;PL</span>
+                <span class="label">interface and game narration</span>
+            </div>
+        </div>
+
+        <section id="features">
+            <h2>The loop that makes you better</h2>
+            <p class="section-sub">Not another puzzle database. Fianchetto learns from the games you actually played.</p>
+
+            <div class="loop">
+                <div>
+                    <h3>Import</h3>
+                    <p>Type your Lichess or Chess.com username, paste a link or a PGN file.</p>
+                </div>
+                <div>
+                    <h3>Review</h3>
+                    <p>Every move graded, accuracy per phase, key moments and a written story.</p>
+                </div>
+                <div>
+                    <h3>Train</h3>
+                    <p>Your mistakes become puzzles, served again with spaced repetition.</p>
+                </div>
+                <div>
+                    <h3>Track</h3>
+                    <p>A Game Score, a six-axis skill radar and one focus for the week.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>A game review that reads like a coach</h2>
+            <p class="section-sub">Numbers tell you that you lost. The review tells you where and why.</p>
+
+            <div class="review">
+                <div class="card">
+                    <span class="badge">Every move graded</span>
+                    <ul class="moves">
+                        <li><span class="dot brilliant">!!</span><span class="san">17. Rxe6!!</span> Brilliant &mdash; a real sacrifice that holds</li>
+                        <li><span class="dot best">&#9733;</span><span class="san">21. Qh5</span> Best move</li>
+                        <li><span class="dot inacc">?!</span><span class="san">24. a3</span> Inaccuracy &mdash; Nd4 was stronger</li>
+                        <li><span class="dot mistake">?</span><span class="san">29. Kh1</span> Mistake &mdash; allows &hellip;Rf2</li>
+                        <li><span class="dot blunder">??</span><span class="san">33. Qxb7</span> Blunder &mdash; drops the rook</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <span class="badge">Evaluation graph</span>
+                    <svg class="evalgraph" viewBox="0 0 300 120" preserveAspectRatio="none" role="img" aria-label="Example evaluation graph">
+                        <rect width="300" height="120" fill="#1a1917"/>
+                        <path d="M0 60 L20 58 L40 55 L60 57 L80 50 L100 44 L120 40 L140 30 L160 34 L180 38 L200 52 L220 56 L240 92 L260 98 L280 104 L300 108 L300 120 L0 120 Z" fill="#f1efea" opacity="0.9"/>
+                        <line x1="0" y1="60" x2="300" y2="60" stroke="#4a4640" stroke-width="1" stroke-dasharray="3 3"/>
+                        <circle cx="140" cy="30" r="5" fill="#26c2a3"/>
+                        <circle cx="200" cy="52" r="5" fill="#e6912c"/>
+                        <circle cx="240" cy="92" r="5" fill="#e05a4f"/>
+                    </svg>
+                    <div class="acc">
+                        <div><span class="v">86.4</span><span class="l">Opening</span></div>
+                        <div><span class="v">78.1</span><span class="l">Middlegame</span></div>
+                        <div><span class="v">61.9</span><span class="l">Endgame</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid" style="margin-top:14px">
+                <div class="card">
+                    <h3>The story of the game</h3>
+                    <p>After the review, Fianchetto writes the game up in <strong>chapters tied to the key moments</strong> &mdash; with arrows and highlights on the board &mdash; in English or Polish, in a <strong>popular</strong> or a <strong>technical</strong> tone.</p>
+                    <p class="quote">&ldquo;White won the opening battle, but the middlegame turned on move 29: Kh1 stepped away from the threat that wasn't there and let Black's rook in on f2.&rdquo;</p>
+                </div>
+                <div class="card">
+                    <h3>Quick or deep</h3>
+                    <p>A <strong>quick</strong> review catches the obvious errors and most tactics in seconds. Want more? <strong>Deepen</strong> the same game without starting over. Review a whole folder at once with <strong>batch analysis</strong>.</p>
+                    <p>Ten grades: brilliant, great, best, excellent, good, book, inaccuracy, mistake, blunder and <strong>missed win</strong> &mdash; plus accuracy, average centipawn loss and accuracy for the opening, middlegame and endgame separately.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Puzzles made from your own mistakes</h2>
+            <p class="section-sub">The positions you got wrong, coming back until you get them right.</p>
+
+            <div class="card">
+                <span class="badge">Spaced repetition</span>
+                <p>Every mistake found in a review becomes a puzzle: the position just before it, your side to move. Find the engine's move in up to three tries. Solve it first time and it comes back in days; miss it and it comes back <strong>tomorrow</strong>. It is the same idea flashcard apps use to make things stick &mdash; applied to your own games.</p>
+                <p><strong>Daily puzzles</strong> with a streak, a <strong>hard mode</strong> that asks for the whole engine line rather than just the first move, and filters by opening, tactical motif and game phase.</p>
+            </div>
+
+            <div class="grid">
+                <div class="card">
+                    <h3>Your openings</h3>
+                    <p>Every opening you actually play, sorted by how often. Win rate, accuracy, the moment you usually go wrong, recurring mistakes with board previews &mdash; and the puzzles from that opening, one tap away.</p>
+                </div>
+                <div class="card">
+                    <h3>Your game</h3>
+                    <p>A <strong>Game Score</strong> from 0 to 100, a playstyle badge, a six-axis skill radar, your strongest and weakest side, a tactics heatmap &mdash; and <strong>one focus for the week</strong>, the mistake you repeat the most.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Two engines, two characters</h2>
+            <p class="section-sub">One shows you the objectively best move. The other plays the way people do.</p>
+
+            <div class="grid">
+                <div class="card">
+                    <div class="engine-head"><h3>Caissa</h3><span class="elo">~3770 Elo</span></div>
+                    <p>A modern <strong>NNUE</strong> engine and one of the strongest in the world. Its neural network is downloaded once, on request, and then works offline. Use it when you want the truth about a position.</p>
+                </div>
+                <div class="card">
+                    <div class="engine-head"><h3>Arasan</h3><span class="elo">~2700 Elo</span></div>
+                    <p>A classical engine with a <strong>human character</strong>. Works the moment the app is installed, and supports a real strength limiter from 1000 to 2600 &mdash; a good sparring partner rather than a wall.</p>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top:14px">
+                <span class="badge">Play</span>
+                <p>Play against either engine at five levels &mdash; <strong>Beginner (~1000), Club Player (~1400), Intermediate (~1700), Advanced (~2000) and Expert (~2400)</strong> &mdash; with either colour, an optional evaluation bar, hints and live analysis. Or play against a <strong>human-like bot</strong> built on Maia-2, a neural network trained on Lichess games to play like people of a given rating &mdash; and see in Analyze and the review what a player at your level would most likely have played. Finished games go straight to the Library and into the review.</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Everything else it does</h2>
+
+            <div class="card">
+                <ul class="features">
+                    <li><strong>Free analysis board</strong> &mdash; a variation tree, several engine lines at once (MultiPV), evaluation in pawns, win chance or win/draw/loss, arrows and highlights. Sessions save themselves, so yesterday's position is still there.</li>
+                    <li><strong>Position editor and FEN/PGN</strong> &mdash; set up any position, paste or share FEN and PGN through the clipboard.</li>
+                    <li><strong>Threat goggles</strong> &mdash; optional highlighting of hanging pieces and your opponent's threats.</li>
+                    <li><strong>Library and folders</strong> &mdash; every imported game with players, ratings, opening, time control and result. Duplicates are detected on import.</li>
+                    <li><strong>Opponent scouting</strong> &mdash; import another player's games to see the openings they really play, their record by colour and time control, and the tactical weaknesses they repeat. Their games never end up in your puzzles.</li>
+                    <li><strong>One profile, two sites</strong> &mdash; link a Lichess and a Chess.com handle and the games of the same person are counted together.</li>
+                    <li><strong>Annotated games</strong> &mdash; comments, arrows, circles and NAG symbols, with your own variations branching off the game.</li>
+                    <li><strong>Engine articles</strong> &mdash; how Caissa and Arasan think, how strong they are and where they came from, built into the app.</li>
+                    <li><strong>One reminder a day</strong> at an hour you choose, off until you turn it on. It is a local notification &mdash; nothing is sent anywhere.</li>
+                    <li><strong>Light, dark or system theme</strong>, board themes, coordinates, sounds and haptics &mdash; all switchable.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="unlimited">
+            <h2>Free, and Fianchetto Unlimited</h2>
+            <p class="section-sub">The core of the app is free and stays free. Unlimited removes the ads and adds more of the same.</p>
+
+            <div class="table-wrap card" style="padding:8px 4px">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="c">Free</th>
+                            <th class="c">Unlimited</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Game import, review, story and batch analysis</td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Puzzles from your mistakes, openings, Game Score</td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Play against Caissa, Arasan and Maia</td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Engine lines at once</td>
+                            <td class="c">3 <small>(5 for a session with an ad)</small></td>
+                            <td class="c">5</td>
+                        </tr>
+                        <tr>
+                            <td>Live analysis depth</td>
+                            <td class="c">up to 28</td>
+                            <td class="c">up to 40</td>
+                        </tr>
+                        <tr>
+                            <td>Recurring mistakes</td>
+                            <td class="c">top 3 <small>(all for 24 h with an ad)</small></td>
+                            <td class="c">all</td>
+                        </tr>
+                        <tr>
+                            <td>Extra board themes, piece sets and app themes</td>
+                            <td class="c">preview <small>(try with an ad)</small></td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Maia bot characters: solid, aggressive, wild</td>
+                            <td class="c">natural <small>(others 24 h with an ad)</small></td>
+                            <td class="c"><span class="yes">&#10003;</span></td>
+                        </tr>
+                        <tr>
+                            <td>Hints while playing</td>
+                            <td class="c">limited <small>(+3 with an ad)</small></td>
+                            <td class="c">unlimited</td>
+                        </tr>
+                        <tr>
+                            <td>Streak freeze</td>
+                            <td class="c">with an ad</td>
+                            <td class="c">2 a month</td>
+                        </tr>
+                        <tr>
+                            <td>Shared game images</td>
+                            <td class="c">with watermark</td>
+                            <td class="c">clean</td>
+                        </tr>
+                        <tr>
+                            <td>Ads</td>
+                            <td class="c">banner, occasional interstitial</td>
+                            <td class="c">none</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="section-sub" style="margin-top:14px; font-size:0.9rem">Plans, prices and any free trial are shown in the app and in the store before you pay. Purchases are handled by Google Play or the App Store and can be restored on a new device from the Unlimited card in <em>Settings</em> (<em>Restore purchases</em>). Full details in the <a href="termsOfUse.html">Terms of Use</a>.</p>
+        </section>
+
+        <section>
+            <h2>No catches</h2>
+            <div class="no-catch">
+                <div>No account, no sign-in</div>
+                <div>No cloud &mdash; your games stay on your phone</div>
+                <div>Analysis works fully offline</div>
+                <div>No limit on games, reviews or puzzles</div>
+                <div>No paywall at start-up</div>
+                <div>Nothing free today goes behind a paywall</div>
+            </div>
+        </section>
+
+        <section id="faq">
+            <h2>Frequently asked questions</h2>
+            <p class="section-sub">Can't find the answer? Write to us &mdash; see <a href="#support">Support</a> below.</p>
+
+            <details>
+                <summary>How do I import my games from Lichess or Chess.com?</summary>
+                <div class="answer">
+                    <p>Open the <strong>Library</strong> tab and tap the import button. You can:</p>
+                    <ul>
+                        <li>enter your <strong>Lichess or Chess.com username</strong> to download your recent public games,</li>
+                        <li>paste a <strong>link to a single game</strong>,</li>
+                        <li>paste <strong>PGN</strong> text or pick a <strong>PGN file</strong> (one file may contain many games).</li>
+                    </ul>
+                    <p>No password or login is needed &mdash; only public games are downloaded. You can save your usernames in <em>Settings &rarr; Accounts</em>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>The import found no games. What's wrong?</summary>
+                <div class="answer">
+                    <p>Check the spelling of the username and that you picked the right site. Only <strong>finished, public</strong> games are available through the sites' public APIs &mdash; games in progress and some private or unrated games are not. Importing needs an internet connection; the analysis afterwards does not.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Why do I need to download Caissa's network?</summary>
+                <div class="answer">
+                    <p>Caissa evaluates positions with a neural network that is too large to ship inside the app. It is downloaded <strong>once</strong>, when you first choose Caissa, and then works offline. Until then you can use <strong>Arasan</strong>, which works straight after installation. You can delete the network to free space in Settings at any time.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Where do my puzzles come from?</summary>
+                <div class="answer">
+                    <p>From your reviewed games. Every inaccuracy, mistake or blunder <em>you</em> made becomes a puzzle. Review more games and you will get more puzzles. Games of opponents you are scouting are analysed too, but their mistakes never land in your training queue.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Is the analysis really offline? Is my data sent anywhere?</summary>
+                <div class="answer">
+                    <p>Yes, it is offline. Both engines are built into the app and run on your phone; positions are never sent to a server. Your games, reviews, puzzles and settings are stored only on your device. The network is used only to download games you ask for, to download the Caissa network and the Maia model once, to show ads, for purchases and &mdash; if you allow it &mdash; for anonymous usage statistics. Details are in the <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>How do I back up or move my games to a new phone?</summary>
+                <div class="answer">
+                    <p>Because there is no account or cloud, data is not synced automatically. You can share any game as <strong>PGN</strong> from the Library and import it on the new device. Your Lichess and Chess.com games can simply be imported again by username.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>I bought Fianchetto Unlimited. How do I get it on a new device?</summary>
+                <div class="answer">
+                    <p>Install the app with the same Google or Apple account you used to buy it, open the Unlimited card in <em>Settings</em> and tap <strong>Restore purchases</strong>. Purchases do not carry over between Android and iOS automatically &mdash; if you switch platforms, write to us with the <strong>customer ID</strong> shown on the Unlimited screen and we will help.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>How do I cancel my subscription or ask for a refund?</summary>
+                <div class="answer">
+                    <p>Subscriptions are managed by the store, not by the app:</p>
+                    <ul>
+                        <li><strong>Android:</strong> Google Play &rarr; profile icon &rarr; <a href="https://play.google.com/store/account/subscriptions">Payments &amp; subscriptions &rarr; Subscriptions</a>.</li>
+                        <li><strong>iPhone / iPad:</strong> Settings &rarr; your name &rarr; <a href="https://apps.apple.com/account/subscriptions">Subscriptions</a>.</li>
+                    </ul>
+                    <p>Cancel at least 24 hours before the renewal date to avoid being charged for the next period. Refunds are decided by Google Play or Apple under their own policies; Apple refunds can be requested at <a href="https://reportaproblem.apple.com/">reportaproblem.apple.com</a>. Uninstalling the app does <strong>not</strong> cancel a subscription.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>How do I change my ad and privacy choices?</summary>
+                <div class="answer">
+                    <p>Go to <em>Settings &rarr; Privacy &amp; data</em>. Use <strong>Ad privacy choices</strong> to change your advertising consent at any time, and switch off <strong>Share anonymous usage data</strong> if you prefer. On iOS the tracking permission is in the system Settings app under Privacy &amp; Security &rarr; Tracking.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>How do I delete my data?</summary>
+                <div class="answer">
+                    <p>Use <em>Settings &rarr; Privacy &amp; data &rarr; Delete all data</em>, or uninstall the app. There is no account and no copy on our side, so that removes everything. Note that this cannot be undone.</p>
+                </div>
+            </details>
+
+            <details>
+                <summary>Can I switch the language?</summary>
+                <div class="answer">
+                    <p>Yes &mdash; English and Polish, in <em>Settings</em>. The same switch changes both the interface and the game narration.</p>
+                </div>
+            </details>
+        </section>
+
+        <section id="support">
+            <div class="contact">
+                <h2>Support</h2>
+                <p>A bug, a game that was graded strangely, an idea or a question about a purchase &mdash; write to us and we'll get back to you.</p>
+                <a class="mail" href="mailto:dawikk.apps@gmail.com?subject=Fianchetto">dawikk.apps@gmail.com</a>
+                <p class="hint">For a purchase issue, include the <strong>customer ID</strong> from the Unlimited screen in Settings. For a review issue, attach the game's PGN.</p>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="privacyPolicy.html">Privacy Policy</a>
+                <a href="termsOfUse.html">Terms of Use</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dawikk.fianchetto">Google Play</a>
+                <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>
+            </div>
+            <p class="footer-note">Engines: Caissa (MIT, by Micha&lstrok; Witanowski) and Arasan (MIT, by Jon Dart). Human moves: Maia-2 (MIT, CSSLab, University of Toronto). Opening names from lichess-org/chess-openings (CC0).</p>
+            <p class="footer-note">Lichess and Chess.com are trademarks of their owners. Fianchetto is not affiliated with or endorsed by them.</p>
+            <p class="footer-note">&copy; 2026 Dawikk</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - Fianchetto</title>
+    <meta name="description" content="Terms of Use for the Fianchetto chess app: licence, advertising, the optional Fianchetto Unlimited subscription, open-source notices, warranties and liability.">
+    <meta name="theme-color" content="#262421">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #1f1d1a;
+            --surface: #2b2926;
+            --surface2: #34312d;
+            --line: #3a3733;
+            --line2: #4a4640;
+            --text: #f1efea;
+            --muted: #aaa49a;
+            --green: #81b64c;
+            --green-soft: rgba(129, 182, 76, 0.35);
+            --warn: #e6b45c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(129, 182, 76, 0.10), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 820px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back { display: inline-block; font-size: 0.88rem; color: var(--muted); text-decoration: none; margin-bottom: 22px; }
+        .back:hover { color: var(--green); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--green);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--green);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--green); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(129, 182, 76, 0.07);
+            border: 1px solid var(--green-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout h3 { margin-top: 0; color: var(--green); }
+        .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel h3 { margin-top: 0; }
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(230, 180, 92, 0.06);
+            border: 1px solid rgba(230, 180, 92, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+        .warn-panel p:last-child, .warn-panel ul:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+        td:first-child { color: var(--text); font-weight: 500; }
+        th:first-child, td:first-child { width: 32%; }
+        tr:last-child td { border-bottom: none; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--green);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer { border-top: 1px solid var(--line); margin-top: 44px; padding-top: 26px; text-align: center; }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; Back to Fianchetto</a>
+            <p class="app-name">Fianchetto</p>
+            <h1>Terms of Use</h1>
+            <p class="effective"><strong>Effective date:</strong> 13 October 2026</p>
+        </header>
+
+        <p>These Terms of Use (the &ldquo;Terms&rdquo;) govern your use of the mobile application <strong>Fianchetto</strong> (the &ldquo;App&rdquo;), published by <strong>Dawikk</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;) and distributed under the identifier <code>com.dawikk.fianchetto</code>. By installing or using the App you accept these Terms. If you do not accept them, do not use the App and uninstall it.</p>
+
+        <div class="callout">
+            <h3>The short version</h3>
+            <p>The App is a <strong>free, ad-supported</strong> chess trainer with an optional paid upgrade, <strong>Fianchetto Unlimited</strong>. There is no account. Your games stay on your device. Purchases are handled entirely by Google Play or the App Store, and a subscription renews automatically until you cancel it in the store.</p>
+        </div>
+
+        <h2>1. What the App is</h2>
+
+        <p>Fianchetto is a single-device chess training app. It lets you import chess games (from Lichess, Chess.com, links or PGN), review them with chess engines running on your device, read an automatically generated description of the game, analyse positions, play against computer opponents, and train on puzzles generated from your own games.</p>
+
+        <p>The App is <strong>not</strong> an online service: there are no accounts, no servers of ours holding your games, no online opponents, no chat and no way for one user to contact another.</p>
+
+        <h2>2. Licence</h2>
+
+        <p>We grant you a personal, non-exclusive, non-transferable, revocable licence to install and use the App on devices you own or control, for your own non-commercial use, in accordance with these Terms and with the rules of the store you obtained it from.</p>
+
+        <p>You may not:</p>
+
+        <ul>
+            <li>sell, rent, sub-license or otherwise distribute the App or a modified version of it;</li>
+            <li>reverse-engineer, decompile or disassemble the App, except to the extent that applicable law expressly permits this despite this restriction, and except for the open-source components described in section 9, whose own licences govern;</li>
+            <li>remove or obscure the advertising, or use the App with software intended to block, falsify or automatically interact with the ads;</li>
+            <li>circumvent the purchase or entitlement checks, or obtain paid features without paying for them;</li>
+            <li>use the App to break the law, to break the terms of service of Lichess or Chess.com, or in a way that interferes with anyone else's use of their device.</li>
+        </ul>
+
+        <div class="warn-panel">
+            <h3>Fair play</h3>
+            <p>The App is a tool for studying games <strong>after</strong> they are played. Using it &mdash; or any engine &mdash; for assistance during a game in progress, online or over the board, is cheating under the rules of every chess site and federation and may get your account closed or you disqualified. That is your responsibility, not ours.</p>
+        </div>
+
+        <h2>3. Age</h2>
+
+        <p>The App is suitable for a general audience and contains no chat, no user-generated content shared with others and no social features. It is not directed at children under 13. If you are a minor in your country, use the App and make purchases only with the consent of a parent or guardian, who accepts these Terms on your behalf.</p>
+
+        <h2>4. Advertising</h2>
+
+        <p>The free version of the App is funded by advertising served through <strong>Google AdMob</strong> and its mediation partners. This includes a banner, occasional full-screen ads between games against the engine, a native ad in the Library and <strong>optional rewarded ads</strong> that you choose to watch in exchange for a temporary benefit (for example more engine lines for a session, extra hints, or a time-limited trial of a premium theme).</p>
+
+        <p>A benefit earned by watching a rewarded ad lasts only for the period stated in the App, has no monetary value, cannot be transferred and may be withheld if the ad does not finish or fails to load.</p>
+
+        <p>Where required, you are asked for consent through Google's certified consent form, and on iOS through the system App Tracking Transparency prompt. You may change those choices at any time in <em>Settings &rarr; Privacy &amp; data &rarr; Ad privacy choices</em>. What ad-related data is collected and by whom is described in our <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+
+        <p>We do not choose, endorse or control the individual ads shown. Any dealing with an advertiser is between you and that advertiser.</p>
+
+        <h2>5. Fianchetto Unlimited (in-app purchases and subscriptions)</h2>
+
+        <p><strong>Fianchetto Unlimited</strong> is an optional upgrade that removes the ads and unlocks additional features &mdash; such as more engine lines, deeper live analysis, the full list of recurring mistakes, additional board themes, piece sets and app themes, bot characters, unlimited hints and streak freezes. The exact features are described in the App and on the <a href="index.html#unlimited">app page</a>. The core of the App &mdash; game import, game review, puzzles from your games, analysis and play against the engines &mdash; remains available without a purchase.</p>
+
+        <h3>5.1 Plans and price</h3>
+        <p>Unlimited may be offered as an <strong>auto-renewing subscription</strong> (for example monthly or yearly) and/or as a <strong>one-time purchase</strong> with no expiry. The plans available, their price in your currency, the length of each period and any free trial are shown on the purchase screen and in the store <strong>before</strong> you confirm. Prices may differ by country and may include taxes.</p>
+
+        <h3>5.2 Payment</h3>
+        <p>Payment is charged to your <strong>Google Play</strong> or <strong>Apple ID</strong> account at confirmation of purchase. We never see or store your payment details. Purchases are processed through RevenueCat, which records the purchase receipt against an anonymous identifier so that the App can confirm your entitlement.</p>
+
+        <h3>5.3 Automatic renewal</h3>
+        <ul>
+            <li>A subscription <strong>renews automatically</strong> at the end of each period, at the then-current price, unless you cancel it at least <strong>24 hours before the end of the current period</strong>.</li>
+            <li>Your account is charged for renewal within 24 hours before the end of the current period.</li>
+            <li>If we change the price of a subscription, the store will inform you in advance and, where the law or the store requires it, ask for your consent before the new price applies.</li>
+        </ul>
+
+        <h3>5.4 Free trials</h3>
+        <p>If a free trial is offered, it converts automatically into a paid subscription at the end of the trial unless you cancel at least 24 hours before it ends. Any unused part of a free trial is forfeited when you purchase a subscription. A trial may be limited to one per store account.</p>
+
+        <h3>5.5 Managing and cancelling</h3>
+        <p>You can manage or cancel a subscription in your store account settings:</p>
+        <ul>
+            <li><strong>Google Play:</strong> <a href="https://play.google.com/store/account/subscriptions">Payments &amp; subscriptions &rarr; Subscriptions</a>.</li>
+            <li><strong>App Store:</strong> Settings &rarr; your name &rarr; <a href="https://apps.apple.com/account/subscriptions">Subscriptions</a>.</li>
+        </ul>
+        <p>After cancellation, Unlimited stays active until the end of the period already paid for. <strong>Deleting or uninstalling the App does not cancel a subscription.</strong></p>
+
+        <h3>5.6 Refunds</h3>
+        <p>Because payment is taken by the store, refunds are handled by <strong>Google Play</strong> or <strong>Apple</strong> under their own refund policies; we cannot issue a refund directly. Apple refunds can be requested at <a href="https://reportaproblem.apple.com/">reportaproblem.apple.com</a>; Google Play refunds through your <a href="https://play.google.com/store/account/orderhistory">order history</a>. This does not limit any right of withdrawal or statutory remedy you have under the consumer law of your country.</p>
+
+        <div class="panel">
+            <h3>Right of withdrawal (EU / UK consumers)</h3>
+            <p>By confirming a purchase you request that the digital content be supplied immediately, and you acknowledge that you thereby lose your right of withdrawal once supply has begun, to the extent permitted by law. Where a store gives you a broader cancellation or refund right, that right applies.</p>
+        </div>
+
+        <h3>5.7 Restoring and moving purchases</h3>
+        <p>There is no account in the App. Unlimited is tied to the store account used to buy it and can be restored on another device using the same store account via <strong>Restore purchases</strong> in Settings. Purchases do not carry over between Google Play and the App Store; if you switch platforms, contact us with the customer ID shown in the App and we will try to help.</p>
+
+        <h3>5.8 When Unlimited ends</h3>
+        <p>When a subscription expires or is refunded, the paid features lock again and ads return. Your settings are kept: a premium theme or a setting above the free limit is remembered and simply falls back to its free equivalent until Unlimited is active again. None of your games, reviews or puzzles are deleted.</p>
+
+        <h3>5.9 Changes to Unlimited</h3>
+        <p>We may add features to Unlimited, change how they work or, for good reason (such as a technical, legal or security need, or a third-party component no longer being available), withdraw a feature. If a change materially reduces what an active subscription includes, you may cancel and, where the law requires, request a refund for the unused period. We will not move a feature that is free in the App today behind a paywall.</p>
+
+        <h2>6. Third-party services and downloads</h2>
+
+        <p>To import games, the App calls the public APIs of <strong>Lichess</strong> and <strong>Chess.com</strong> on your request. Those services are operated by third parties under their own terms; their availability, rate limits and the content of the games they return are outside our control. Lichess and Chess.com are trademarks of their respective owners, and the App is not affiliated with or endorsed by either.</p>
+
+        <p>The App may also download, on your request, the neural network used by the Caissa engine and the Maia-2 model used for human-like moves, from their public repositories. These downloads can be large; use Wi-Fi if your mobile data is limited.</p>
+
+        <h2>7. Your data and your device</h2>
+
+        <p>Your games, reviews, puzzles, statistics and settings are stored on your device. <strong>Uninstalling the App, clearing its storage or using &ldquo;Delete all data&rdquo; deletes them permanently.</strong> We hold no copy and cannot restore anything. If a game matters to you, export it as PGN.</p>
+
+        <p>You are responsible for having the right to import the games you import. Data handling is described in full in the <a href="privacyPolicy.html">Privacy Policy</a>, which forms part of these Terms.</p>
+
+        <h2>8. About the chess content</h2>
+
+        <div class="panel">
+            <h3>Engine evaluations and move grades</h3>
+            <p>Evaluations, move grades (such as &ldquo;brilliant&rdquo;, &ldquo;mistake&rdquo; or &ldquo;blunder&rdquo;), accuracy figures and the Game Score are produced automatically by engines and by the App's own heuristics. They depend on search depth, the engine selected and the device. They are strong but <strong>not infallible</strong>, and a move labelled a mistake may be perfectly playable in a human game.</p>
+        </div>
+
+        <div class="panel">
+            <h3>Narration</h3>
+            <p>The written story of a game is generated automatically from the engine analysis. It is intended to help you understand the game and may occasionally be imprecise or describe a plan the players did not have in mind.</p>
+        </div>
+
+        <div class="panel">
+            <h3>Ratings and levels</h3>
+            <p>The approximate Elo of the computer opponents, the &ldquo;my level&rdquo; estimate and any rating shown in the App are rough guides, not official ratings, and are not comparable with a FIDE or national federation rating.</p>
+        </div>
+
+        <h2>9. Intellectual property and open-source notices</h2>
+
+        <p>The App, its name, its interface, its artwork, its texts and its generated content are ours or are used with permission, and are protected by copyright. Nothing in these Terms transfers any of it to you beyond the licence in section 2. The games you import remain yours or their authors'.</p>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>The rules of chess</td>
+                        <td>Public domain.</td>
+                    </tr>
+                    <tr>
+                        <td>Caissa (engine)</td>
+                        <td>MIT licence, by Micha&lstrok; Witanowski. Its neural network is downloaded from the author's public repository.</td>
+                    </tr>
+                    <tr>
+                        <td>Arasan (engine)</td>
+                        <td>MIT licence, by Jon Dart.</td>
+                    </tr>
+                    <tr>
+                        <td>Maia-2 (human-move model)</td>
+                        <td>MIT licence, by CSSLab, University of Toronto; run through ONNX Runtime (MIT).</td>
+                    </tr>
+                    <tr>
+                        <td>Opening names</td>
+                        <td>lichess-org/chess-openings, CC0.</td>
+                    </tr>
+                    <tr>
+                        <td>Other open-source libraries</td>
+                        <td>Each under its own licence, as listed in the App under <em>Settings &rarr; About</em>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p>Where an open-source licence grants you rights broader than section 2 in respect of that component, that licence prevails for that component.</p>
+
+        <h2>10. Updates and availability</h2>
+
+        <p>We may release updates that add, change or remove features, and the App may fetch a corrected version of its own code over the air. We may also stop publishing or supporting the App. An installed copy keeps working as long as your device and operating system allow it, but we do not guarantee that any particular version, feature or store listing will remain available. If we stop offering the App altogether, we will no longer sell new subscriptions, and existing ones can be cancelled in the store.</p>
+
+        <h2>11. Disclaimer of warranties</h2>
+
+        <p>The App is provided <strong>&ldquo;as is&rdquo; and &ldquo;as available&rdquo;</strong>, without warranty of any kind, express or implied, including any implied warranty of merchantability, fitness for a particular purpose or non-infringement. We do not warrant that the App will be uninterrupted or error-free, that every evaluation, grade or narration is correct, or that it is compatible with every device.</p>
+
+        <p>Nothing here excludes rights you have as a consumer under the mandatory law of your country, including statutory warranty rights for digital content you paid for, which apply regardless of this section.</p>
+
+        <h2>12. Limitation of liability</h2>
+
+        <p>To the fullest extent permitted by law, we are not liable for indirect, incidental, special or consequential damages, nor for lost data, arising out of your use of or inability to use the App. Our total aggregate liability to you in connection with the App is limited to the amount you paid for Fianchetto Unlimited in the twelve months before the claim arose, or to the minimum that applicable law permits.</p>
+
+        <p>This limitation does not apply to liability for death or personal injury caused by negligence, for fraud, or to any other liability that cannot be excluded by law.</p>
+
+        <h2>13. The stores</h2>
+
+        <p>These Terms are between you and Dawikk, not with Google or Apple. The store from which you obtained the App is not responsible for it or for supporting it, and its own terms apply alongside these. On iOS, these Terms are in addition to Apple's <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Licensed Application End User License Agreement</a>; where they conflict, the terms more favourable to you apply to the extent Apple's rules require. Apple and its subsidiaries are third-party beneficiaries of these Terms and may enforce them, and any claim about the App &mdash; product liability, a legal-compliance claim, or a claim under consumer-protection law &mdash; is directed to us, not to Apple.</p>
+
+        <h2>14. Termination</h2>
+
+        <p>You may end this licence at any time by uninstalling the App (and, if you subscribe, by cancelling the subscription in the store). We may end it if you materially breach these Terms. On termination, the rights granted in section 2 cease and you must stop using the App; sections 7, 9 and 11 to 16 survive.</p>
+
+        <h2>15. Changes to these Terms</h2>
+
+        <p>We may update these Terms &mdash; for instance when a feature or the Unlimited offer changes. The current version is always the one published on this page, with its effective date. Material changes affecting paid features take effect for an active subscription from its next renewal. Continued use of the App after a change means you accept the updated Terms; if you do not, cancel any subscription and uninstall the App.</p>
+
+        <h2>16. Governing law</h2>
+
+        <p>These Terms are governed by the law of the Republic of Poland, without regard to its conflict-of-law rules. If you are a consumer, you also keep the protection of the mandatory provisions of the law of your country of residence, and you may bring proceedings before the courts competent for you there.</p>
+
+        <div class="contact">
+            <h2>Contact</h2>
+            <p>Questions about these Terms, a purchase or a strangely graded game?</p>
+            <p><a href="mailto:dawikk.apps@gmail.com?subject=Fianchetto">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">Fianchetto</a>
+                <a href="privacyPolicy.html">Privacy Policy</a>
+                <a href="https://play.google.com/store/apps/details?id=com.dawikk.fianchetto">Google Play</a>
+            </div>
+            <p class="footer-note">&copy; 2026 Dawikk</p>
+        </footer>
+    </div>
+</body>
+</html>
