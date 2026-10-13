@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShogiSensei – learn Shogi from zero</title>
+    <meta name="description" content="ShogiSensei teaches Shogi (Japanese chess) from zero with 94 interactive lessons in English, Japanese and Polish, then lets you play a strong offline AI, solve daily tsume and review your games.">
+    <meta name="theme-color" content="#EBE5D8" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#17130F" media="(prefers-color-scheme: dark)">
+    <meta property="og:title" content="ShogiSensei – learn Shogi from zero">
+    <meta property="og:description" content="94 interactive lessons, a strong offline AI with 10 levels, daily tsume and game review. Shogi, taught properly.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://dawikk-apps.vercel.app/ShogiSensei/">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container wide">
+    <div class="nav">
+        <a class="brand" href="./">
+            <svg viewBox="0 0 28 30" aria-hidden="true"><path class="koma-body" d="M14 1.5 L23.5 6 L26.5 28.5 L1.5 28.5 L4.5 6 Z"/><text class="koma-ink jp" x="14" y="22" font-size="13" text-anchor="middle">将</text></svg>
+            ShogiSensei
+        </a>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#course">Course</a>
+            <a href="#unlimited">Unlimited</a>
+            <a href="#faq">Help</a>
+            <a href="#support">Support</a>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div>
+            <div class="eyebrow">Shogi · <span class="jp">将棋</span> · Japanese chess</div>
+            <h1>Learn Shogi from zero. <span class="jp">一歩ずつ。</span></h1>
+            <p class="lead">94 interactive lessons take you from how the pieces move to castles, openings and tesuji. Then play a strong AI that runs on your phone, offline, at ten levels.</p>
+            <div class="cta-row">
+                <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.dawikk.shogisensei" target="_blank" rel="noopener noreferrer">Get it on Google Play</a>
+                <a class="btn" href="#support">Contact support</a>
+            </div>
+            <div class="pills">
+                <span class="pill">Free to play</span>
+                <span class="pill">Works offline</span>
+                <span class="pill">No account needed</span>
+                <span class="pill">English · 日本語 · Polski</span>
+            </div>
+        </div>
+        <div class="ban-wrap" aria-hidden="true">
+            <div class="ban">
+                <svg viewBox="-1 -1 92 92">
+                    <defs>
+                        <path id="koma" d="M5 0.9 L8.1 2.3 L8.9 9.2 L1.1 9.2 L1.9 2.3 Z"/>
+                    </defs>
+                    <rect class="hl" x="40" y="10" width="10" height="10"/>
+                    <g class="grid-line">
+                        <path d="M0 0H90M0 10H90M0 20H90M0 30H90M0 40H90M0 50H90M0 60H90M0 70H90M0 80H90M0 90H90"/>
+                        <path d="M0 0V90M10 0V90M20 0V90M30 0V90M40 0V90M50 0V90M60 0V90M70 0V90M80 0V90M90 0V90"/>
+                    </g>
+                    <circle class="hoshi" cx="30" cy="30" r="0.9"/>
+                    <circle class="hoshi" cx="60" cy="30" r="0.9"/>
+                    <circle class="hoshi" cx="30" cy="60" r="0.9"/>
+                    <circle class="hoshi" cx="60" cy="60" r="0.9"/>
+
+                    <!-- Opponent (gote): slate koma, turned to face you -->
+                    <g font-size="5.6" text-anchor="middle" class="jp">
+                        <g transform="translate(40 0) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">玉</text></g>
+                        <g transform="translate(0 0) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">香</text></g>
+                        <g transform="translate(10 0) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">桂</text></g>
+                        <g transform="translate(70 10) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">金</text></g>
+                        <g transform="translate(0 20) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">歩</text></g>
+                        <g transform="translate(20 20) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">歩</text></g>
+                        <g transform="translate(60 20) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">歩</text></g>
+                        <g transform="translate(80 20) rotate(180 5 5)"><use href="#koma" fill="#D3DBE5" stroke="#2B3240" stroke-width="0.35"/><text x="5" y="7.3" fill="#161C26">歩</text></g>
+
+                        <!-- You (sente): warm wood koma -->
+                        <g transform="translate(40 10)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">金</text></g>
+                        <g transform="translate(40 20)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">歩</text></g>
+                        <g transform="translate(10 40)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#8C2F1E">龍</text></g>
+                        <g transform="translate(70 50)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">角</text></g>
+                        <g transform="translate(20 60)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">歩</text></g>
+                        <g transform="translate(60 60)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">歩</text></g>
+                        <g transform="translate(70 70)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">銀</text></g>
+                        <g transform="translate(60 80)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">金</text></g>
+                        <g transform="translate(70 80)"><use href="#koma" fill="#F3DFAE" stroke="#4A3016" stroke-width="0.35"/><text x="5" y="7.3" fill="#241608">玉</text></g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="features">
+        <h2>Everything you need to get good at Shogi</h2>
+        <p class="sub">A teacher, a sparring partner and a training diary in one app.</p>
+        <div class="grid">
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">学</div>
+                <h3>Interactive course</h3>
+                <p>94 lessons in 12 chapters. You make every move yourself on the board, and every position is checked by the engine so the right answer is the only one.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">対</div>
+                <h3>Strong offline AI</h3>
+                <p>Play the Sunfish4 engine at ten levels, from a gentle first opponent to one that punishes every slip. No internet needed.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">詰</div>
+                <h3>Daily tsume</h3>
+                <p>Five mating problems a day from a pool of nearly 2,000, a day streak with weekly freezes, and a result you can share.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">検</div>
+                <h3>Game review</h3>
+                <p>After a game the engine marks your mistakes, shows the better move and turns your own errors into puzzles.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">助</div>
+                <h3>Hints, evaluation, undo</h3>
+                <p>Ask for a hint, watch the evaluation bar and take a move back while you learn.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">譜</div>
+                <h3>Library &amp; KIF</h3>
+                <p>Every game is saved. Replay it move by move, import and export KIF, USI or SFEN, analyse and set up positions in the editor.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">二</div>
+                <h3>Pass &amp; play</h3>
+                <p>Play a friend on one phone or tablet. The board lets whoever is to move play.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">盤</div>
+                <h3>Your board, your way</h3>
+                <p>Five boards (Kaya, Washi, Sumi, Sakura, Ao), kanji or Western piece labels, Japanese or Western notation, light and dark mode.</p>
+            </div>
+            <div class="card">
+                <div class="icon jp" aria-hidden="true">段</div>
+                <h3>Progress &amp; achievements</h3>
+                <p>XP, a player level, achievements and your win rate against each AI level. Share any game as an image card.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="course">
+        <h2>The course</h2>
+        <p class="sub">Start knowing nothing. Finish knowing how strong players think.</p>
+        <ul class="chapters">
+            <li><span class="num jp">一</span><span>Pieces<small>How each of the eight pieces moves</small></span></li>
+            <li><span class="num jp">二</span><span>Captures<small>Taking pieces and keeping them</small></span></li>
+            <li><span class="num jp">三</span><span>Drops<small>The rule that makes Shogi Shogi</small></span></li>
+            <li><span class="num jp">四</span><span>Promotion<small>The enemy camp and when to promote</small></span></li>
+            <li><span class="num jp">五</span><span>Checkmate basics<small>Check, escape and the first mates</small></span></li>
+            <li><span class="num jp">六</span><span>Mating patterns<small>The shapes that finish games</small></span></li>
+            <li><span class="num jp">七</span><span>Tsume training<small>Mate-in-one and beyond</small></span></li>
+            <li><span class="num jp">八</span><span>Castles<small>Mino, Yagura, Anaguma and the Boat</small></span></li>
+            <li><span class="num jp">九</span><span>Attacking castles<small>How each castle falls</small></span></li>
+            <li><span class="num jp">十</span><span>Openings<small>Static and Ranging Rook, from Shikenbisha to Kakugawari</small></span></li>
+            <li><span class="num jp">十一</span><span>Tesuji<small>Forks, sacrifices and clever drops</small></span></li>
+            <li><span class="num jp">十二</span><span>Game phases<small>Opening, middlegame and endgame</small></span></li>
+        </ul>
+        <div class="stats">
+            <div class="stat"><strong>94</strong><span>lessons</span></div>
+            <div class="stat"><strong>12</strong><span>chapters</span></div>
+            <div class="stat"><strong>10</strong><span>AI levels</span></div>
+            <div class="stat"><strong>~2,000</strong><span>tsume problems</span></div>
+            <div class="stat"><strong>3</strong><span>languages</span></div>
+        </div>
+    </section>
+
+    <section class="block" id="unlimited">
+        <h2>Unlimited Lifetime Access</h2>
+        <p class="sub">The whole course, the AI, the daily tsume and the library are free. Unlimited removes the ads and lifts every limit, with one payment.</p>
+        <div class="compare">
+            <div class="tier">
+                <h3>Free</h3>
+                <p class="tag">Supported by ads</p>
+                <ul>
+                    <li>All 94 lessons in 12 chapters</li>
+                    <li>The AI at every level and pass &amp; play</li>
+                    <li>Five daily tsume and the streak</li>
+                    <li>Game review and puzzles from your games</li>
+                    <li>3 hints a day, plus one for each optional ad you watch</li>
+                    <li>Library, KIF, analysis and editor</li>
+                    <li>Two boards free, one more for watching an ad</li>
+                </ul>
+            </div>
+            <div class="tier featured">
+                <h3>Unlimited</h3>
+                <p class="tag">One payment. No subscription, no renewal.</p>
+                <ul>
+                    <li>No banners, no ads between games, no resume offers</li>
+                    <li>Unlimited hints</li>
+                    <li>Deeper game review (2.5× the search time per move)</li>
+                    <li>Bigger puzzle batches from your games</li>
+                    <li>Every board skin, including future ones</li>
+                    <li>Every limit added later is lifted too</li>
+                    <li>Optional account carries it to a new phone, even from iPhone to Android</li>
+                </ul>
+            </div>
+        </div>
+        <p class="note">The price is shown in the app in your currency. Paid once through Google Play or the App Store. See the <a href="termsOfUse.html">Terms of Use</a>.</p>
+    </section>
+
+    <section class="block" id="faq">
+        <h2>Help &amp; FAQ</h2>
+        <p class="sub">Answers to the most common questions.</p>
+
+        <details>
+            <summary>I have never played Shogi. Where do I start?</summary>
+            <p>Open the <strong>Learn</strong> tab and start chapter 1. Each lesson is a few minutes long and you make the moves yourself. After the first chapters, try the AI on level 1 or 2. The <strong>Today</strong> tab always shows the next lesson and the day's puzzles.</p>
+        </details>
+        <details>
+            <summary>Does the app work offline?</summary>
+            <p>Yes. The lessons, the AI, the puzzles and your game library all work without internet. An internet connection is used only for ads, purchases, the optional sign-in and app updates.</p>
+        </details>
+        <details>
+            <summary>Which AI level should I choose?</summary>
+            <p>Level 1 suits beginners who have just learned the rules. Each level gives the engine more time to think. <strong>Progress</strong> shows your win rate on each level; when you win most games, move up.</p>
+        </details>
+        <details>
+            <summary>Can I switch to Western piece letters or notation?</summary>
+            <p>Yes. In <strong>Settings → Board</strong> choose kanji or Western letters for the pieces, and Japanese, letter or number square notation. Coordinates on the board frame can be turned on or off.</p>
+        </details>
+        <details>
+            <summary>Which languages are available?</summary>
+            <p>English, Japanese and Polish, for both the app and the lessons. By default the app follows your device language; change it in <strong>Settings → Language</strong>.</p>
+        </details>
+        <details>
+            <summary>How do the daily streak and freezes work?</summary>
+            <p>Open at least one of the day's puzzles to add a day to your streak. If you miss a day, a freeze covers it. You get one freeze a week and can hold two.</p>
+        </details>
+        <details>
+            <summary>How do I import or export a game?</summary>
+            <p>Open the <strong>Library</strong>. Any saved game can be shared as KIF text (with a machine-readable USI line) or as an image card. Use <strong>Import game</strong> to paste a KIF, USI or SFEN.</p>
+        </details>
+        <details>
+            <summary>I bought Unlimited but I still see ads</summary>
+            <p>Go to <strong>Settings → Unlimited → Restore purchases</strong> while signed in to the same Google or Apple account you bought it with. If you signed in to ShogiSensei when you bought it, sign in with the same Apple or Google account again. Still stuck? Email us with the App User ID from <strong>Settings → Unlimited → Purchases &amp; receipts</strong>.</p>
+        </details>
+        <details>
+            <summary>I have a new phone. How do I keep Unlimited?</summary>
+            <p>On the same store (Android to Android, iPhone to iPhone), tap <strong>Restore purchases</strong>. To move between iPhone and Android, sign in with Google (or Apple) in <strong>Settings → Account</strong> on the old phone, then sign in with the same account on the new one. Lesson progress and saved games stay on the phone they were made on; export the games you want to keep as KIF.</p>
+        </details>
+        <details>
+            <summary>How do I redeem a promo code?</summary>
+            <p>Go to <strong>Settings → Unlimited → Redeem a code</strong>. On iPhone the App Store's code sheet opens; on Android Google Play opens with your code.</p>
+        </details>
+        <details>
+            <summary>How do I get a refund?</summary>
+            <p>Refunds are handled by the store: <a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener noreferrer">Google Play refunds</a> or <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">Apple – report a problem</a>.</p>
+        </details>
+        <details>
+            <summary>How do I change my ad and privacy choices?</summary>
+            <p>Go to <strong>Settings → Privacy choices</strong>. Declining personalised ads does not limit anything in the app. Read the <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+        </details>
+        <details>
+            <summary>How do I delete my account or my data?</summary>
+            <p>An account is optional. If you signed in: <strong>Settings → Account → Delete account</strong>. Lesson progress can be cleared in <strong>Settings → Reset progress</strong>, and uninstalling removes everything from the phone. Details on the <a href="deleteAccount.html">Delete account</a> page.</p>
+        </details>
+    </section>
+
+    <section class="block" id="support">
+        <div class="contact" style="margin-top:0">
+            <p><strong>Support</strong></p>
+            <p>A bug, a wrong lesson, a purchase problem or an idea? Write to us.</p>
+            <a href="mailto:dawikk.apps@gmail.com?subject=ShogiSensei%20support">dawikk.apps@gmail.com</a>
+            <p style="margin-top:10px; font-size:0.9rem;">For purchase problems, include the App User ID from <strong>Settings → Unlimited → Purchases &amp; receipts</strong>. For a wrong lesson, include its chapter and number.</p>
+        </div>
+    </section>
+
+    <footer class="site">
+        <span>&copy; 2026 Dawikk Apps · ShogiSensei</span>
+        <nav>
+            <a href="privacyPolicy.html">Privacy Policy</a>
+            <a href="termsOfUse.html">Terms of Use</a>
+            <a href="deleteAccount.html">Delete account</a>
+        </nav>
+    </footer>
+</div>
+</body>
+</html>
