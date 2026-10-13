@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Janggi – Korean Chess</title>
+    <meta name="description" content="Janggi (장기) is Korean chess. Play a Fairy-Stockfish AI at four levels or a friend on one phone, learn the rules with interactive lessons, solve a daily puzzle and review every game. Free and offline, in English, Korean and Polish.">
+    <meta name="theme-color" content="#F1ECE1" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#14110F" media="(prefers-color-scheme: dark)">
+    <meta property="og:title" content="Janggi – Korean Chess">
+    <meta property="og:description" content="Play Janggi against a strong offline AI or a friend, learn every rule with interactive lessons, and review your games move by move.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://dawikk-apps.vercel.app/Janggi/">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container wide">
+    <div class="nav">
+        <a class="brand" href="./">
+            <svg viewBox="0 0 30 30" aria-hidden="true"><path class="mark-body" d="M27.5 20.2 L20.2 27.5 L9.8 27.5 L2.5 20.2 L2.5 9.8 L9.8 2.5 L20.2 2.5 L27.5 9.8 Z"/><text class="mark-ink han" x="15" y="20" font-size="14" font-weight="700" text-anchor="middle">將</text></svg>
+            Janggi
+        </a>
+        <nav class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#learn">Learn</a>
+            <a href="#rules">Rules</a>
+            <a href="#free">Free</a>
+            <a href="#faq">Help</a>
+            <a href="#support">Support</a>
+        </nav>
+    </div>
+
+    <section class="hero">
+        <div>
+            <div class="eyebrow">Janggi · <span class="han">장기 · 將棋</span> · Korean chess</div>
+            <h1>Korean chess, in your pocket. <span class="han">장군!</span></h1>
+            <p class="lead">Play Janggi against a strong AI that runs on your phone, or pass the phone across the table to a friend. Learn every rule with interactive lessons, then see where each game was won and lost.</p>
+            <div class="cta-row">
+                <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.dawikk.janggi" target="_blank" rel="noopener noreferrer">Get it on Google Play</a>
+                <a class="btn" href="#rules">How to play</a>
+            </div>
+            <div class="pills">
+                <span class="pill">Free to play</span>
+                <span class="pill">Works offline</span>
+                <span class="pill">No account needed</span>
+                <span class="pill">English · 한국어 · Polski</span>
+            </div>
+        </div>
+        <div class="board-wrap" aria-hidden="true">
+            <div class="board">
+                <svg viewBox="-5 -5 90 100">
+                    <defs>
+                        <path id="pk" d="M4.25 1.76 L1.76 4.25 L-1.76 4.25 L-4.25 1.76 L-4.25 -1.76 L-1.76 -4.25 L1.76 -4.25 L4.25 -1.76 Z"/>
+                        <path id="pm" d="M3.74 1.55 L1.55 3.74 L-1.55 3.74 L-3.74 1.55 L-3.74 -1.55 L-1.55 -3.74 L1.55 -3.74 L3.74 -1.55 Z"/>
+                        <path id="ps" d="M3.05 1.26 L1.26 3.05 L-1.26 3.05 L-3.05 1.26 L-3.05 -1.26 L-1.26 -3.05 L1.26 -3.05 L3.05 -1.26 Z"/>
+                    </defs>
+                    <g class="grid-line">
+                        <path d="M0 0H80M0 10H80M0 20H80M0 30H80M0 40H80M0 50H80M0 60H80M0 70H80M0 80H80M0 90H80"/>
+                        <path d="M0 0V90M10 0V90M20 0V90M30 0V90M40 0V90M50 0V90M60 0V90M70 0V90M80 0V90"/>
+                    </g>
+                    <!-- Palaces: the diagonals the General, Guards, Chariots, Cannons and Soldiers may use -->
+                    <path class="palace" d="M30 0L50 20M50 0L30 20M30 70L50 90M50 70L30 90"/>
+
+                    <!-- Cho's cannon checks the Han General, hopping over its own horse -->
+                    <path class="check-line" d="M40 55V15"/>
+                    <circle class="check-ring" cx="40" cy="10" r="5.8"/>
+
+                    <g text-anchor="middle" class="han">
+                        <!-- Han (red) -->
+                        <g transform="translate(0 0)"><use href="#pm" class="pc han"/><text y="1.55" font-size="4.3" class="ink-han">車</text></g>
+                        <g transform="translate(10 0)"><use href="#pm" class="pc han"/><text y="1.55" font-size="4.3" class="ink-han">象</text></g>
+                        <g transform="translate(30 0)"><use href="#ps" class="pc han"/><text y="1.26" font-size="3.5" class="ink-han">士</text></g>
+                        <g transform="translate(50 0)"><use href="#ps" class="pc han"/><text y="1.26" font-size="3.5" class="ink-han">士</text></g>
+                        <g transform="translate(70 0)"><use href="#pm" class="pc han"/><text y="1.55" font-size="4.3" class="ink-han">馬</text></g>
+                        <g transform="translate(80 0)"><use href="#pm" class="pc han"/><text y="1.55" font-size="4.3" class="ink-han">車</text></g>
+                        <g transform="translate(40 10)"><use href="#pk" class="pc han"/><text y="1.80" font-size="5.0" class="ink-han">漢</text></g>
+                        <g transform="translate(10 20)"><use href="#pm" class="pc han"/><text y="1.55" font-size="4.3" class="ink-han">包</text></g>
+                        <g transform="translate(60 20)"><use href="#pm" class="pc han"/><text y="1.55" font-size="4.3" class="ink-han">馬</text></g>
+                        <g transform="translate(0 30)"><use href="#ps" class="pc han"/><text y="1.26" font-size="3.5" class="ink-han">兵</text></g>
+                        <g transform="translate(20 30)"><use href="#ps" class="pc han"/><text y="1.26" font-size="3.5" class="ink-han">兵</text></g>
+                        <g transform="translate(60 30)"><use href="#ps" class="pc han"/><text y="1.26" font-size="3.5" class="ink-han">兵</text></g>
+                        <g transform="translate(80 30)"><use href="#ps" class="pc han"/><text y="1.26" font-size="3.5" class="ink-han">兵</text></g>
+
+                        <!-- Cho (green) -->
+                        <g transform="translate(40 40)"><use href="#pm" class="pc cho"/><text y="1.55" font-size="4.3" class="ink-cho">馬</text></g>
+                        <g transform="translate(0 60)"><use href="#ps" class="pc cho"/><text y="1.26" font-size="3.5" class="ink-cho">卒</text></g>
+                        <g transform="translate(20 60)"><use href="#ps" class="pc cho"/><text y="1.26" font-size="3.5" class="ink-cho">卒</text></g>
+                        <g transform="translate(40 60)"><use href="#pm" class="pc cho"/><text y="1.55" font-size="4.3" class="ink-cho">包</text></g>
+                        <g transform="translate(60 60)"><use href="#ps" class="pc cho"/><text y="1.26" font-size="3.5" class="ink-cho">卒</text></g>
+                        <g transform="translate(80 60)"><use href="#ps" class="pc cho"/><text y="1.26" font-size="3.5" class="ink-cho">卒</text></g>
+                        <g transform="translate(70 70)"><use href="#pm" class="pc cho"/><text y="1.55" font-size="4.3" class="ink-cho">包</text></g>
+                        <g transform="translate(40 80)"><use href="#pk" class="pc cho"/><text y="1.80" font-size="5.0" class="ink-cho">楚</text></g>
+                        <g transform="translate(80 80)"><use href="#pm" class="pc cho"/><text y="1.55" font-size="4.3" class="ink-cho">車</text></g>
+                        <g transform="translate(0 90)"><use href="#pm" class="pc cho"/><text y="1.55" font-size="4.3" class="ink-cho">車</text></g>
+                        <g transform="translate(20 90)"><use href="#pm" class="pc cho"/><text y="1.55" font-size="4.3" class="ink-cho">象</text></g>
+                        <g transform="translate(30 90)"><use href="#ps" class="pc cho"/><text y="1.26" font-size="3.5" class="ink-cho">士</text></g>
+                        <g transform="translate(50 90)"><use href="#ps" class="pc cho"/><text y="1.26" font-size="3.5" class="ink-cho">士</text></g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="features">
+        <h2>Everything you need to play Janggi well</h2>
+        <p class="sub">An opponent, a teacher and an analyst in one app, all running on your phone.</p>
+        <div class="grid">
+            <div class="card">
+                <div class="icon han" aria-hidden="true">對</div>
+                <h3>Strong offline AI</h3>
+                <p>Play the Fairy-Stockfish engine at four levels, from a gentle first opponent to one that punishes every slip. No internet needed.</p>
+            </div>
+            <div class="card">
+                <div class="icon cho han" aria-hidden="true">二</div>
+                <h3>Pass &amp; play</h3>
+                <p>Two players on one phone or tablet. The board can turn around for whoever is to move.</p>
+            </div>
+            <div class="card">
+                <div class="icon han" aria-hidden="true">學</div>
+                <h3>Interactive lessons</h3>
+                <p>18 lessons and 4 step-by-step demonstrations teach every piece, the palace, passing and bikjang. You make every move yourself.</p>
+            </div>
+            <div class="card">
+                <div class="icon cho han" aria-hidden="true">日</div>
+                <h3>Daily puzzle</h3>
+                <p>A new tactic or mate every day, with hints if you are stuck and a day streak to keep going.</p>
+            </div>
+            <div class="card">
+                <div class="icon han" aria-hidden="true">檢</div>
+                <h3>Game review</h3>
+                <p>The engine grades every move from best to blunder, shows your accuracy, the key moment and the better move you missed.</p>
+            </div>
+            <div class="card">
+                <div class="icon cho han" aria-hidden="true">析</div>
+                <h3>Analysis board</h3>
+                <p>Explore any position from your game or the start, with the engine's best lines and evaluation.</p>
+            </div>
+            <div class="card">
+                <div class="icon han" aria-hidden="true">時</div>
+                <h3>Clocks with byo-yomi</h3>
+                <p>Lightning, Blitz, Rapid and Classical time controls with Korean byo-yomi periods, or play untimed.</p>
+            </div>
+            <div class="card">
+                <div class="icon cho han" aria-hidden="true">譜</div>
+                <h3>Saved games</h3>
+                <p>Every game is saved automatically. Resume, replay, filter, and copy or import games as text.</p>
+            </div>
+            <div class="card">
+                <div class="icon han" aria-hidden="true">盤</div>
+                <h3>Korean craft themes</h3>
+                <p>Boards and pieces in hanji paper, celadon, mother-of-pearl, porcelain and jade. Hanja or Hangul labels, light and dark.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="opponents">
+        <h2>Climb the ladder</h2>
+        <p class="sub">Four opponents, each with a name and a character. Beat a rank to unlock the next, and watch your rating grow.</p>
+        <div class="rivals">
+            <div class="rival">
+                <div class="lvl">Beginner · Student</div>
+                <strong>Jiwoo</strong>
+                <p>Friendly and forgiving. Perfect right after your first lessons.</p>
+            </div>
+            <div class="rival">
+                <div class="lvl">Casual · Soldier</div>
+                <strong>Minjun</strong>
+                <p>Takes free pieces and spots simple tactics. Time to think ahead.</p>
+            </div>
+            <div class="rival">
+                <div class="lvl">Strong · Commander</div>
+                <strong>Seoyeon</strong>
+                <p>Plans attacks on your palace and rarely gives anything away.</p>
+            </div>
+            <div class="rival">
+                <div class="lvl">Expert · Master</div>
+                <strong>Dohyun</strong>
+                <p>The full engine. Every mistake gets punished.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="learn">
+        <h2>Learn from zero</h2>
+        <p class="sub">Never played Janggi, or only know Western or Chinese chess? The lessons take you from the first move to your first mates.</p>
+        <ul class="chapters">
+            <li><span class="num han">一</span><span>How the pieces move<small>General, Guard, Soldier, Chariot, Horse, Elephant, Cannon, the palace diagonals</small></span></li>
+            <li><span class="num han">二</span><span>Single-piece tactics<small>Pins, forks and the cannon's screen</small></span></li>
+            <li><span class="num han">三</span><span>Two pieces together<small>Discovered checks and cannon batteries</small></span></li>
+            <li><span class="num han">四</span><span>Mating patterns<small>Palace pressure, back-rank and smothered mates</small></span></li>
+            <li><span class="num han">五</span><span>Endgames<small>The two-chariot ladder mate</small></span></li>
+            <li><span class="num han">六</span><span>Demonstrations<small>Cannon edge cases, blocked horses, passing and bikjang</small></span></li>
+        </ul>
+        <div class="stats">
+            <div class="stat"><strong>18</strong><span>lessons</span></div>
+            <div class="stat"><strong>4</strong><span>demonstrations</span></div>
+            <div class="stat"><strong>20</strong><span>daily puzzles</span></div>
+            <div class="stat"><strong>4</strong><span>AI levels</span></div>
+            <div class="stat"><strong>3</strong><span>languages</span></div>
+        </div>
+    </section>
+
+    <section class="block" id="rules">
+        <h2>Janggi in two minutes</h2>
+        <p class="sub">Two armies, Cho (楚, green or blue) and Han (漢, red), on a 9×10 board. Pieces stand on the intersections. Checkmate the opposing General to win. Cho moves first.</p>
+        <div class="pieces">
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body" d="M36.6 26.9 L26.9 36.6 L13.1 36.6 L3.4 26.9 L3.4 13.1 L13.1 3.4 L26.9 3.4 L36.6 13.1 Z"/><text class="oct-ink han" x="20" y="27" font-size="19" text-anchor="middle">漢</text></svg>
+                <div><h3>General<small>궁 · 楚 / 漢</small></h3><p>One point along any line of the 3×3 palace, diagonals included. Never leaves the palace.</p></div>
+            </div>
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body cho" d="M32.5 25.2 L25.2 32.5 L14.8 32.5 L7.5 25.2 L7.5 14.8 L14.8 7.5 L25.2 7.5 L32.5 14.8 Z"/><text class="oct-ink cho han" x="20" y="25.5" font-size="15" text-anchor="middle">士</text></svg>
+                <div><h3>Guard<small>사 · 士 · 3 points</small></h3><p>Moves exactly like the General and also stays in the palace.</p></div>
+            </div>
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body" d="M34.8 26.1 L26.1 34.8 L13.9 34.8 L5.2 26.1 L5.2 13.9 L13.9 5.2 L26.1 5.2 L34.8 13.9 Z"/><text class="oct-ink han" x="20" y="26.5" font-size="17" text-anchor="middle">車</text></svg>
+                <div><h3>Chariot<small>차 · 車 · 13 points</small></h3><p>Any distance along a rank or file, like a rook, and along the palace diagonals.</p></div>
+            </div>
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body cho" d="M34.8 26.1 L26.1 34.8 L13.9 34.8 L5.2 26.1 L5.2 13.9 L13.9 5.2 L26.1 5.2 L34.8 13.9 Z"/><text class="oct-ink cho han" x="20" y="26.5" font-size="17" text-anchor="middle">包</text></svg>
+                <div><h3>Cannon<small>포 · 包 · 7 points</small></h3><p>Moves and captures by jumping over exactly one piece. It can never jump over or capture another cannon.</p></div>
+            </div>
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body" d="M34.8 26.1 L26.1 34.8 L13.9 34.8 L5.2 26.1 L5.2 13.9 L13.9 5.2 L26.1 5.2 L34.8 13.9 Z"/><text class="oct-ink han" x="20" y="26.5" font-size="17" text-anchor="middle">馬</text></svg>
+                <div><h3>Horse<small>마 · 馬 · 5 points</small></h3><p>One step straight, then one diagonally outward. Blocked if the first point is occupied.</p></div>
+            </div>
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body cho" d="M34.8 26.1 L26.1 34.8 L13.9 34.8 L5.2 26.1 L5.2 13.9 L13.9 5.2 L26.1 5.2 L34.8 13.9 Z"/><text class="oct-ink cho han" x="20" y="26.5" font-size="17" text-anchor="middle">象</text></svg>
+                <div><h3>Elephant<small>상 · 象 · 3 points</small></h3><p>One step straight, then two diagonally outward. Any piece on the way blocks it.</p></div>
+            </div>
+            <div class="piece-row">
+                <svg viewBox="0 0 40 40" aria-hidden="true"><path class="oct-body" d="M32.5 25.2 L25.2 32.5 L14.8 32.5 L7.5 25.2 L7.5 14.8 L14.8 7.5 L25.2 7.5 L32.5 14.8 Z"/><text class="oct-ink han" x="20" y="25.5" font-size="15" text-anchor="middle">兵</text></svg>
+                <div><h3>Soldier<small>졸 / 병 · 卒 / 兵 · 2 points</small></h3><p>One point forward or sideways, never back. In the enemy palace it may also step forward along a diagonal.</p></div>
+            </div>
+        </div>
+        <div class="rules-extra">
+            <div class="panel">
+                <h3>Choose your setup</h3>
+                <p>Before the game each side swaps its horses and elephants into one of four formations. The app lets you pick yours.</p>
+            </div>
+            <div class="panel">
+                <h3>You may pass</h3>
+                <p>Instead of moving you can pass, except when in check. Two passes in a row end the game in a draw.</p>
+            </div>
+            <div class="panel">
+                <h3>Bikjang <span class="han">빅장</span></h3>
+                <p>Generals facing each other on an open file is not check. If both sides pass during bikjang, the game is decided on points.</p>
+            </div>
+            <div class="panel">
+                <h3>Points and deom</h3>
+                <p>Games that end on points compare the material left. Han, who moves second, gets 1.5 extra points (deom), so there is no tie.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="block" id="free">
+        <h2>Free, and fair about it</h2>
+        <p class="sub">The whole game is free. Ads pay for it, and they never interrupt a move.</p>
+        <div class="compare">
+            <div class="tier">
+                <h3>Always free</h3>
+                <p class="tag">Every feature, every level</p>
+                <ul>
+                    <li>The AI at all four levels and pass &amp; play</li>
+                    <li>All lessons, demonstrations and the daily puzzle</li>
+                    <li>Every time control, saved games, import and export</li>
+                    <li>Statistics, rating and the opponent ladder</li>
+                    <li>Hanja or Hangul labels, light and dark mode</li>
+                </ul>
+            </div>
+            <div class="tier featured">
+                <h3>Optional ads, real rewards</h3>
+                <p class="tag">You decide when to watch</p>
+                <ul>
+                    <li>The first hint in every game is free; another one costs a short ad</li>
+                    <li>A free game review every day, more for an ad</li>
+                    <li>Extra engine lines and deeper analysis for an hour</li>
+                    <li>Board and piece themes on loan for a week per ad, and yours for good after a few</li>
+                    <li>The gold piece set is earned at the board, never with ads</li>
+                </ul>
+            </div>
+        </div>
+        <p class="note">Your first games are ad-free. After that a short ad may show between games, never during one. See the <a href="privacyPolicy.html#ads">Privacy Policy</a>.</p>
+    </section>
+
+    <section class="block" id="faq">
+        <h2>Help &amp; FAQ</h2>
+        <p class="sub">Answers to the most common questions.</p>
+
+        <details>
+            <summary>I have never played Janggi. Where do I start?</summary>
+            <p>Open <strong>Lessons</strong> from the menu and start with the first one. Each lesson takes a minute or two and you make the moves yourself; the next unlocks when you finish. Then play Jiwoo, the Beginner level, and try the <strong>Daily Puzzle</strong>.</p>
+        </details>
+        <details>
+            <summary>Does the app work offline?</summary>
+            <p>Yes. The AI, lessons, puzzles, review, analysis and your saved games all work without internet. A connection is only used to load ads and for app updates from the store.</p>
+        </details>
+        <details>
+            <summary>Which AI level should I choose?</summary>
+            <p>Beginner (Jiwoo) suits players who have just learned the rules. Each rank on the ladder is cleared by winning a few games against it; <strong>Statistics</strong> shows your record and rating against every level. When you win most games, move up.</p>
+        </details>
+        <details>
+            <summary>Why can't I pass?</summary>
+            <p>You cannot pass while your General is in check: answer the check first. If your opponent has just passed, passing again ends the game in a draw, or on points during bikjang; the app asks before it does.</p>
+        </details>
+        <details>
+            <summary>Why did the game end “on points”?</summary>
+            <p>A game is decided on points when both sides pass during bikjang, when a position repeats a fourth time, or after 50 moves without a capture. The app warns you before the last two happen. Han gets 1.5 extra points (deom).</p>
+        </details>
+        <details>
+            <summary>Can I play as Han, or choose my formation?</summary>
+            <p>Yes. In <strong>Set up a game</strong> choose the opponent, the time control, which side you play and your horse–elephant formation. Playing Han turns the board around; the computer picks its own setup at random.</p>
+        </details>
+        <details>
+            <summary>Can I switch between Hanja and Hangul pieces?</summary>
+            <p>Yes. In <strong>Settings → Appearance</strong> turn <strong>Hanja characters</strong> on or off. You can also show coordinates, choose green or blue for Cho on the wood set, and switch light or dark mode.</p>
+        </details>
+        <details>
+            <summary>Which languages are available?</summary>
+            <p>English, Korean and Polish. The app follows your device language by default; change it in <strong>Settings → Language</strong>.</p>
+        </details>
+        <details>
+            <summary>How do I unlock a board or piece theme?</summary>
+            <p>Open <strong>Themes</strong> and pick one. Every ad you watch for it lends it to you for a week and counts towards keeping it; after a few ads it is yours for good. The gold piece set is earned by reaching a rating of 1600 or winning 50 games against the AI.</p>
+        </details>
+        <details>
+            <summary>How do I keep or move my games to another phone?</summary>
+            <p>Games are stored only on your phone. In <strong>Saved games</strong> open a game's menu and choose <strong>Copy</strong> to copy it as text; on the other phone use <strong>Import</strong> and paste it.</p>
+        </details>
+        <details>
+            <summary>How do I change my ad and privacy choices?</summary>
+            <p>Go to <strong>Settings → Data &amp; privacy → Privacy &amp; ads</strong>. Declining personalised ads does not limit anything in the app. Read the <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+        </details>
+        <details>
+            <summary>How do I delete my data?</summary>
+            <p>There is no account and nothing is stored on our side. <strong>Settings → Data &amp; privacy → Clear app data</strong> deletes every saved game, lesson result and statistic; uninstalling the app removes everything.</p>
+        </details>
+    </section>
+
+    <section class="block" id="support">
+        <div class="contact" style="margin-top:0">
+            <p><strong>Support</strong></p>
+            <p>A bug, a wrong rule, a lesson that doesn't work or an idea? Write to us.</p>
+            <a href="mailto:dawikk.apps@gmail.com?subject=Janggi%20support">dawikk.apps@gmail.com</a>
+            <p style="margin-top:10px; font-size:0.9rem;">Please include the app version from <strong>Settings → About</strong>. For a game problem, copy the game from <strong>Saved games</strong> and paste it into the email.</p>
+        </div>
+    </section>
+
+    <footer class="site">
+        <span>&copy; 2026 Dawikk Apps · Janggi</span>
+        <nav>
+            <a href="privacyPolicy.html">Privacy Policy</a>
+            <a href="termsOfUse.html">Terms of Use</a>
+            <a href="https://github.com/DawiQ/Janggi" target="_blank" rel="noopener noreferrer">Source code</a>
+        </nav>
+    </footer>
+</div>
+</body>
+</html>
