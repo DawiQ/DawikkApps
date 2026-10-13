@@ -3,565 +3,307 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Tactics Blitz - Train Like a Master</title>
+    <title>Chess Puzzles Blitz – puzzle rush against the clock</title>
+    <meta name="description" content="Chess Puzzles Blitz: solve as many chess puzzles as you can in 3 or 5 minutes, survive with 3 lives, keep a daily streak and climb the rankings. 150,000 puzzles, free.">
+    <meta name="theme-color" content="#07070C">
+    <meta property="og:title" content="Chess Puzzles Blitz – puzzle rush against the clock">
+    <meta property="og:description" content="3-minute and 5-minute puzzle rush, Survival with 3 lives, Puzzle of the Day, rankings and weakness analysis. 150,000 puzzles, free.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="../favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --electric: #00d9ff;
-            --electric-dark: #00a8c6;
-            --orange: #ff6b00;
-            --orange-light: #ff8533;
-            --dark: #0a0a0f;
-            --darker: #050508;
-            --card: rgba(15, 15, 25, 0.9);
-            --text: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.65);
-            --border: rgba(0, 217, 255, 0.15);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--darker);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .bg-lightning {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .bolt {
-            position: absolute;
-            width: 2px;
-            height: 100px;
-            background: linear-gradient(to bottom, var(--electric), transparent);
-            opacity: 0;
-            animation: lightning 4s infinite;
-        }
-
-        .bolt:nth-child(1) { left: 20%; animation-delay: 0s; }
-        .bolt:nth-child(2) { left: 50%; animation-delay: 1.5s; }
-        .bolt:nth-child(3) { left: 80%; animation-delay: 3s; }
-
-        @keyframes lightning {
-            0%, 95%, 100% { opacity: 0; transform: translateY(-100px); }
-            96%, 98% { opacity: 0.6; transform: translateY(100vh); }
-        }
-
-        .glow {
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .glow-1 {
-            width: 400px;
-            height: 400px;
-            top: -150px;
-            left: -100px;
-            background: var(--electric);
-            opacity: 0.15;
-        }
-
-        .glow-2 {
-            width: 350px;
-            height: 350px;
-            bottom: -100px;
-            right: -100px;
-            background: var(--orange);
-            opacity: 0.12;
-        }
-
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        header {
-            text-align: center;
-            padding: 50px 0 30px;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .logo-container {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 25px;
-            position: relative;
-        }
-
-        .logo-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--border);
-            border-radius: 50%;
-            animation: spin 8s linear infinite;
-        }
-
-        .logo-ring::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 12px;
-            height: 12px;
-            background: var(--electric);
-            border-radius: 50%;
-            box-shadow: 0 0 20px var(--electric);
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .logo-inner {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, var(--dark), var(--card));
-            border: 2px solid var(--electric);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            box-shadow: 
-                0 0 30px rgba(0, 217, 255, 0.3),
-                inset 0 0 20px rgba(0, 217, 255, 0.1);
-        }
-
-        h1 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            line-height: 1.1;
-        }
-
-        .title-line1 {
-            display: block;
-            color: var(--text);
-        }
-
-        .title-line2 {
-            display: block;
-            background: linear-gradient(135deg, var(--electric), var(--orange));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .tagline {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .hero-text {
-            text-align: center;
-            margin: 25px 0;
-            animation: fadeIn 0.8s ease-out 0.2s both;
-        }
-
-        .hero-text p {
-            font-size: 1rem;
-            line-height: 1.8;
-            color: var(--text-muted);
-        }
-
-        .timer-display {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            padding: 20px;
-            margin: 25px 0;
-            animation: fadeIn 0.8s ease-out 0.3s both;
-        }
-
-        .timer-digit {
-            width: 50px;
-            height: 65px;
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2rem;
-            color: var(--electric);
-            text-shadow: 0 0 20px var(--electric);
-        }
-
-        .timer-colon {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 2rem;
-            color: var(--orange);
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0.3; }
-        }
-
-        .cta-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 18px 40px;
-            margin: 25px 0;
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--darker);
-            background: linear-gradient(135deg, var(--electric), var(--electric-dark));
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3);
-            transition: all 0.3s ease;
-            animation: fadeIn 0.8s ease-out 0.4s both;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 217, 255, 0.4);
-        }
-
-        .cta-button svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        section {
-            margin: 35px 0;
-            animation: fadeIn 0.8s ease-out both;
-        }
-
-        .section-title {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title .icon {
-            font-size: 1.2rem;
-        }
-
-        .section-title.cyan { color: var(--electric); }
-        .section-title.orange { color: var(--orange); }
-
-        .card {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 22px;
-            margin-bottom: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: rgba(0, 217, 255, 0.4);
-        }
-
-        .card p {
-            color: var(--text-muted);
-            line-height: 1.7;
-            font-size: 0.95rem;
-        }
-
-        .feature-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 16px;
-            background: rgba(0, 217, 255, 0.05);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            background: rgba(0, 217, 255, 0.1);
-            border-color: rgba(0, 217, 255, 0.3);
-            transform: translateX(5px);
-        }
-
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--electric), var(--electric-dark));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .feature-text {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, rgba(255, 107, 0, 0.15), rgba(0, 217, 255, 0.1));
-            border: 2px solid var(--orange);
-            border-radius: 18px;
-            padding: 25px;
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .highlight-box .emoji {
-            font-size: 2.5rem;
-            display: block;
-            margin-bottom: 12px;
-        }
-
-        .highlight-box h3 {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            color: var(--orange);
-        }
-
-        .highlight-box p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .audience-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .audience-tag {
-            padding: 10px 18px;
-            background: rgba(0, 217, 255, 0.1);
-            border: 1px solid var(--border);
-            border-radius: 25px;
-            font-size: 0.85rem;
-            color: var(--electric);
-            font-weight: 500;
-        }
-
-        footer {
-            text-align: center;
-            padding: 50px 20px;
-            margin-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .footer-emoji {
-            font-size: 3.5rem;
-            display: block;
-            margin-bottom: 15px;
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
-        }
-
-        .footer-title {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: 1.4rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-            background: linear-gradient(135deg, var(--text), var(--electric));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .footer-sub {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-
-        @media (max-width: 400px) {
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            .timer-digit {
-                width: 42px;
-                height: 55px;
-                font-size: 1.6rem;
-            }
-
-            .logo-container {
-                width: 95px;
-                height: 95px;
-            }
-
-            .logo-inner {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="bg-lightning">
-        <div class="bolt"></div>
-        <div class="bolt"></div>
-        <div class="bolt"></div>
+<div class="bg-lightning" aria-hidden="true">
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+    <div class="bolt"></div>
+</div>
+
+<div class="container wide">
+    <div class="nav">
+        <a class="brand" href="./"><span class="brand-mark">♞</span> Chess Puzzles <em>Blitz</em></a>
+        <nav class="nav-links">
+            <a href="#modes">Modes</a>
+            <a href="#features">Features</a>
+            <a href="#faq">Help</a>
+            <a href="#support">Support</a>
+        </nav>
     </div>
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
 
-    <div class="container">
-        <header>
-            <div class="logo-container">
-                <div class="logo-ring"></div>
-                <div class="logo-inner">♞</div>
+    <section class="hero">
+        <div>
+            <div class="eyebrow">Free chess puzzle rush</div>
+            <h1>Beat the clock. <span class="grad">Solve faster.</span></h1>
+            <p class="lead">Three minutes, a ticking timer and puzzles that get harder with every correct move. Find the tactic, play it, next puzzle. How many can you solve before time runs out?</p>
+            <div class="cta-row">
+                <a class="btn primary" href="https://play.google.com/store/apps/details?id=com.dawikk.chessblitz" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                    Get it on Google Play
+                </a>
+                <a class="btn" href="#modes">See the modes</a>
             </div>
-            <h1>
-                <span class="title-line1">Chess Tactics</span>
-                <span class="title-line2">Blitz</span>
-            </h1>
-            <p class="tagline">Train Like a Master</p>
-        </header>
-
-        <div class="hero-text">
-            <p>Challenge yourself with the ultimate tactical training app! Solve carefully selected puzzles against the clock and watch your tactical skills soar.</p>
+            <div class="pills">
+                <span class="pill">150,000 puzzles</span>
+                <span class="pill">Free</span>
+                <span class="pill">No account needed</span>
+                <span class="pill">Ratings 400–3100</span>
+                <span class="pill">Stockfish analysis</span>
+            </div>
         </div>
 
-        <div class="timer-display">
-            <div class="timer-digit">0</div>
-            <div class="timer-digit">3</div>
-            <span class="timer-colon">:</span>
-            <div class="timer-digit">0</div>
-            <div class="timer-digit">0</div>
+        <div class="device" aria-label="Example puzzle: white to move, knight fork">
+            <div class="device-top">
+                <span class="timer" id="timer">3:00</span>
+                <span class="score">Solved <span id="solved">12</span></span>
+            </div>
+            <div class="board" id="board"></div>
+            <div class="device-bottom">
+                <span class="lives" aria-label="3 lives">❤️❤️❤️</span>
+                <span class="prompt">White to move</span>
+            </div>
         </div>
+    </section>
 
-        <a href="https://play.google.com/store/apps/details?id=com.dawikk.chessblitz" class="cta-button">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-            Start Training
-        </a>
+    <section class="block" id="modes">
+        <h2>Pick your challenge</h2>
+        <p class="sub">Every run starts easy and climbs about 50 rating points with each puzzle you solve, all the way up to grandmaster-level tactics.</p>
+        <div class="modes">
+            <div class="mode">
+                <div class="clock">3:00</div>
+                <h3>3-Minute Challenge</h3>
+                <p>The classic puzzle rush. Solve as many puzzles as you can in three minutes. A miss just moves you on to the next puzzle while the clock keeps ticking.</p>
+            </div>
+            <div class="mode">
+                <div class="clock">5:00</div>
+                <h3>5-Minute Challenge</h3>
+                <p>Two extra minutes to go deeper. Longer runs reach the hard puzzles, where calculation beats speed.</p>
+            </div>
+            <div class="mode hot">
+                <div class="clock">❤️×3</div>
+                <h3>Survival</h3>
+                <p>No timer. Three lives. Every mistake costs one. How far up the rating ladder can you get before you run out?</p>
+            </div>
+            <div class="mode">
+                <div class="clock">∞</div>
+                <h3>Practice</h3>
+                <p>No timer, no pressure. Take your time, look at the whole board and learn the patterns.</p>
+            </div>
+            <div class="mode hot">
+                <div class="clock">🎯</div>
+                <h3>Focus Training</h3>
+                <p>Puzzles picked from the themes you miss most often, so your practice goes where it helps the most.</p>
+            </div>
+        </div>
+    </section>
 
-        <section>
-            <h2 class="section-title cyan"><span class="icon">⚡</span> Blitz Challenge</h2>
+    <section class="block">
+        <h2>How it works</h2>
+        <p class="sub">Simple rules, fast games, real improvement.</p>
+        <ol class="how ol-reset">
+            <li><strong>Find the best move</strong><span>Each puzzle comes from a real game. Spot the fork, pin, sacrifice or mate and play it on the board.</span></li>
+            <li><strong>Keep the streak going</strong><span>Solve it and the next one is a little harder. Puzzles keep coming until the clock or your lives run out.</span></li>
+            <li><strong>Review and improve</strong><span>See every puzzle from the run, analyse the ones you missed with Stockfish and train your weak themes.</span></li>
+        </ol>
+    </section>
+
+    <section class="block" id="features">
+        <h2>Train like a master</h2>
+        <p class="sub">Everything you need to sharpen your tactical vision, in short sessions that fit any break.</p>
+        <div class="grid">
             <div class="card">
-                <p>Perfect your tactics through an innovative blitz-style challenge that combines the intensity of Puzzle Rush with the precision of tactical training. Each session presents progressively harder puzzles!</p>
+                <div class="icon" aria-hidden="true">🧩</div>
+                <h3>150,000 puzzles</h3>
+                <p>Positions from real games, rated from about 400 to 3100 and tagged by theme: forks, pins, skewers, mates, endgames and more.</p>
             </div>
-        </section>
-
-        <section>
-            <h2 class="section-title orange"><span class="icon">🎯</span> Train Like a Master</h2>
-            <div class="feature-list">
-                <div class="feature-item">
-                    <div class="feature-icon">🧩</div>
-                    <span class="feature-text">Diverse tactical themes from basic to advanced</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📈</div>
-                    <span class="feature-text">Dynamic difficulty adjustment based on performance</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">📊</div>
-                    <span class="feature-text">Track your progress with detailed statistics</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">🌍</div>
-                    <span class="feature-text">Compare your scores with players worldwide</span>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon">♔</div>
-                    <span class="feature-text">Practice key patterns used by Grandmasters</span>
-                </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">📅</div>
+                <h3>Puzzle of the Day</h3>
+                <p>One new, harder puzzle every day for everyone. Solve it daily to build your streak.</p>
             </div>
-        </section>
-
-        <div class="highlight-box">
-            <span class="emoji">🏆</span>
-            <h3>Daily Challenge</h3>
-            <p>Challenge yourself daily to improve your tactical vision and become a stronger chess player!</p>
+            <div class="card">
+                <div class="icon" aria-hidden="true">🔥</div>
+                <h3>Daily streak</h3>
+                <p>Train every day and watch the streak grow. Missed a day after a long streak? You can win it back.</p>
+            </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">🏆</div>
+                <h3>Rankings</h3>
+                <p>Best scores in 3 min, 5 min and Survival, plus XP, today's and this week's leaders and the biggest improvers.</p>
+            </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">📈</div>
+                <h3>Rating, XP and leagues</h3>
+                <p>Your puzzle rating follows your form. Every solved puzzle earns XP that takes you from Bronze up to Master.</p>
+            </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">🔍</div>
+                <h3>Weakness analysis</h3>
+                <p>Your success rate for every tactical theme, with the weak ones highlighted and one tap away from Focus Training.</p>
+            </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">♟️</div>
+                <h3>Stockfish analysis</h3>
+                <p>Open any puzzle on an analysis board with the Stockfish engine running on your phone, showing the best lines and variations.</p>
+            </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">🕘</div>
+                <h3>History and review</h3>
+                <p>Every run is saved. Go back to any session and replay the puzzles you solved or missed.</p>
+            </div>
+            <div class="card">
+                <div class="icon" aria-hidden="true">🎨</div>
+                <h3>Your board, your way</h3>
+                <p>Light or dark theme, several board styles, sounds, vibration and the speed of the opponent's replies.</p>
+            </div>
         </div>
+    </section>
 
-        <section>
-            <h2 class="section-title cyan"><span class="icon">👥</span> Perfect For</h2>
-            <div class="audience-tags">
-                <span class="audience-tag">Beginners</span>
-                <span class="audience-tag">Intermediate</span>
-                <span class="audience-tag">Advanced</span>
-                <span class="audience-tag">Puzzle Rush Fans</span>
-                <span class="audience-tag">Competitive Players</span>
+    <section class="block">
+        <div class="highlight">
+            <div class="big" aria-hidden="true">⚡</div>
+            <div>
+                <h3>Play now, sign in later</h3>
+                <p>Start training straight away without an account. Sign in with Google or Apple whenever you want your scores in the rankings, a daily streak and your progress kept safe on a new phone.</p>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <footer>
-            <span class="footer-emoji">⚡</span>
-            <h2 class="footer-title">Beat the Clock</h2>
-            <p class="footer-sub">Transform your chess game through intensive tactical training that's both fun and effective.</p>
-            <a href="https://play.google.com/store/apps/details?id=com.dawikk.chessblitz" class="cta-button">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
-                Download Free
+    <section class="block">
+        <h2>Perfect for</h2>
+        <p class="sub">From your first fork to master-level combinations.</p>
+        <div class="tags">
+            <span class="tag">Beginners</span>
+            <span class="tag">Club players</span>
+            <span class="tag">Advanced players</span>
+            <span class="tag">Puzzle Rush fans</span>
+            <span class="tag">Blitz and bullet players</span>
+            <span class="tag">Coffee-break training</span>
+        </div>
+    </section>
+
+    <section class="block" id="faq">
+        <h2>Help &amp; FAQ</h2>
+        <p class="sub">Answers to the most common questions.</p>
+
+        <details>
+            <summary>Is the app free?</summary>
+            <p>Yes. Chess Puzzles Blitz is free and supported by ads. There are no purchases or subscriptions in the app.</p>
+        </details>
+        <details>
+            <summary>Can I play without ads?</summary>
+            <p>Watch one short video and you get <strong>4 hours without ads</strong>. After that, the option comes back after a 4-hour break. Short videos also unlock a hint, an extra life once per Survival run, or a lost streak.</p>
+        </details>
+        <details>
+            <summary>Do I need an account?</summary>
+            <p>No. Tap <strong>Continue without signing in</strong> and your scores, rating and statistics are kept on your phone. Sign in with Google or Apple to appear in the rankings, keep a daily streak and keep your progress when you change phones.</p>
+        </details>
+        <details>
+            <summary>What happens when I make a mistake?</summary>
+            <p>In the 3- and 5-minute challenges the run goes on and you get the next puzzle, but the clock keeps running. In Survival a mistake costs one of your three lives. In Practice there is no penalty at all.</p>
+        </details>
+        <details>
+            <summary>Where do the puzzles come from?</summary>
+            <p>The puzzles come from the open <a href="https://database.lichess.org/#puzzles" target="_blank" rel="noopener noreferrer">Lichess puzzle database</a>, which is made of positions from real games played on lichess.org. They are built into the app, so a new puzzle loads instantly.</p>
+        </details>
+        <details>
+            <summary>Which name is shown in the rankings?</summary>
+            <p>After your first sign-in you choose the display name shown in the rankings (2–50 characters). To change the name later, write to us. Names that are offensive or impersonate someone else may be removed.</p>
+        </details>
+        <details>
+            <summary>How do I change my ad privacy choices?</summary>
+            <p>Go to <strong>Settings → Privacy → Ad Preferences</strong> to open the consent form again, or <strong>Reset Privacy Settings</strong> to be asked from scratch. More in the <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+        </details>
+        <details>
+            <summary>How do I delete my account?</summary>
+            <p><strong>Settings → Account → Profile → Delete Account</strong>. Details on the <a href="deleteAccount.html">Delete account</a> page.</p>
+        </details>
+    </section>
+
+    <section class="block" id="support">
+        <div class="contact" style="margin-top:0">
+            <p><strong>Support</strong></p>
+            <p>Found a wrong puzzle, a bug, or have an idea? Write to us.</p>
+            <a href="mailto:dawikk.apps@gmail.com?subject=Chess%20Puzzles%20Blitz%20support">dawikk.apps@gmail.com</a>
+            <p style="margin-top:10px; font-size:0.9rem;">If it is about a specific puzzle, a screenshot helps a lot.</p>
+        </div>
+    </section>
+
+    <section class="final">
+        <span class="bolt-icon" aria-hidden="true">⚡</span>
+        <h2>Ready? 3:00 starts now</h2>
+        <p>Short sessions, real positions, measurable progress. Your next personal best is one run away.</p>
+        <div class="cta-row">
+            <a class="btn orange" href="https://play.google.com/store/apps/details?id=com.dawikk.chessblitz" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3,20.5V3.5C3,2.91 3.34,2.39 3.84,2.15L13.69,12L3.84,21.85C3.34,21.6 3,21.09 3,20.5M16.81,15.12L6.05,21.34L14.54,12.85L16.81,15.12M20.16,10.81C20.5,11.08 20.75,11.5 20.75,12C20.75,12.5 20.53,12.9 20.18,13.18L17.89,14.5L15.39,12L17.89,9.5L20.16,10.81M6.05,2.66L16.81,8.88L14.54,11.15L6.05,2.66Z"/></svg>
+                Download free
             </a>
-        </footer>
-    </div>
+        </div>
+    </section>
+
+    <footer class="site">
+        <span>&copy; 2026 Dawikk Apps · Chess Puzzles Blitz · Puzzles from the <a href="https://database.lichess.org/#puzzles" target="_blank" rel="noopener noreferrer">Lichess database</a> (CC0)</span>
+        <nav>
+            <a href="privacyPolicy.html">Privacy Policy</a>
+            <a href="termsOfUse.html">Terms of Use</a>
+            <a href="deleteAccount.html">Delete account</a>
+        </nav>
+    </footer>
+</div>
+
+<script>
+(function () {
+    // Example puzzle: Nd5-c7+ forks the king on e8 and the rook on a8.
+    var fen = 'r3kb1r/pp3ppp/4p3/3N4/8/8/PPP2PPP/R3KB1R';
+    var glyph = { k: '♚', q: '♛', r: '♜', b: '♝', n: '♞', p: '♟' };
+    var from = 'd5', to = 'c7';
+    var board = document.getElementById('board');
+    var rows = fen.split('/');
+    for (var r = 0; r < 8; r++) {
+        var file = 0;
+        for (var i = 0; i < rows[r].length; i++) {
+            var ch = rows[r][i];
+            if (/\d/.test(ch)) {
+                for (var e = 0; e < +ch; e++) board.appendChild(square(r, file++, null));
+            } else {
+                board.appendChild(square(r, file++, ch));
+            }
+        }
+    }
+
+    function square(rank, f, piece) {
+        var el = document.createElement('div');
+        var name = 'abcdefgh'[f] + (8 - rank);
+        el.className = 'sq ' + ((rank + f) % 2 ? 'd' : 'l');
+        if (name === from) el.className += ' hl';
+        if (name === to) el.className += ' to';
+        if (piece) {
+            var span = document.createElement('span');
+            span.className = piece === piece.toUpperCase() ? 'pc-w' : 'pc-b';
+            span.textContent = glyph[piece.toLowerCase()] + '︎';
+            el.appendChild(span);
+        }
+        return el;
+    }
+
+    // Counting-down timer and a solved counter for the mock-up.
+    var timer = document.getElementById('timer');
+    var solved = document.getElementById('solved');
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    var left = 180, count = 12;
+    setInterval(function () {
+        left = left > 0 ? left - 1 : 180;
+        if (left === 180) count = 0;
+        if (left % 7 === 0 && left !== 180) count++;
+        var m = Math.floor(left / 60), s = left % 60;
+        timer.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+        timer.className = 'timer' + (left <= 30 ? ' low' : '');
+        solved.textContent = count;
+    }, 1000);
+})();
+</script>
 </body>
 </html>

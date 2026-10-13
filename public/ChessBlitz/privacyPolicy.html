@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy – Chess Puzzles Blitz</title>
+    <meta name="description" content="How Chess Puzzles Blitz handles your data: guest mode on the device, optional Google or Apple sign-in for rankings and streaks, ads by Google AdMob and your consent choices.">
+    <meta name="theme-color" content="#07070C">
+    <link rel="icon" href="../favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <a class="brand" href="./"><span class="brand-mark">♞</span> Chess Puzzles <em>Blitz</em></a>
+        <nav class="nav-links">
+            <a href="./#faq">Help</a>
+            <a href="termsOfUse.html">Terms</a>
+            <a href="deleteAccount.html">Delete account</a>
+        </nav>
+    </div>
+
+    <header class="doc">
+        <div class="eyebrow">Chess Puzzles Blitz by Dawikk Apps</div>
+        <h1>Privacy Policy</h1>
+        <p class="effective">Effective date: 13 October 2026</p>
+    </header>
+
+    <p>This policy explains how the mobile application <strong>Chess Puzzles Blitz</strong> (previously published as <strong>Chess Tactics Blitz</strong>; the &ldquo;App&rdquo;), published by <strong>Dawikk Apps</strong> (&ldquo;we&rdquo;, &ldquo;us&rdquo;), handles information. It covers the Android and iOS versions with the identifier <code>com.dawikk.chessblitz</code>.</p>
+
+    <div class="callout">
+        <h3>In short</h3>
+        <ul>
+            <li><strong>Guest mode</strong> (&ldquo;Continue without signing in&rdquo;): your scores, rating and statistics stay on your phone. We do not create an account for you.</li>
+            <li><strong>Signed in</strong> with Google or Apple: we store your account, your game results and your streak on our server in the EU, so you can appear in the rankings and keep your progress.</li>
+            <li>The App is free and shows ads from <strong>Google AdMob</strong>, which collects device data according to your consent choices.</li>
+            <li>We do not use analytics or crash-reporting SDKs and we never sell your data.</li>
+            <li>You can delete your account in the App at any time.</li>
+        </ul>
+    </div>
+
+    <div class="toc">
+        <ol>
+            <li><a href="#local">Data on your device</a></li>
+            <li><a href="#account">Signing in and your account</a></li>
+            <li><a href="#server">Data on our server</a></li>
+            <li><a href="#integrity">Device integrity checks</a></li>
+            <li><a href="#ads">Ads and your choices</a></li>
+            <li><a href="#third">Third-party services</a></li>
+            <li><a href="#public">What other players see</a></li>
+            <li><a href="#legal">Legal bases</a></li>
+            <li><a href="#retention">Retention and deletion</a></li>
+            <li><a href="#rights">Your rights</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#changes">Changes and contact</a></li>
+        </ol>
+    </div>
+
+    <h2 id="local">1. Data on your device</h2>
+    <p>The App keeps the following in its own storage on your phone. It works the same in guest mode and when you are signed in.</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>What</th><th>Why</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Puzzle collection</td><td>A database of 150,000 puzzles built into the App. It contains no personal data.</td></tr>
+                <tr><td>Progress</td><td>Your rating and its history, best scores per mode, solved and missed puzzles, past sessions and per-theme statistics, for History, Weakness Analysis and Focus Training.</td></tr>
+                <tr><td>Settings</td><td>App and board theme, opponent move delay, sound and vibration.</td></tr>
+                <tr><td>Ad and consent state</td><td>Your consent choices (stored by Google's consent SDK), whether you are in the EEA, ad-free period and reward timestamps.</td></tr>
+                <tr><td>Sign-in data</td><td>If you sign in: your user record and sign-in tokens, so you stay signed in.</td></tr>
+                <tr><td>Installation ID</td><td>A random identifier created by the App on first use, used for the integrity checks in section 4. It is not your advertising ID or any hardware identifier.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>The Stockfish engine used on the analysis board runs entirely on your phone. Positions you analyse are not sent anywhere.</p>
+
+    <h2 id="account">2. Signing in and your account</h2>
+    <p>Signing in is optional. You can use <strong>Continue with Google</strong> or, on iPhone, <strong>Sign in with Apple</strong>. When you sign in:</p>
+    <ul>
+        <li>Google or Apple confirms your identity and gives the App a signed token. We check that token on our server; we never see your Google or Apple password.</li>
+        <li>From the token we receive your account identifier, your email address and, if available, your name and profile picture. With Apple you can choose &ldquo;Hide My Email&rdquo;; we then receive only a private relay address.</li>
+        <li>After your first sign-in you choose a <strong>display name</strong> that is shown in the rankings.</li>
+    </ul>
+    <p>We use your email address only to identify your account and to answer you if you write to us. We do not send newsletters or marketing email.</p>
+
+    <h2 id="server">3. Data on our server</h2>
+    <p>When you are signed in, the App sends the following to our server at <code>dawikk.app</code>, hosted by our hosting provider in Poland (European Union):</p>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Data</th><th>Purpose</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Account</td><td>Google or Apple account identifier, sign-in provider, email address, name, profile picture, username and display name, date of creation and of last sign-in.</td></tr>
+                <tr><td>Game results</td><td>For every run: mode, score, solved and missed puzzles, time spent, rating before and after.</td></tr>
+                <tr><td>Puzzle attempts</td><td>Which puzzle you played, its theme, whether you solved it, how long it took and your rating at the time.</td></tr>
+                <tr><td>Progress</td><td>Rating, XP, level, league, totals of games, puzzles and playing time, daily streak and daily statistics.</td></tr>
+                <tr><td>Integrity data</td><td>Installation ID, platform and the result of the device integrity check (section 4).</td></tr>
+                <tr><td>Request logs</td><td>For each request: IP address, installation ID, platform, account ID, the endpoint called, result and time. Used to keep the service secure, stop abuse and fix errors.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>We use this data only to run the App: to save your progress, compute rankings, streaks, XP and leagues, and protect the rankings from cheating. In guest mode the App does not send your game results to our server; it only loads public data such as the rankings, and those requests appear in the request logs like any other.</p>
+
+    <h2 id="integrity">4. Device integrity checks</h2>
+    <p>To keep the rankings fair, saving results to the server requires proof that the request comes from a genuine copy of the App on a genuine device. On Android this uses <strong>Google Play Integrity</strong>; on iPhone, <strong>Apple App Attest</strong>. The App asks Google or Apple for a signed verdict about the App and the device, and our server checks it. We store the verdict and a key identifier together with your installation ID. These checks do not give us access to your files, contacts or other apps.</p>
+
+    <h2 id="ads">5. Ads and your choices</h2>
+    <p>The App is free and is supported by ads served by <strong>Google AdMob</strong>: banners, a full-screen ad between runs (not more than once every few minutes) and optional rewarded videos that you choose to watch for an ad-free period, a hint, an extra life or a lost streak.</p>
+    <p>To show an ad, the AdMob SDK and its partner networks receive information from your device, such as the advertising ID, IP address, device model, operating system, approximate region and how you interact with ads. What is used depends on your choices:</p>
+    <ul>
+        <li><strong>EEA, UK and Switzerland:</strong> before ads are personalised you see Google's certified consent form (IAB TCF). If you do not consent, you see non-personalised or limited ads.</li>
+        <li><strong>iPhone:</strong> the system App Tracking Transparency prompt asks whether ads may use your device's advertising identifier. If you decline, ads are not personalised.</li>
+        <li><strong>Change your mind any time:</strong> <em>Settings &rarr; Privacy &rarr; Ad Preferences</em> reopens the consent form and <em>Reset Privacy Settings</em> asks you again from scratch. On Android you can also reset or delete your advertising ID in the system settings; on iPhone tracking can be turned off under <em>Settings &rarr; Privacy &amp; Security &rarr; Tracking</em>.</li>
+    </ul>
+    <p>Google and its partner networks act as independent controllers for the data they collect. See <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">How Google uses information from apps that use its services</a>.</p>
+
+    <h2 id="third">6. Third-party services</h2>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Service</th><th>What it does and sees</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Google AdMob (Google Ireland Ltd. / Google LLC)</td><td>Serves ads and the consent form. Receives device and ad data as described in section 5. <a href="https://support.google.com/admob/answer/6128543" target="_blank" rel="noopener noreferrer">Privacy information</a></td></tr>
+                <tr><td>Ad mediation partners</td><td>AdMob may fill an ad request through partner networks, depending on the platform: AppLovin, Chartboost, InMobi, ironSource, Liftoff (Vungle), Meta Audience Network, Pangle and Unity Ads. They receive ad-request data within your consent choices. <a href="https://support.google.com/admob/answer/9012903" target="_blank" rel="noopener noreferrer">Google's list of ad partners</a></td></tr>
+                <tr><td>Google Sign-In</td><td>Confirms your identity when you choose Continue with Google. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google Privacy Policy</a></td></tr>
+                <tr><td>Sign in with Apple</td><td>Confirms your identity when you choose Sign in with Apple. <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple Privacy Policy</a></td></tr>
+                <tr><td>Google Play Integrity / Apple App Attest</td><td>Device and App integrity verdicts (section 4).</td></tr>
+                <tr><td>Our hosting provider (Poland, EU)</td><td>Runs our server and database and processes data on our behalf only.</td></tr>
+                <tr><td>Google Play / App Store</td><td>Distribution and updates of the App, plus aggregate statistics the stores produce for every app.</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <p>We do not use Firebase Analytics, Crashlytics or any other analytics or crash-reporting SDK, and we do not sell or rent personal data.</p>
+
+    <h2 id="public">7. What other players see</h2>
+    <p>If you are signed in, your <strong>display name</strong> (or, if you have none, your username), profile picture where available, scores, XP, league and position are shown to other players in the rankings. Your email address is not shown. Guest players do not appear in the rankings.</p>
+
+    <h2 id="legal">8. Legal bases (GDPR)</h2>
+    <ul>
+        <li><strong>Performance of a contract</strong> (Art. 6(1)(b)): your account, saving progress, rankings and streaks you asked for by signing in.</li>
+        <li><strong>Legitimate interests</strong> (Art. 6(1)(f)): request logs, integrity checks and protecting fair rankings; non-personalised ads that keep the App free.</li>
+        <li><strong>Consent</strong> (Art. 6(1)(a)): personalised ads and access to the advertising identifier where required. You can withdraw consent at any time in <em>Settings &rarr; Privacy</em>.</li>
+    </ul>
+
+    <h2 id="retention">9. Retention and deletion</h2>
+    <ul>
+        <li><strong>Your account and server data</strong> are kept while your account exists. When you delete your account (<em>Settings &rarr; Account &rarr; Profile &rarr; Delete Account</em>) your user record and everything linked to it (game history, puzzle attempts, streaks, statistics, rankings, integrity records) is deleted from our database at once. See <a href="deleteAccount.html">Delete account</a>.</li>
+        <li><strong>Request logs</strong> are kept only as long as needed for security and troubleshooting.</li>
+        <li><strong>Data on your phone</strong> is removed when you uninstall the App or clear its storage.</li>
+        <li>Data collected by Google and ad partners is kept under their own policies.</li>
+    </ul>
+
+    <h2 id="rights">10. Your rights</h2>
+    <p>Where the GDPR or a similar law applies, you have the right to access, correct, delete and receive a copy of your data, to restrict or object to its processing and to withdraw consent. Write to <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> from the email address linked to your account and we will answer within 30 days. You can also complain to your data protection authority; in Poland this is the President of the Personal Data Protection Office (UODO).</p>
+
+    <h2 id="children">11. Children</h2>
+    <p>The App is not directed at children under 13 and we do not knowingly collect personal data from them. There is no chat and no way for players to contact each other. If you believe a child has created an account, write to us and we will delete it.</p>
+
+    <h2 id="security">12. Security</h2>
+    <p>All communication between the App and our server uses HTTPS. Sign-in tokens are verified against Google's and Apple's public keys, and saving results requires a valid integrity check. Access to the server is limited to us. No system is perfectly secure, but we keep the data we hold to what the App needs.</p>
+
+    <h2 id="changes">13. Changes and contact</h2>
+    <p>We may update this policy, for example when a feature or service changes. The new version is published on this page with a new effective date; important changes are also announced in the App.</p>
+
+    <div class="contact">
+        <p>Questions about privacy in Chess Puzzles Blitz?</p>
+        <a href="mailto:dawikk.apps@gmail.com?subject=Chess%20Puzzles%20Blitz%20%E2%80%93%20privacy">dawikk.apps@gmail.com</a>
+    </div>
+
+    <footer class="site">
+        <span>&copy; 2026 Dawikk Apps · Chess Puzzles Blitz</span>
+        <nav>
+            <a href="./">Chess Puzzles Blitz</a>
+            <a href="termsOfUse.html">Terms of Use</a>
+            <a href="deleteAccount.html">Delete account</a>
+        </nav>
+    </footer>
+</div>
+</body>
+</html>
