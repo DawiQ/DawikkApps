@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - ChessThink</title>
+    <meta name="description" content="ChessThink terms of use: the licence, Premium subscriptions and purchases, third-party services and liability.">
+    <link rel="canonical" href="https://dawikk-apps.vercel.app/ChessEngine/termsOfUse.html">
+    <link rel="icon" href="../favicon.ico">
+    <script>
+        // English by default (set in the attributes and the CSS, so it holds
+        // without JavaScript too). Polish only when the visitor chose it before.
+        // Switched before the first paint, so the text does not jump.
+        (function () {
+            try {
+                if (localStorage.getItem('chessthink.lang') === 'pl') {
+                    document.documentElement.setAttribute('data-lang', 'pl');
+                    document.documentElement.setAttribute('lang', 'pl');
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #0F1216;
+            --bg2: #13171C;
+            --surface: #171B20;
+            --surface2: #1E242B;
+            --line: #262D34;
+            --line2: #343D46;
+            --text: #F1F4F6;
+            --muted: #A3ADB5;
+            --signal: #D8A343;
+            --signal-soft: #8A6A2E;
+            --on-signal: #1B1405;
+            --ok: #3fd07a;
+            --warn: #ffb454;
+            --crit: #ff5c5c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(216, 163, 67, 0.07), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [data-lang="en"] .lang-pl { display: none !important; }
+        [data-lang="pl"] .lang-en { display: none !important; }
+
+        .langbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(15, 18, 22, 0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .langbar button {
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--line2);
+            border-radius: 8px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .langbar button:hover { color: var(--text); border-color: var(--signal-soft); }
+
+        [data-lang="pl"] .langbar button[data-set="pl"],
+        [data-lang="en"] .langbar button[data-set="en"] {
+            color: var(--on-signal);
+            background: var(--signal);
+            border-color: var(--signal);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-bottom: 22px;
+        }
+
+        .back:hover { color: var(--signal); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--signal);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(216, 163, 67, 0.06);
+            border: 1px solid var(--signal-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--signal); }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(255, 180, 84, 0.06);
+            border: 1px solid rgba(255, 180, 84, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        /* Kolumna z nazwami danych/uprawnień: wąska, ale tekst w niej ma się zawijać —
+           bez tego lista uprawnień w jednej linii rozpycha tabelę i dusi opis obok. */
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--signal);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="langbar">
+        <button type="button" data-set="pl">PL</button>
+        <button type="button" data-set="en">EN</button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; <span class="lang-pl">Wróć do ChessThink</span><span class="lang-en">Back to ChessThink</span></a>
+            <p class="app-name">ChessThink</p>
+            <h1 class="lang-pl">Regulamin</h1>
+            <h1 class="lang-en">Terms of Use</h1>
+            <p class="effective lang-pl"><strong>Data wejścia w życie:</strong> 23 listopada 2026</p>
+            <p class="effective lang-en"><strong>Effective date:</strong> November 23, 2026</p>
+        </header>
+
+        <div class="callout">
+            <h3 class="lang-pl">Krótko</h3>
+            <h3 class="lang-en">In short</h3>
+            <p class="lang-pl">ChessThink („Aplikacja”) to aplikacja do analizy partii szachowych tworzona przez <strong>Dawikk</strong> („my”, „Usługodawca”). Podstawowe funkcje są bezpłatne i finansowane reklamami. <strong>Premium</strong> (subskrypcja miesięczna, roczna albo zakup dożywotni) usuwa reklamy i limity oraz odblokowuje dodatkowe funkcje. Korzystając z Aplikacji, akceptujesz ten regulamin.</p>
+            <p class="lang-en">ChessThink (the &ldquo;Application&rdquo;) is a chess analysis app built by <strong>Dawikk</strong> (&ldquo;we&rdquo;, the &ldquo;Service Provider&rdquo;). The core features are free and supported by ads. <strong>Premium</strong> (a monthly or annual subscription, or a one-time lifetime purchase) removes ads and limits and unlocks extra features. By using the Application you accept these Terms.</p>
+        </div>
+        <h2 class="lang-pl">1. Licencja</h2>
+        <h2 class="lang-en">1. Licence</h2>
+        <p class="lang-pl">Udzielamy Ci osobistej, niewyłącznej, nieprzenoszalnej i odwołalnej licencji na korzystanie z Aplikacji na urządzeniach, którymi dysponujesz, zgodnie z niniejszym regulaminem i zasadami sklepu, z którego pobrałeś Aplikację.</p>
+        <p class="lang-en">We grant you a personal, non-exclusive, non-transferable, revocable licence to use the Application on devices you own or control, in accordance with these Terms and the rules of the store you downloaded it from.</p>
+        <p class="lang-pl">Nie wolno Ci: kopiować, sprzedawać ani udostępniać Aplikacji dalej; obchodzić zabezpieczeń zakupów, limitów lub reklam; dekompilować Aplikacji poza zakresem dozwolonym przez bezwzględnie obowiązujące przepisy; używać Aplikacji do automatycznego, nadmiernego odpytywania serwisów zewnętrznych.</p>
+        <p class="lang-en">You may not: copy, sell or redistribute the Application; circumvent purchase, limit or ad protections; decompile the Application beyond what mandatory law allows; or use the Application to query third-party services automatically or excessively.</p>
+        <h2 class="lang-pl">2. Wersja bezpłatna i reklamy</h2>
+        <h2 class="lang-en">2. The free version and ads</h2>
+        <p class="lang-pl">Wersja bezpłatna wyświetla reklamy. Niektóre funkcje mają dzienne limity albo można je odblokować na określony czas, oglądając reklamę wideo. Zakres darmowych funkcji, limity i czas odblokowania mogą się zmieniać.</p>
+        <p class="lang-en">The free version shows ads. Some features have daily limits or can be unlocked for a period of time by watching a video ad. The scope of free features, the limits and unlock times may change.</p>
+        <h2 class="lang-pl">3. Premium: subskrypcje i zakup dożywotni</h2>
+        <h2 class="lang-en">3. Premium: subscriptions and the lifetime purchase</h2>
+        <ul class="lang-pl">
+            <li><strong>Plany.</strong> Premium jest dostępne jako subskrypcja miesięczna, subskrypcja roczna lub jednorazowy zakup dożywotni. Aktualne ceny, z podatkami, widzisz w Aplikacji i w sklepie przed zakupem; mogą różnić się w zależności od kraju.</li>
+            <li><strong>Płatność.</strong> Płatność pobiera Google Play albo Apple App Store z Twojego konta w sklepie w chwili potwierdzenia zakupu.</li>
+            <li><strong>Automatyczne odnawianie.</strong> Subskrypcja odnawia się automatycznie na kolejny okres w tej samej cenie, chyba że wyłączysz odnawianie co najmniej 24 godziny przed końcem bieżącego okresu. Opłata za kolejny okres jest pobierana w ciągu 24 godzin przed jego rozpoczęciem.</li>
+            <li><strong>Anulowanie.</strong> Subskrypcją zarządzasz i anulujesz ją w ustawieniach konta Google Play lub App Store (w Aplikacji: <em>Ustawienia → Premium → Zarządzaj subskrypcją</em>). Po anulowaniu Premium działa do końca opłaconego okresu. Odinstalowanie Aplikacji nie anuluje subskrypcji.</li>
+            <li><strong>Okres próbny.</strong> Jeśli sklep zaproponuje bezpłatny okres próbny, po jego zakończeniu subskrypcja przechodzi w płatną, chyba że anulujesz ją przed końcem okresu próbnego. O prawie do okresu próbnego decyduje sklep (zwykle jeden na konto).</li>
+            <li><strong>Zakup dożywotni</strong> to jednorazowa płatność dająca Premium bez terminu na tym koncie sklepu, przez cały czas, w którym Aplikacja jest udostępniana. Nie anuluje on istniejącej subskrypcji — anuluj ją osobno w sklepie.</li>
+            <li><strong>Przywracanie zakupów.</strong> Na nowym urządzeniu zalogowanym do tego samego konta sklepu użyj „Przywróć zakupy”.</li>
+            <li><strong>Zakres Premium.</strong> Premium obejmuje brak reklam, brak limitów oraz funkcje opisane w Aplikacji w chwili zakupu. Funkcje mogą być rozwijane i zmieniane; nie usuniemy bez ważnego powodu kluczowych funkcji, za które zapłaciłeś.</li>
+            <li><strong>Wcześniejszy zakup „Usuń reklamy”.</strong> Jeśli kupiłeś go przed wprowadzeniem Premium, zachowujesz wszystko, co odblokowywał — brak reklam i limitów. Nie obejmuje on funkcji dostępnych wyłącznie w Premium, wprowadzonych po jego zakupie.</li>
+        </ul>
+        <ul class="lang-en">
+            <li><strong>Plans.</strong> Premium is available as a monthly subscription, an annual subscription or a one-time lifetime purchase. Current prices, including taxes, are shown in the Application and in the store before you buy, and may vary by country.</li>
+            <li><strong>Payment.</strong> Payment is charged by Google Play or the Apple App Store to your store account when you confirm the purchase.</li>
+            <li><strong>Automatic renewal.</strong> A subscription renews automatically for another period at the same price unless you turn off auto-renewal at least 24 hours before the end of the current period. The next period is charged within 24 hours before it begins.</li>
+            <li><strong>Cancellation.</strong> You manage and cancel your subscription in your Google Play or App Store account settings (in the Application: <em>Settings &rarr; Premium &rarr; Manage subscription</em>). After cancelling, Premium stays active until the end of the paid period. Uninstalling the Application does not cancel a subscription.</li>
+            <li><strong>Free trial.</strong> If the store offers a free trial, the subscription becomes paid when the trial ends unless you cancel before the trial ends. Eligibility for a trial is decided by the store (usually one per account).</li>
+            <li>The <strong>lifetime purchase</strong> is a one-time payment that gives Premium with no end date on that store account, for as long as the Application is offered. It does not cancel an existing subscription &mdash; cancel that separately in the store.</li>
+            <li><strong>Restoring purchases.</strong> On a new device signed in to the same store account, use &ldquo;Restore purchases&rdquo;.</li>
+            <li><strong>What Premium includes.</strong> Premium includes no ads, no limits and the features described in the Application at the time of purchase. Features may be developed and changed; we will not remove core features you paid for without a valid reason.</li>
+            <li><strong>An earlier &ldquo;Remove ads&rdquo; purchase.</strong> If you bought it before Premium was introduced, you keep everything it unlocked &mdash; no ads and no limits. It does not include Premium-only features introduced after it was bought.</li>
+        </ul>
+        <h2 class="lang-pl">4. Zwroty i prawo odstąpienia</h2>
+        <h2 class="lang-en">4. Refunds and the right of withdrawal</h2>
+        <p class="lang-pl">Zwroty obsługuje sklep, w którym dokonano zakupu, według swoich zasad (<a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener">Google Play</a>, <a href="https://support.apple.com/118223" target="_blank" rel="noopener">App Store</a>). Premium jest treścią cyfrową dostarczaną natychmiast po zakupie: potwierdzając zakup, wyrażasz zgodę na rozpoczęcie świadczenia przed upływem terminu na odstąpienie od umowy i przyjmujesz do wiadomości, że w ten sposób tracisz prawo odstąpienia, w zakresie, w jakim pozwala na to prawo. Nie ogranicza to Twoich ustawowych praw w razie wadliwego działania usługi.</p>
+        <p class="lang-en">Refunds are handled by the store where the purchase was made, under its own rules (<a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener">Google Play</a>, <a href="https://support.apple.com/118223" target="_blank" rel="noopener">App Store</a>). Premium is digital content supplied immediately after purchase: by confirming the purchase you consent to its supply beginning before the withdrawal period ends and acknowledge that you thereby lose the right of withdrawal, to the extent the law allows. This does not limit your statutory rights if the service is faulty.</p>
+        <h2 class="lang-pl">5. Usługi i dane zewnętrzne</h2>
+        <h2 class="lang-en">5. Third-party services and data</h2>
+        <p class="lang-pl">Funkcje auto-analizy, importu partii i przygotowania do przeciwnika korzystają z publicznych interfejsów serwisów <strong>Lichess</strong> i <strong>Chess.com</strong>. Nie jesteśmy z nimi powiązani; działanie tych funkcji zależy od dostępności serwisów, a dane (partie, nazwy graczy, rankingi) pochodzą od nich. Korzystaj z tych funkcji zgodnie z regulaminami tych serwisów i z poszanowaniem innych graczy.</p>
+        <p class="lang-en">Auto-review, game import and opponent prep use the public interfaces of <strong>Lichess</strong> and <strong>Chess.com</strong>. We are not affiliated with them; these features depend on the sites being available, and the data (games, player names, ratings) comes from them. Use these features in line with those sites&rsquo; terms and with respect for other players.</p>
+        <p class="lang-pl">Aplikacja korzysta z silnika <strong>Stockfish</strong>, udostępnianego na licencji GNU GPL v3, oraz z innych komponentów open source. Ich licencje są dostępne w Aplikacji (<em>Ustawienia → Licencje open source</em>).</p>
+        <p class="lang-en">The Application uses the <strong>Stockfish</strong> engine, distributed under the GNU GPL v3, and other open-source components. Their licences are available in the Application (<em>Settings &rarr; Open source licenses</em>).</p>
+        <h2 class="lang-pl">6. Analizy silnika</h2>
+        <h2 class="lang-en">6. Engine analysis</h2>
+        <p class="lang-pl">Oceny, najlepsze ruchy, klasyfikacje błędów, dokładność i statystyki są wynikiem obliczeń komputerowych i mają charakter pomocniczy. Mogą zawierać błędy i nie gwarantują żadnego wyniku sportowego ani rankingu.</p>
+        <p class="lang-en">Evaluations, best moves, mistake classifications, accuracy and statistics are the output of computer calculations and are provided as guidance. They may contain errors and guarantee no competitive result or rating.</p>
+        <h2 class="lang-pl">7. Własność intelektualna</h2>
+        <h2 class="lang-en">7. Intellectual property</h2>
+        <p class="lang-pl">Aplikacja, jej wygląd, teksty, grafiki i kod (z wyłączeniem komponentów open source na ich własnych licencjach) należą do Usługodawcy. Zasady gry w szachy i zapisy partii nie są niczyją własnością.</p>
+        <p class="lang-en">The Application, its design, text, graphics and code (except open-source components under their own licences) belong to the Service Provider. The rules of chess and game records belong to no one.</p>
+        <h2 class="lang-pl">8. Dostępność i zmiany</h2>
+        <h2 class="lang-en">8. Availability and changes</h2>
+        <p class="lang-pl">Staramy się, aby Aplikacja działała bez przerw, ale nie gwarantujemy jej ciągłej dostępności. Możemy aktualizować Aplikację, zmieniać lub usuwać funkcje oraz zakończyć jej udostępnianie. Jeśli zakończymy udostępnianie Aplikacji, poinformujemy o tym z wyprzedzeniem, a aktywne subskrypcje nie będą odnawiane.</p>
+        <p class="lang-en">We try to keep the Application running without interruption but do not guarantee continuous availability. We may update the Application, change or remove features, and stop offering it. If we stop offering the Application, we will give advance notice and active subscriptions will not renew.</p>
+        <h2 class="lang-pl">9. Wyłączenie gwarancji i odpowiedzialności</h2>
+        <h2 class="lang-en">9. Disclaimer and limitation of liability</h2>
+        <p class="lang-pl">Aplikacja jest udostępniana w stanie „TAK JAK JEST”. W najszerszym zakresie dozwolonym przez prawo nie odpowiadamy za szkody pośrednie, utratę danych zapisanych na urządzeniu ani za działanie usług zewnętrznych. Nasza łączna odpowiedzialność wobec Ciebie jest ograniczona do kwoty zapłaconej za Premium w ciągu ostatnich 12 miesięcy.</p>
+        <p class="lang-en">The Application is provided &ldquo;AS IS&rdquo;. To the fullest extent permitted by law, we are not liable for indirect damages, loss of data stored on the device, or the behaviour of third-party services. Our total liability to you is limited to the amount you paid for Premium in the last 12 months.</p>
+        <p class="lang-pl">Powyższe ograniczenia nie wyłączają odpowiedzialności, której nie można wyłączyć na mocy bezwzględnie obowiązujących przepisów, w tym przepisów o ochronie konsumentów oraz odpowiedzialności za szkodę wyrządzoną umyślnie.</p>
+        <p class="lang-en">These limitations do not exclude liability that cannot be excluded under mandatory law, including consumer protection law and liability for intentional harm.</p>
+        <h2 class="lang-pl">10. Aplikacja pobrana z App Store</h2>
+        <h2 class="lang-en">10. If you downloaded the Application from the App Store</h2>
+        <p class="lang-pl">Regulamin zawierasz z Usługodawcą, a nie z Apple Inc. Apple nie odpowiada za Aplikację, jej treść ani wsparcie i nie ma obowiązku świadczenia usług serwisowych. W zakresie nieuregulowanym tutaj zastosowanie ma <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">standardowa licencja Apple (EULA)</a>. Apple i jej spółki zależne są beneficjentami tego regulaminu i mogą egzekwować go wobec Ciebie.</p>
+        <p class="lang-en">These Terms are between you and the Service Provider, not Apple Inc. Apple is not responsible for the Application, its content or support and has no obligation to provide maintenance. Where these Terms are silent, the <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener">Apple Standard EULA</a> applies. Apple and its subsidiaries are third-party beneficiaries of these Terms and may enforce them against you.</p>
+        <h2 class="lang-pl">11. Prywatność</h2>
+        <h2 class="lang-en">11. Privacy</h2>
+        <p class="lang-pl">Zasady przetwarzania danych opisuje <a href="privacyPolicy.html">Polityka prywatności</a>.</p>
+        <p class="lang-en">How data is processed is described in the <a href="privacyPolicy.html">Privacy Policy</a>.</p>
+        <h2 class="lang-pl">12. Prawo właściwe i zmiany regulaminu</h2>
+        <h2 class="lang-en">12. Governing law and changes to these Terms</h2>
+        <p class="lang-pl">Regulamin podlega prawu polskiemu. Jeśli jesteś konsumentem, zachowujesz ochronę wynikającą z bezwzględnie obowiązujących przepisów kraju swojego zwykłego pobytu. Jeżeli którekolwiek postanowienie okaże się nieważne, pozostałe zachowują moc. Możemy zmieniać regulamin; aktualna wersja jest zawsze pod tym adresem, a o istotnych zmianach, zwłaszcza dotyczących płatności, poinformujemy w Aplikacji z wyprzedzeniem.</p>
+        <p class="lang-en">These Terms are governed by Polish law. If you are a consumer, you keep the protection of the mandatory rules of the country in which you habitually reside. If any provision is found invalid, the rest remain in force. We may change these Terms; the current version is always at this address, and we will announce significant changes, especially to payments, in the Application in advance.</p>
+
+        <div class="contact">
+            <h2 class="lang-pl">Kontakt</h2>
+            <h2 class="lang-en">Contact</h2>
+            <p class="lang-pl">Pytania, prośby i uwagi: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+            <p class="lang-en">Questions, requests and feedback: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html"><span class="lang-pl">Strona główna</span><span class="lang-en">Home</span></a>
+                <a href="privacyPolicy.html"><span class="lang-pl">Polityka prywatności</span><span class="lang-en">Privacy Policy</span></a>
+            </div>
+            <p class="footer-note">&copy; Dawikk &middot; ChessThink</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.langbar button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var lang = button.getAttribute('data-set');
+                document.documentElement.setAttribute('data-lang', lang);
+                document.documentElement.setAttribute('lang', lang);
+                try { localStorage.setItem('chessthink.lang', lang); } catch (e) {}
+            });
+        });
+    </script>
+</body>
+</html>

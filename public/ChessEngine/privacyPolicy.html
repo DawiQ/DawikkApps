@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - ChessThink</title>
+    <meta name="description" content="ChessThink privacy policy: what stays on your device, which services process data for ads, analytics, crash reports and purchases, and your choices.">
+    <link rel="canonical" href="https://dawikk-apps.vercel.app/ChessEngine/privacyPolicy.html">
+    <link rel="icon" href="../favicon.ico">
+    <script>
+        // English by default (set in the attributes and the CSS, so it holds
+        // without JavaScript too). Polish only when the visitor chose it before.
+        // Switched before the first paint, so the text does not jump.
+        (function () {
+            try {
+                if (localStorage.getItem('chessthink.lang') === 'pl') {
+                    document.documentElement.setAttribute('data-lang', 'pl');
+                    document.documentElement.setAttribute('lang', 'pl');
+                }
+            } catch (e) {}
+        })();
+    </script>
+    <style>
+        :root {
+            --bg: #0F1216;
+            --bg2: #13171C;
+            --surface: #171B20;
+            --surface2: #1E242B;
+            --line: #262D34;
+            --line2: #343D46;
+            --text: #F1F4F6;
+            --muted: #A3ADB5;
+            --signal: #D8A343;
+            --signal-soft: #8A6A2E;
+            --on-signal: #1B1405;
+            --ok: #3fd07a;
+            --warn: #ffb454;
+            --crit: #ff5c5c;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(216, 163, 67, 0.07), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        [data-lang="en"] .lang-pl { display: none !important; }
+        [data-lang="pl"] .lang-en { display: none !important; }
+
+        .langbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+            padding: 10px 20px;
+            background: rgba(15, 18, 22, 0.88);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .langbar button {
+            font: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+            background: transparent;
+            border: 1px solid var(--line2);
+            border-radius: 8px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .langbar button:hover { color: var(--text); border-color: var(--signal-soft); }
+
+        [data-lang="pl"] .langbar button[data-set="pl"],
+        [data-lang="en"] .langbar button[data-set="en"] {
+            color: var(--on-signal);
+            background: var(--signal);
+            border-color: var(--signal);
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back {
+            display: inline-block;
+            font-size: 0.88rem;
+            color: var(--muted);
+            text-decoration: none;
+            margin-bottom: 22px;
+        }
+
+        .back:hover { color: var(--signal); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name {
+            font-family: var(--mono);
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--signal);
+        }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin: 42px 0 12px;
+            padding-left: 14px;
+            border-left: 3px solid var(--signal);
+        }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--signal); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout {
+            background: rgba(216, 163, 67, 0.06);
+            border: 1px solid var(--signal-soft);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 26px 0;
+        }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--signal); }
+
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        .warn-panel {
+            background: rgba(255, 180, 84, 0.06);
+            border: 1px solid rgba(255, 180, 84, 0.35);
+            border-radius: 14px;
+            padding: 22px;
+            margin: 22px 0;
+        }
+
+        .warn-panel h3 { margin-top: 0; color: var(--warn); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        /* Kolumna z nazwami danych/uprawnień: wąska, ale tekst w niej ma się zawijać —
+           bez tego lista uprawnień w jednej linii rozpycha tabelę i dusi opis obok. */
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code {
+            font-family: var(--mono);
+            font-size: 0.86em;
+            color: var(--signal);
+            background: var(--surface2);
+            border: 1px solid var(--line);
+            border-radius: 5px;
+            padding: 1px 6px;
+        }
+
+        .contact {
+            background: var(--surface);
+            border: 1px solid var(--line2);
+            border-radius: 14px;
+            padding: 26px;
+            margin: 34px 0 0;
+            text-align: center;
+        }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer {
+            border-top: 1px solid var(--line);
+            margin-top: 44px;
+            padding-top: 26px;
+            text-align: center;
+        }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="langbar">
+        <button type="button" data-set="pl">PL</button>
+        <button type="button" data-set="en">EN</button>
+    </nav>
+
+    <div class="container">
+        <header>
+            <a class="back" href="index.html">&larr; <span class="lang-pl">Wróć do ChessThink</span><span class="lang-en">Back to ChessThink</span></a>
+            <p class="app-name">ChessThink</p>
+            <h1 class="lang-pl">Polityka prywatności</h1>
+            <h1 class="lang-en">Privacy Policy</h1>
+            <p class="effective lang-pl"><strong>Data wejścia w życie:</strong> 23 listopada 2026</p>
+            <p class="effective lang-en"><strong>Effective date:</strong> November 23, 2026</p>
+        </header>
+
+        <div class="callout">
+            <h3 class="lang-pl">Krótko</h3>
+            <h3 class="lang-en">In short</h3>
+            <p class="lang-pl">ChessThink („Aplikacja”) tworzy <strong>Dawikk</strong> („my”, „Usługodawca”). Aplikacja <strong>nie ma konta użytkownika</strong>: Twoje analizy, partie, postępy treningu i ustawienia są zapisywane <strong>tylko na Twoim urządzeniu</strong>.</p>
+            <p class="lang-en">ChessThink (the &ldquo;Application&rdquo;) is built by <strong>Dawikk</strong> (&ldquo;we&rdquo;, the &ldquo;Service Provider&rdquo;). The Application has <strong>no user account</strong>: your analyses, games, training progress and settings are stored <strong>on your device only</strong>.</p>
+            <p class="lang-pl">Część danych technicznych przetwarzają zaufane usługi zewnętrzne: <strong>Google AdMob</strong> (reklamy), <strong>Google Analytics for Firebase</strong> (statystyki użycia), <strong>Firebase Crashlytics</strong> (raporty awarii), <strong>RevenueCat</strong> oraz <strong>Google Play / App Store</strong> (zakupy Premium), a gdy sam o to poprosisz — <strong>Lichess</strong> i <strong>Chess.com</strong> (pobieranie publicznych partii). Szczegóły poniżej.</p>
+            <p class="lang-en">Some technical data is processed by trusted third-party services: <strong>Google AdMob</strong> (ads), <strong>Google Analytics for Firebase</strong> (usage statistics), <strong>Firebase Crashlytics</strong> (crash reports), <strong>RevenueCat</strong> and <strong>Google Play / the App Store</strong> (Premium purchases), and, when you ask for it, <strong>Lichess</strong> and <strong>Chess.com</strong> (fetching public games). Details below.</p>
+        </div>
+        <h2 class="lang-pl">1. Administrator danych</h2>
+        <h2 class="lang-en">1. Who is responsible</h2>
+        <p class="lang-pl">Administratorem danych przetwarzanych w związku z Aplikacją jest Dawikk. Kontakt: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>. W sprawach dotyczących danych przetwarzanych przez usługi zewnętrzne każda z nich działa także według własnej polityki prywatności (linki w punkcie 3).</p>
+        <p class="lang-en">Dawikk is the controller of the data processed in connection with the Application. Contact: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>. Each third-party service also processes data under its own privacy policy (links in section 3).</p>
+        <h2 class="lang-pl">2. Dane przechowywane tylko na Twoim urządzeniu</h2>
+        <h2 class="lang-en">2. Data stored on your device only</h2>
+        <p class="lang-pl">Poniższe dane zapisują się w prywatnej pamięci Aplikacji na telefonie. Nie wysyłamy ich na żaden nasz serwer — nie mamy takiego serwera.</p>
+        <p class="lang-en">The following data is kept in the Application&rsquo;s private storage on your phone. We do not send it to any server of ours &mdash; we have no such server.</p>
+        <ul class="lang-pl">
+            <li>zapisane analizy, pozycje i notatki;</li>
+            <li>partie rozegrane w Aplikacji oraz partie pobrane z Lichess lub Chess.com, ich analizy i statystyki (np. dokładność, typowe błędy, historia postępów);</li>
+            <li>postęp treningu z własnych błędów (kolejka powtórek, seria dni);</li>
+            <li>nazwa podłączonego konta Lichess lub Chess.com oraz lista ostatnio sprawdzanych przeciwników;</li>
+            <li>ustawienia, motywy, liczniki darmowych limitów i stan odblokowań;</li>
+            <li>zapisany w pamięci podręcznej stan zakupu Premium (prawdziwym źródłem jest sklep i RevenueCat).</li>
+        </ul>
+        <ul class="lang-en">
+            <li>saved analyses, positions and notes;</li>
+            <li>games played in the Application and games fetched from Lichess or Chess.com, their reviews and statistics (such as accuracy, typical mistakes and progress history);</li>
+            <li>your mistake-training progress (the review queue, the day streak);</li>
+            <li>the name of a connected Lichess or Chess.com account and the list of opponents you recently looked up;</li>
+            <li>settings, themes, free-allowance counters and unlocks;</li>
+            <li>a cached copy of your Premium status (the store and RevenueCat remain the source of truth).</li>
+        </ul>
+        <p class="lang-pl"><strong>Skaner pozycji</strong> przetwarza zdjęcie lub zrzut ekranu wyłącznie na urządzeniu; obraz nie jest nigdzie wysyłany. Aplikacja prosi o dostęp do aparatu lub zdjęć dopiero, gdy użyjesz skanera. <strong>Schowek</strong> jest odczytywany tylko wtedy, gdy sam wybierzesz wklejenie pozycji lub partii.</p>
+        <p class="lang-en">The <strong>position scanner</strong> processes a photo or screenshot on the device only; the image is not sent anywhere. The Application asks for camera or photo access only when you use the scanner. The <strong>clipboard</strong> is read only when you choose to paste a position or game.</p>
+        <p class="lang-pl">Silnik szachowy (Stockfish) liczy na Twoim telefonie. Przy pierwszym użyciu Aplikacja pobiera pliki sieci neuronowej Stockfisha z publicznych serwerów projektu (np. GitHub, stockfishchess.org); jak przy każdym pobieraniu, serwer widzi adres IP i standardowe dane żądania.</p>
+        <p class="lang-en">The chess engine (Stockfish) runs on your phone. On first use the Application downloads Stockfish&rsquo;s neural-network files from the project&rsquo;s public servers (such as GitHub and stockfishchess.org); as with any download, the server sees your IP address and standard request data.</p>
+        <h2 class="lang-pl">3. Usługi zewnętrzne i dane, które przetwarzają</h2>
+        <h2 class="lang-en">3. Third-party services and the data they process</h2>
+        <div class="table-wrap lang-pl">
+            <table>
+                <tr><th>Usługa</th><th>Dane i cel</th></tr>
+                <tr><td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google AdMob</a></td><td>Wyświetlanie reklam (banery, reklamy pełnoekranowe, nagradzane wideo). Identyfikator reklamowy urządzenia (lub IDFA na iOS, jeśli na to pozwolisz), adres IP, dane o urządzeniu i systemie, interakcje z reklamami. Reklamy spersonalizowane tylko za Twoją zgodą (formularz zgody Google UMP).</td></tr>
+                <tr><td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Google Analytics for Firebase</a></td><td>Statystyki użycia, które pomagają nam ulepszać Aplikację: odwiedzane ekrany, używane funkcje, zdarzenia związane z reklamami i ofertą Premium (np. wyświetlenie oferty, wynik zakupu — bez danych płatniczych), identyfikator instancji aplikacji, dane o urządzeniu, przybliżona lokalizacja wyznaczona z adresu IP.</td></tr>
+                <tr><td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Crashlytics</a></td><td>Raporty awarii: stan urządzenia i aplikacji w chwili błędu, ślad stosu, identyfikator instalacji. Służą wyłącznie naprawianiu błędów.</td></tr>
+                <tr><td><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat</a></td><td>Obsługa i weryfikacja zakupów Premium: anonimowy identyfikator użytkownika nadany przez RevenueCat, historia zakupów i ich potwierdzenia ze sklepu, kupiony produkt, kraj sklepu, dane o urządzeniu i systemie, adres IP. RevenueCat nie otrzymuje danych Twojej karty.</td></tr>
+                <tr><td>Google Play / Apple App Store</td><td>Płatności za Premium realizuje sklep, z którego pobrałeś Aplikację, na podstawie Twojego konta w sklepie i według jego polityki prywatności. Nie mamy dostępu do Twoich danych płatniczych.</td></tr>
+                <tr><td><a href="https://lichess.org/privacy" target="_blank" rel="noopener">Lichess</a>, <a href="https://www.chess.com/legal/privacy" target="_blank" rel="noopener">Chess.com</a></td><td>Tylko gdy podłączysz konto, zaimportujesz partie albo sprawdzisz przeciwnika: Aplikacja pobiera publiczne partie bezpośrednio z publicznego API serwisu. Serwis otrzymuje wpisaną nazwę użytkownika i Twój adres IP. Nie wysyłamy tam żadnych innych danych i nie loguje się na Twoje konto.</td></tr>
+            </table>
+        </div>
+        <div class="table-wrap lang-en">
+            <table>
+                <tr><th>Service</th><th>Data and purpose</th></tr>
+                <tr><td><a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google AdMob</a></td><td>Showing ads (banners, full-screen ads, rewarded videos). The device advertising ID (or the IDFA on iOS, if you allow it), IP address, device and OS data, ad interactions. Personalised ads only with your consent (the Google UMP consent form).</td></tr>
+                <tr><td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Google Analytics for Firebase</a></td><td>Usage statistics that help us improve the Application: screens visited, features used, events around ads and the Premium offer (such as the offer being shown or the outcome of a purchase &mdash; never payment details), the app-instance ID, device data, approximate location derived from the IP address.</td></tr>
+                <tr><td><a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener">Firebase Crashlytics</a></td><td>Crash reports: device and app state when the error happened, the stack trace, an installation ID. Used only to fix bugs.</td></tr>
+                <tr><td><a href="https://www.revenuecat.com/privacy" target="_blank" rel="noopener">RevenueCat</a></td><td>Processing and verifying Premium purchases: an anonymous user ID assigned by RevenueCat, purchase history and the store&rsquo;s receipts for it, the product bought, store country, device and OS data, IP address. RevenueCat does not receive your card details.</td></tr>
+                <tr><td>Google Play / Apple App Store</td><td>Premium payments are handled by the store you downloaded the Application from, through your store account and under its privacy policy. We have no access to your payment details.</td></tr>
+                <tr><td><a href="https://lichess.org/privacy" target="_blank" rel="noopener">Lichess</a>, <a href="https://www.chess.com/legal/privacy" target="_blank" rel="noopener">Chess.com</a></td><td>Only when you connect an account, import games or look up an opponent: the Application fetches public games directly from the site&rsquo;s public API. The site receives the username you typed and your IP address. We send it no other data and never sign in to your account.</td></tr>
+            </table>
+        </div>
+        <h2 class="lang-pl">4. Czego nie zbieramy</h2>
+        <h2 class="lang-en">4. What we do not collect</h2>
+        <ul class="lang-pl">
+            <li>imienia, nazwiska, adresu e-mail ani hasła (Aplikacja nie ma konta; e-mail poznamy tylko, jeśli sam do nas napiszesz);</li>
+            <li>dokładnej lokalizacji, kontaktów, nagrań z mikrofonu;</li>
+            <li>danych kart płatniczych;</li>
+            <li>treści Twoich analiz, partii i notatek — zostają na urządzeniu.</li>
+        </ul>
+        <ul class="lang-en">
+            <li>your name, e-mail address or password (there is no account; we only learn your e-mail if you write to us);</li>
+            <li>precise location, contacts or microphone recordings;</li>
+            <li>payment card details;</li>
+            <li>the content of your analyses, games and notes &mdash; they stay on the device.</li>
+        </ul>
+        <h2 class="lang-pl">5. Cele i podstawy prawne (RODO)</h2>
+        <h2 class="lang-en">5. Purposes and legal bases (GDPR)</h2>
+        <ul class="lang-pl">
+            <li><strong>działanie Aplikacji i zakupy Premium</strong> — wykonanie umowy (art. 6 ust. 1 lit. b RODO);</li>
+            <li><strong>reklamy spersonalizowane</strong> — Twoja zgoda (art. 6 ust. 1 lit. a), którą możesz w każdej chwili wycofać; reklamy niespersonalizowane oraz zapobieganie nadużyciom — prawnie uzasadniony interes (lit. f);</li>
+            <li><strong>statystyki użycia i raporty awarii</strong> — prawnie uzasadniony interes polegający na utrzymaniu i ulepszaniu Aplikacji (lit. f), a tam, gdzie prawo wymaga zgody — zgoda;</li>
+            <li><strong>obowiązki prawne</strong>, np. podatkowe i rachunkowe związane ze sprzedażą — art. 6 ust. 1 lit. c.</li>
+        </ul>
+        <ul class="lang-en">
+            <li><strong>running the Application and Premium purchases</strong> &mdash; performance of a contract (Art. 6(1)(b) GDPR);</li>
+            <li><strong>personalised ads</strong> &mdash; your consent (Art. 6(1)(a)), which you can withdraw at any time; non-personalised ads and fraud prevention &mdash; legitimate interests (Art. 6(1)(f));</li>
+            <li><strong>usage statistics and crash reports</strong> &mdash; our legitimate interest in maintaining and improving the Application (Art. 6(1)(f)), and consent where the law requires it;</li>
+            <li><strong>legal obligations</strong>, such as tax and accounting duties related to sales &mdash; Art. 6(1)(c).</li>
+        </ul>
+        <h2 class="lang-pl">6. Twoje wybory</h2>
+        <h2 class="lang-en">6. Your choices</h2>
+        <ul class="lang-pl">
+            <li><strong>Zgoda na reklamy:</strong> przy pierwszym uruchomieniu (w EOG, Wielkiej Brytanii i Szwajcarii) pokazujemy formularz zgody. Zmienisz ją w Aplikacji: <em>Ustawienia → Prywatność i zgody → Zarządzaj preferencjami reklam</em>.</li>
+            <li><strong>iOS:</strong> o dostęp do identyfikatora reklamowego (IDFA) pytamy systemowym oknem App Tracking Transparency; decyzję zmienisz w ustawieniach systemu.</li>
+            <li><strong>Identyfikator reklamowy</strong> możesz zresetować lub ograniczyć w ustawieniach urządzenia.</li>
+            <li><strong>Premium bez reklam:</strong> po zakupie Premium reklamy nie są wyświetlane.</li>
+            <li><strong>Konto Lichess / Chess.com</strong> odłączysz na karcie „Twoje partie online” (przycisk „Zmień”).</li>
+            <li><strong>Usunięcie danych z urządzenia:</strong> odinstalowanie Aplikacji usuwa wszystkie dane zapisane lokalnie.</li>
+        </ul>
+        <ul class="lang-en">
+            <li><strong>Ad consent:</strong> on first launch (in the EEA, the UK and Switzerland) we show a consent form. You can change it in the Application: <em>Settings &rarr; Privacy &amp; Consent &rarr; Manage ad preferences</em>.</li>
+            <li><strong>iOS:</strong> we ask for the advertising identifier (IDFA) through the system App Tracking Transparency prompt; you can change your decision in the system settings.</li>
+            <li>You can reset or limit the <strong>advertising ID</strong> in your device settings.</li>
+            <li><strong>Premium without ads:</strong> once you have Premium, no ads are shown.</li>
+            <li>Disconnect a <strong>Lichess / Chess.com account</strong> on the &ldquo;Your online games&rdquo; card (the &ldquo;Change&rdquo; button).</li>
+            <li><strong>Deleting data from the device:</strong> uninstalling the Application deletes everything it stored locally.</li>
+        </ul>
+        <h2 class="lang-pl">7. Jak długo przechowujemy dane</h2>
+        <h2 class="lang-en">7. How long data is kept</h2>
+        <p class="lang-pl">Dane lokalne zostają na urządzeniu, dopóki ich nie usuniesz w Aplikacji albo nie odinstalujesz Aplikacji. Usługi zewnętrzne przechowują dane według własnych zasad i ustawień: dane zdarzeń w Google Analytics przechowujemy nie dłużej niż 14 miesięcy, raporty awarii w Crashlytics są usuwane po około 90 dniach, a RevenueCat i sklepy przechowują historię zakupów tak długo, jak jest to potrzebne do obsługi zakupów i obowiązków prawnych.</p>
+        <p class="lang-en">Local data stays on the device until you delete it in the Application or uninstall the Application. Third-party services keep data under their own rules and settings: event data in Google Analytics is kept for no longer than 14 months, Crashlytics crash reports are deleted after about 90 days, and RevenueCat and the stores keep purchase history for as long as needed to service purchases and meet legal obligations.</p>
+        <h2 class="lang-pl">8. Przekazywanie danych poza EOG</h2>
+        <h2 class="lang-en">8. Transfers outside the EEA</h2>
+        <p class="lang-pl">Google i RevenueCat mogą przetwarzać dane w Stanach Zjednoczonych i innych krajach. Przekazywanie odbywa się na podstawie mechanizmów przewidzianych w RODO, takich jak EU-U.S. Data Privacy Framework lub standardowe klauzule umowne Komisji Europejskiej.</p>
+        <p class="lang-en">Google and RevenueCat may process data in the United States and other countries. Such transfers rely on mechanisms recognised by the GDPR, such as the EU-U.S. Data Privacy Framework or the European Commission&rsquo;s Standard Contractual Clauses.</p>
+        <h2 class="lang-pl">9. Twoje prawa</h2>
+        <h2 class="lang-en">9. Your rights</h2>
+        <p class="lang-pl">Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia, sprzeciwu wobec przetwarzania opartego na prawnie uzasadnionym interesie oraz wycofania zgody w dowolnym momencie. Ponieważ Aplikacja nie ma konta, nie przechowujemy danych, które pozwalałyby nam Cię zidentyfikować; aby skorzystać z praw wobec danych przetwarzanych przez usługi zewnętrzne, napisz na <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> — pomożemy, a w razie potrzeby przekażemy prośbę dalej. Przysługuje Ci też skarga do organu nadzorczego, w Polsce do Prezesa Urzędu Ochrony Danych Osobowych. Mieszkańcy Kalifornii mają prawa wynikające z CCPA/CPRA; nie sprzedajemy danych osobowych za pieniądze.</p>
+        <p class="lang-en">You have the right to access, rectify and erase your data, to restrict its processing, to data portability, to object to processing based on legitimate interests, and to withdraw consent at any time. As the Application has no account, we hold no data that lets us identify you; to exercise your rights over data processed by the third-party services, write to <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> &mdash; we will help and, where needed, pass the request on. You may also lodge a complaint with a supervisory authority (in Poland, the President of the Personal Data Protection Office). California residents have rights under the CCPA/CPRA; we do not sell personal information for money.</p>
+        <h2 class="lang-pl">10. Dzieci</h2>
+        <h2 class="lang-en">10. Children</h2>
+        <p class="lang-pl">Aplikacja nie jest skierowana do dzieci poniżej 13. roku życia i świadomie nie zbieramy ich danych osobowych. Jeśli jesteś rodzicem lub opiekunem i uważasz, że dziecko przekazało nam dane, napisz na <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+        <p class="lang-en">The Application is not directed at children under 13, and we do not knowingly collect their personal data. If you are a parent or guardian and believe a child has provided us with data, write to <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a>.</p>
+        <h2 class="lang-pl">11. Bezpieczeństwo</h2>
+        <h2 class="lang-en">11. Security</h2>
+        <p class="lang-pl">Dane lokalne są chronione mechanizmami systemu (prywatna pamięć aplikacji). Połączenia z usługami zewnętrznymi są szyfrowane (HTTPS). Żadna metoda przesyłania ani przechowywania nie jest jednak w pełni niezawodna.</p>
+        <p class="lang-en">Local data is protected by the operating system (the app&rsquo;s private storage). Connections to third-party services are encrypted (HTTPS). No method of transmission or storage is completely secure, however.</p>
+        <h2 class="lang-pl">12. Zmiany polityki</h2>
+        <h2 class="lang-en">12. Changes to this policy</h2>
+        <p class="lang-pl">Możemy aktualizować tę politykę, np. gdy w Aplikacji pojawi się nowa funkcja. Aktualna wersja jest zawsze pod tym adresem, z datą wejścia w życie na górze strony. O istotnych zmianach poinformujemy w Aplikacji.</p>
+        <p class="lang-en">We may update this policy, for example when the Application gains a new feature. The current version is always at this address, with its effective date at the top of the page. We will let you know about significant changes in the Application.</p>
+
+        <div class="contact">
+            <h2 class="lang-pl">Kontakt</h2>
+            <h2 class="lang-en">Contact</h2>
+            <p class="lang-pl">Pytania, prośby i uwagi: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+            <p class="lang-en">Questions, requests and feedback: <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html"><span class="lang-pl">Strona główna</span><span class="lang-en">Home</span></a>
+                <a href="termsOfUse.html"><span class="lang-pl">Regulamin</span><span class="lang-en">Terms of Use</span></a>
+            </div>
+            <p class="footer-note">&copy; Dawikk &middot; ChessThink</p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.langbar button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var lang = button.getAttribute('data-set');
+                document.documentElement.setAttribute('data-lang', lang);
+                document.documentElement.setAttribute('lang', lang);
+                try { localStorage.setItem('chessthink.lang', lang); } catch (e) {}
+            });
+        });
+    </script>
+</body>
+</html>
