@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dureń – gra w karty</title>
+    <meta name="description" content="Dureń (Durak) – klasyczna gra w karty na telefon. Osiem postaci od początkujących po mistrzynię, zasady z różnych krajów, trening z podpowiedziami i gra ze znajomymi przez Wi‑Fi lub Bluetooth, bez internetu.">
+    <meta name="theme-color" content="#15110E">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #15110e;
+            --surface: #1f1915;
+            --surface2: #2a221c;
+            --line: #3a2f27;
+            --line2: #4c3e33;
+            --text: #f4ede4;
+            --muted: #b8aa9b;
+            --accent: #e8c15a;
+            --accent-soft: #9a7a22;
+            --felt: #1b3554;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(27, 53, 84, 0.6), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back { display: inline-block; font-size: 0.88rem; color: var(--muted); text-decoration: none; margin-bottom: 22px; }
+
+        .back:hover { color: var(--accent); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name { font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.3px; margin: 42px 0 12px; padding-left: 14px; border-left: 3px solid var(--accent); }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--accent); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout { background: rgba(27, 53, 84, 0.45); border: 1px solid #2c4f78; border-radius: 14px; padding: 22px; margin: 26px 0; }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--accent); }
+
+        .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin: 22px 0; }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code { font-family: var(--mono); font-size: 0.86em; color: var(--accent); background: var(--surface2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; word-break: break-word; }
+
+        .contact { background: var(--surface); border: 1px solid var(--line2); border-radius: 14px; padding: 26px; margin: 34px 0 0; text-align: center; }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer { border-top: 1px solid var(--line); margin-top: 44px; padding-top: 26px; text-align: center; }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        .hero { text-align: center; padding: 56px 0 34px; border-bottom: 1px solid var(--line); }
+
+        .badge { display: inline-block; font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent-soft); border-radius: 999px; padding: 4px 14px; margin-bottom: 18px; }
+
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+
+        .lead { font-size: 1.12rem; max-width: 600px; margin: 0 auto; }
+
+        .cards { display: flex; justify-content: center; gap: 10px; margin: 28px 0 6px; }
+
+        .card { width: 54px; height: 78px; border-radius: 8px; background: #fffdf8; border: 1px solid #e6ded2; color: #1a1d24; font-weight: 800; font-size: 1.2rem; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35); }
+
+        .card.red { color: #c62f3a; }
+
+        .card:nth-child(1) { transform: rotate(-8deg); }
+        .card:nth-child(2) { transform: rotate(-3deg) translateY(-6px); }
+        .card:nth-child(3) { transform: rotate(3deg) translateY(-6px); }
+        .card:nth-child(4) { transform: rotate(8deg); }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 28px 0; }
+
+        .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+
+        .tile h3 { margin: 0 0 6px; color: var(--text); }
+
+        .tile p { margin: 0; font-size: 0.95rem; }
+
+        .store-note { text-align: center; color: var(--muted); margin-top: 10px; }
+
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 2.3rem; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<section class="hero">
+<img src="icon-512.png" alt="" width="96" height="96" style="border-radius: 22px; margin-bottom: 18px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+<br>
+<span class="badge">Dawikk</span>
+<h1>Dureń</h1>
+<p class="lead">Klasyczna gra w Durnia na telefon. Pozbądź się kart, zanim skończy się talia – ostatni z kartami zostaje durniem. Z komputerem albo ze znajomymi przy jednym stole.</p>
+<div class="cards" aria-hidden="true">
+<div class="card">6♠</div>
+<div class="card red">Q♥</div>
+<div class="card red">K♦</div>
+<div class="card">A♣</div>
+</div>
+</section>
+
+<div class="grid">
+<div class="tile">
+<h3>Osiem postaci</h3>
+<p>Od Lusi, która pierwszy raz trzyma karty, po Baronową, która przelicza tysiące rozdań na ruch. Od 2 do 6 graczy, gra w parach, mecz do pięciu durniów.</p>
+</div>
+<div class="tile">
+<h3>Zasady z różnych krajów</h3>
+<p>Jak na kurniku, Podkidnoj, Perewodnoj z przekładaniem albo własne: talia 24, 36 lub 52 karty, limit pierwszego ataku, kto dorzuca, wymiana szóstki.</p>
+</div>
+<div class="tile">
+<h3>Nauka i trening</h3>
+<p>Samouczek krok po kroku, trening z podpowiedziami silnika i liczeniem kart, przebieg każdego rozdania i ocena Twoich ruchów.</p>
+</div>
+<div class="tile">
+<h3>Ze znajomymi przez Wi‑Fi lub Bluetooth</h3>
+<p>Każda osoba na swoim telefonie, bez internetu i bez zakładania kont. Telefony przy stole mogą mieć różne języki.</p>
+</div>
+<div class="tile">
+<h3>Pięć języków</h3>
+<p>Polski, angielski, ukraiński, rosyjski i niemiecki – z imionami postaci i oznaczeniami kart w każdym z nich.</p>
+</div>
+<div class="tile">
+<h3>Działa offline</h3>
+<p>Gra, boty i podpowiedzi działają w całości na telefonie. Internet jest potrzebny tylko do zakupów i reklam.</p>
+</div>
+</div>
+
+<p class="store-note">Wkrótce w Google Play i App Store.</p>
+
+<div class="contact">
+<h2>Kontakt</h2>
+<p>Pytania, uwagi, pomysły? Napisz:</p>
+<p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+</div>
+<footer>
+<div class="footer-links">
+<a href="privacyPolicy.html">Polityka prywatności</a>
+<a href="termsOfUse.html">Regulamin</a>
+<a href="en/">English</a>
+</div>
+<p class="footer-note">&copy; Dawikk &middot; Dureń – gra w karty</p>
+</footer>
+    </div>
+</body>
+</html>
