@@ -1,0 +1,84 @@
+:root {
+  --bg: #faf6ee;
+  --surface: #fffdf8;
+  --surface-alt: #f2ece0;
+  --border: #e7dece;
+  --text: #2a251f;
+  --text-2: #6b6156;
+  --muted: #776c5f;
+  --accent: #3f7562;
+  --clay: #a05a3b;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14120f;
+    --surface: #1c1915;
+    --surface-alt: #25211c;
+    --border: #322c25;
+    --text: #ede6da;
+    --text-2: #b3a897;
+    --muted: #968b7b;
+    --accent: #82b5a0;
+    --clay: #d99478;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.6 var(--ui); }
+.container { max-width: 720px; margin: 0 auto; padding: 24px 20px 48px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; font-size: 15px; }
+.topbar a { color: var(--text-2); text-decoration: none; padding: 6px 0; }
+.topbar a:hover { color: var(--text); }
+.lang a { margin-left: 12px; }
+.lang a[aria-current='true'] { color: var(--text); font-weight: 600; }
+header { margin-bottom: 24px; }
+.app-name { margin: 0 0 4px; color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+h1 { margin: 0 0 8px; font: 400 40px/1.15 var(--serif); }
+.effective { margin: 0; color: var(--muted); font-size: 14px; }
+h2 { margin: 36px 0 12px; font: 500 24px/1.3 var(--serif); }
+h3 { margin: 0 0 8px; font-size: 17px; }
+p, li { color: var(--text); }
+a { color: var(--accent); }
+a:hover { color: var(--text); }
+ul { padding-left: 22px; }
+li { margin-bottom: 6px; }
+.callout, .tile, .contact { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+.callout p:last-child, .tile p:last-child, .contact p:last-child { margin-bottom: 0; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+tr:last-child td { border-bottom: 0; }
+th { color: var(--text-2); font-weight: 600; background: var(--surface-alt); }
+td:first-child { width: 34%; font-weight: 600; }
+code { font-size: 13px; background: var(--surface-alt); padding: 1px 5px; border-radius: 4px; }
+.contact { margin-top: 40px; text-align: center; }
+.contact h2 { margin-top: 0; }
+footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--border); text-align: center; color: var(--muted); font-size: 14px; }
+.footer-links a { margin: 0 10px; color: var(--text-2); }
+.footer-note { margin: 12px 0 0; color: var(--muted); }
+/* Landing page */
+.hero { text-align: center; padding: 8px 0 24px; }
+.hero .icon { width: 104px; height: 104px; border-radius: 24px; border: 1px solid var(--border); }
+.hero h1 { margin-top: 18px; font-size: 52px; }
+.lead { margin: 12px auto 0; max-width: 560px; color: var(--text-2); font: 400 20px/1.5 var(--serif); }
+.stack { max-width: 420px; margin: 32px auto 8px; display: grid; gap: 8px; }
+.stack .row { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; text-align: left; }
+.stack .row:nth-child(1) { margin: 0 36px; opacity: 0.55; }
+.stack .row:nth-child(2) { margin: 0 20px; opacity: 0.75; }
+.stack .row:nth-child(3) { margin: 0 6px; }
+.stack .row.today { border: 1.5px solid var(--accent); }
+.stack .year { display: block; color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+.stack .line { font: 400 18px/1.4 var(--serif); }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin-top: 32px; }
+.tile h3 { font: 500 19px/1.3 var(--serif); }
+.tile p { color: var(--text-2); font-size: 15px; margin: 0; }
+.plus { margin-top: 32px; }
+.plus h2 { margin-top: 0; }
+.badge { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; background: var(--accent); color: var(--bg); font: 600 12px/1.6 var(--ui); vertical-align: middle; }
+.store-note { margin-top: 32px; text-align: center; color: var(--text-2); }
+@media (max-width: 520px) {
+  h1 { font-size: 32px; }
+  .hero h1 { font-size: 42px; }
+  td:first-child { width: 40%; }
+}
