@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regulamin – Dureń</title>
+    <meta name="description" content="Regulamin aplikacji Dureń – gra w karty: licencja, Dureń Premium, subskrypcje, reklamy, gra ze znajomymi.">
+    <meta name="theme-color" content="#15110E">
+    <link rel="icon" href="../favicon.ico">
+    <style>
+        :root {
+            --bg: #15110e;
+            --surface: #1f1915;
+            --surface2: #2a221c;
+            --line: #3a2f27;
+            --line2: #4c3e33;
+            --text: #f4ede4;
+            --muted: #b8aa9b;
+            --accent: #e8c15a;
+            --accent-soft: #9a7a22;
+            --felt: #1b3554;
+            --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background:
+                radial-gradient(900px 500px at 50% -10%, rgba(27, 53, 84, 0.6), transparent 70%),
+                var(--bg);
+            color: var(--text);
+            line-height: 1.75;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 0 20px 60px; }
+
+        header { padding: 40px 0 30px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+
+        .back { display: inline-block; font-size: 0.88rem; color: var(--muted); text-decoration: none; margin-bottom: 22px; }
+
+        .back:hover { color: var(--accent); }
+
+        h1 { font-size: 2.3rem; font-weight: 800; letter-spacing: -0.8px; margin-bottom: 6px; }
+
+        .app-name { font-family: var(--mono); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+
+        .effective { color: var(--muted); font-size: 0.9rem; margin-top: 12px; }
+
+        h2 { font-size: 1.35rem; font-weight: 700; letter-spacing: -0.3px; margin: 42px 0 12px; padding-left: 14px; border-left: 3px solid var(--accent); }
+
+        h3 { font-size: 1.05rem; font-weight: 700; margin: 24px 0 8px; color: var(--text); }
+
+        p { color: var(--muted); margin-bottom: 14px; }
+
+        strong { color: var(--text); font-weight: 600; }
+
+        a { color: var(--accent); text-decoration: none; }
+
+        a:hover { text-decoration: underline; }
+
+        ul, ol { margin: 0 0 18px 22px; color: var(--muted); }
+
+        li { margin-bottom: 9px; padding-left: 6px; }
+
+        .callout { background: rgba(27, 53, 84, 0.45); border: 1px solid #2c4f78; border-radius: 14px; padding: 22px; margin: 26px 0; }
+
+        .callout p:last-child { margin-bottom: 0; }
+
+        .callout h3 { margin-top: 0; color: var(--accent); }
+
+        .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px; margin: 22px 0; }
+
+        .panel p:last-child, .panel ul:last-child { margin-bottom: 0; }
+
+        table { width: 100%; border-collapse: collapse; margin: 18px 0 22px; font-size: 0.94rem; }
+
+        th, td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+
+        th { color: var(--text); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+        td { color: var(--muted); }
+
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        th:first-child, td:first-child { width: 32%; }
+
+        .table-wrap { overflow-x: auto; }
+
+        code { font-family: var(--mono); font-size: 0.86em; color: var(--accent); background: var(--surface2); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; word-break: break-word; }
+
+        .contact { background: var(--surface); border: 1px solid var(--line2); border-radius: 14px; padding: 26px; margin: 34px 0 0; text-align: center; }
+
+        .contact h2 { border: none; padding: 0; margin: 0 0 10px; }
+
+        .contact p:last-child { margin-bottom: 0; }
+
+        footer { border-top: 1px solid var(--line); margin-top: 44px; padding-top: 26px; text-align: center; }
+
+        .footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-bottom: 14px; }
+
+        .footer-note { color: var(--muted); font-size: 0.85rem; }
+
+        .warn-panel { background: rgba(240, 180, 76, 0.06); border: 1px solid rgba(240, 180, 76, 0.35); border-radius: 14px; padding: 22px; margin: 22px 0; }
+
+        .warn-panel h3 { margin-top: 0; color: var(--accent); }
+
+        .warn-panel p:last-child { margin-bottom: 0; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.2rem; }
+            th:first-child, td:first-child { width: 38%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+<header>
+<a class="back" href="./">&larr; Dureń</a>
+<p class="app-name">Dureń – gra w karty</p>
+<h1>Regulamin</h1>
+<p class="effective"><strong>Data wejścia w życie:</strong> 24 listopada 2026</p>
+<p class="effective"><a href="en/termsOfUse.html">English version</a></p>
+</header>
+
+<div class="callout">
+<p>Niniejszy Regulamin („Regulamin”) to umowa między Tobą a <strong>Dawikk</strong> („my”, „Usługodawca”) dotycząca korzystania z aplikacji mobilnej <strong>Dureń – gra w karty</strong> („Aplikacja”). Instalując lub używając Aplikacji, akceptujesz Regulamin. Jeśli się z nim nie zgadzasz, nie korzystaj z Aplikacji.</p>
+</div>
+
+<h2>1. Licencja</h2>
+
+<p>Aplikację można pobrać i używać <strong>bezpłatnie</strong>. Usługodawca udziela Ci <strong>ograniczonej, niewyłącznej, nieprzenoszalnej i odwoływalnej licencji</strong> na zainstalowanie i używanie Aplikacji na urządzeniach, które posiadasz lub którymi dysponujesz, na własny, niekomercyjny użytek.</p>
+
+<p>Nazwa i logo Aplikacji, grafiki (sukna, rewersy, portrety postaci), dźwięki, teksty samouczka i zasad oraz silnik gry pozostają własnością Usługodawcy. Sam „Dureń” (Durak) jest tradycyjną grą karcianą – Aplikacja nie rości sobie praw do jej zasad.</p>
+
+<h2>2. Gra rozrywkowa, bez stawek</h2>
+
+<div class="warn-panel">
+<h3>Dureń w Aplikacji to wyłącznie rozrywka</h3>
+<p>Aplikacja nie umożliwia gry na pieniądze ani o nagrody o wartości pieniężnej. Nie oferuje zakładów, żetonów ani waluty, którą można wymienić na pieniądze. Wyniki, ranga i odznaki nie mają wartości majątkowej.</p>
+</div>
+
+<h2>3. Podpowiedzi i ocena ruchów</h2>
+
+<p>Podpowiedzi w treningu i ocena ruchów po rozdaniu to szacunki silnika opartego na symulacjach i wyłącznie na tym, co widać przy stole – silnik nie zna kart rywali. Podawane oceny są przybliżone, a „najlepszy ruch” nie gwarantuje wygranej. Przy stole ze znajomymi podpowiedzi są wyłączone.</p>
+
+<h2>4. Dureń Premium</h2>
+
+<p>Dureń Premium to opcjonalny pakiet dodatkowych funkcji (m.in. Kapitan i Baronowa przy stole bez ograniczeń, ocena ruchów i podpowiedzi bez dziennego limitu, podsumowanie meczu, pełne statystyki i dłuższa historia rozdań, dodatkowe sukna i rewersy, brak reklam). Aktualny zakres i ceny widzisz w Aplikacji na ekranie Dureń Premium przed zakupem.</p>
+
+<ul>
+<li><strong>Formy zakupu.</strong> Dureń Premium może być oferowane jako subskrypcja odnawiana automatycznie (np. roczna) albo jako zakup jednorazowy „na zawsze”. Dostępne plany i ceny ustala sklep w Twojej walucie.</li>
+<li><strong>Płatność.</strong> Zakupu dokonujesz w <strong>Google Play</strong> lub <strong>App Store</strong>; płatność pobiera sklep ze środków przypisanych do Twojego konta w sklepie, na jego zasadach.</li>
+<li><strong>Okres próbny.</strong> Jeśli plan obejmuje bezpłatny okres próbny, po jego zakończeniu subskrypcja przechodzi w płatną, chyba że anulujesz ją co najmniej 24 godziny przed końcem okresu próbnego. Okres próbny przysługuje raz na konto sklepu, zgodnie z zasadami sklepu.</li>
+<li><strong>Odnawianie i anulowanie.</strong> Subskrypcja odnawia się automatycznie na kolejny okres w tej samej cenie, dopóki jej nie anulujesz. Anulujesz ją w każdej chwili w ustawieniach subskrypcji w Google Play lub App Store (w Aplikacji: <em>Ustawienia &rarr; Zarządzaj subskrypcją</em>). Dureń Premium działa wtedy do końca opłaconego okresu. Usunięcie Aplikacji nie anuluje subskrypcji.</li>
+<li><strong>Zwroty.</strong> Zwroty obsługuje sklep, zgodnie ze swoimi zasadami (<a href="https://support.google.com/googleplay/answer/2479637" target="_blank" rel="noopener noreferrer">Google Play</a>, <a href="https://support.apple.com/pl-pl/118223" target="_blank" rel="noopener noreferrer">App Store</a>). Nie mamy technicznej możliwości zwrotu płatności poza sklepem.</li>
+<li><strong>Prawo odstąpienia.</strong> Dureń Premium to treść cyfrowa dostarczana natychmiast po zakupie. Kupując, zgadzasz się na rozpoczęcie świadczenia przed upływem 14-dniowego terminu na odstąpienie od umowy i przyjmujesz do wiadomości, że w ten sposób tracisz prawo odstąpienia – w zakresie, w jakim pozwalają na to przepisy. Uprawnienia przyznawane przez sklep pozostają bez zmian.</li>
+<li><strong>Przywracanie.</strong> Dureń Premium jest przypisane do Twojego konta w sklepie. Na nowym urządzeniu z tym samym kontem użyj „Przywróć zakupy”.</li>
+<li><strong>Kody promocyjne.</strong> Kody Dureń Premium realizujesz przez sklep („Masz kod?” na ekranie Premium albo „Mam kod” w ustawieniach). Kod jest jednorazowy, ważny w terminie i na warunkach podanych przy jego wydaniu, nie podlega wymianie na pieniądze ani odsprzedaży.</li>
+<li><strong>Zmiany cen i zakresu.</strong> Możemy zmieniać ceny i zakres Dureń Premium. Zmiana ceny subskrypcji dotyczy kolejnych okresów i jest ogłaszana przez sklep zgodnie z jego zasadami; masz wtedy możliwość anulowania subskrypcji.</li>
+</ul>
+
+<h2>5. Wersja bezpłatna i reklamy</h2>
+
+<p>Wersja bezpłatna obejmuje pełną grę z sześcioma postaciami, wszystkie zasady, samouczek i grę ze znajomymi. Niektóre funkcje mają dzienne limity (np. ocena ruchów i podpowiedzi w treningu), a pierwszy mecz z Kapitanem i z Baronową jest bezpłatny. Limity odnawiają się o północy czasu Twojego telefonu.</p>
+
+<p>Limity możesz zwiększyć, oglądając reklamę z nagrodą – zawsze na własne żądanie. Nagroda jest przyznawana po obejrzeniu reklamy do końca; jeśli reklama się nie załaduje lub zostanie przerwana, nagroda nie przysługuje. Nagrody z reklam (np. mecz z Kapitanem lub Baronową, dodatkowe podpowiedzi, wygląd stołu na 24 godziny) nie mają wartości pieniężnej i nie podlegają przeniesieniu. W wersji bezpłatnej po rozstrzygniętym meczu może się też pojawić reklama pełnoekranowa (zasady w <a href="privacyPolicy.html">Polityce prywatności</a>).</p>
+
+<h2>6. Gra ze znajomymi przez Wi‑Fi lub Bluetooth</h2>
+
+<ul>
+<li>Gra ze znajomymi łączy telefony bezpośrednio – w sieci lokalnej Wi‑Fi albo przez Bluetooth. Stół prowadzi telefon gospodarza; jego zamknięcie kończy grę dla wszystkich. Boty dosiadają się tylko na życzenie gospodarza.</li>
+<li>Jakość gry zależy od sieci i urządzeń. Nie gwarantujemy połączenia w każdej sieci (np. publiczne sieci często blokują wyszukiwanie stołów) ani na każdym urządzeniu.</li>
+<li>Imię wpisane przy stole widzą pozostali gracze. Nie używaj imion obraźliwych ani podszywających się pod inne osoby.</li>
+</ul>
+
+<h2>7. Dozwolone korzystanie</h2>
+
+<p>Zobowiązujesz się nie:</p>
+
+<ul>
+<li>modyfikować, dekompilować ani odtwarzać kodu źródłowego Aplikacji, z wyjątkiem przypadków dozwolonych przez bezwzględnie obowiązujące przepisy;</li>
+<li>obchodzić zabezpieczeń zakupów, limitów i nagród ani udostępniać Dureń Premium osobom, które go nie nabyły, poza mechanizmami sklepu (np. udostępnianiem rodzinnym, jeśli je obsługuje);</li>
+<li>rozpowszechniać ani sprzedawać Aplikacji lub jej treści jako własnych;</li>
+<li>używać Aplikacji w sposób niezgodny z prawem.</li>
+</ul>
+
+<h2>8. Dane</h2>
+
+<p>Aplikacja nie wymaga konta. Gry, statystyki i ustawienia są zapisywane na Twoim urządzeniu; odinstalowanie Aplikacji lub wyczyszczenie jej danych usuwa je bezpowrotnie (Dureń Premium przywrócisz przez sklep). Zasady przetwarzania danych przy zakupach, reklamach i grze ze znajomymi opisuje <a href="privacyPolicy.html">Polityka prywatności</a>.</p>
+
+<h2>9. Dostępność i aktualizacje</h2>
+
+<p>Gra z komputerem działa bez internetu; zakupy i reklamy go wymagają. Możemy wydawać aktualizacje, które zmieniają, dodają lub usuwają funkcje (w tym siłę postaci i działanie podpowiedzi), a także zakończyć rozwój lub dystrybucję Aplikacji. Funkcje, za które zapłacono w ramach Dureń Premium, nie zostaną odebrane w trakcie opłaconego okresu bez odpowiedniej rekompensaty, chyba że wymagają tego przepisy lub zasady sklepu.</p>
+
+<h2>10. Wyłączenie gwarancji</h2>
+
+<p>Aplikacja jest dostarczana <strong>„tak jak jest”</strong> i „w miarę dostępności”. W zakresie dozwolonym przez prawo nie udzielamy gwarancji, że działa bez błędów, na każdym urządzeniu ani że podpowiedzi i oceny ruchów są bezbłędne. Nie ogranicza to Twoich ustawowych uprawnień jako konsumenta w związku z treścią cyfrową, za którą zapłacono.</p>
+
+<h2>11. Ograniczenie odpowiedzialności</h2>
+
+<p>W najszerszym zakresie dozwolonym przez prawo Usługodawca nie ponosi odpowiedzialności za utratę danych zapisanych w Aplikacji, przerwy w grze ze znajomymi ani za skutki decyzji podjętych na podstawie podpowiedzi. Odpowiedzialność Usługodawcy z tytułu Dureń Premium jest ograniczona do kwoty zapłaconej za Dureń Premium w ciągu ostatnich 12 miesięcy. Ograniczenia te nie dotyczą odpowiedzialności, której zgodnie z bezwzględnie obowiązującymi przepisami – w tym przepisami o ochronie konsumentów oraz za szkodę wyrządzoną umyślnie lub na osobie – wyłączyć nie można.</p>
+
+<h2>12. Reklamacje</h2>
+
+<p>Reklamacje dotyczące płatności i zwrotów kieruj do sklepu. Reklamacje dotyczące działania Aplikacji lub Dureń Premium wyślij na <a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a> – opisz problem i podaj model telefonu oraz wersję Aplikacji. Odpowiadamy w ciągu 14 dni.</p>
+
+<h2>13. Zmiany Regulaminu</h2>
+
+<p>Regulamin może zostać zaktualizowany. O zmianach informujemy przez publikację nowej wersji na tej stronie wraz z nową datą wejścia w życie. Zmiany nie naruszają praw nabytych przed ich wejściem w życie. Dalsze korzystanie z Aplikacji po zmianie oznacza akceptację nowej wersji.</p>
+
+<h2>14. Prawo właściwe</h2>
+
+<p>Regulamin podlega prawu polskiemu. Jeśli jesteś konsumentem, zachowujesz ochronę wynikającą z bezwzględnie obowiązujących przepisów kraju swojego zwykłego pobytu. Jeżeli którekolwiek postanowienie Regulaminu okaże się nieważne, pozostałe zachowują moc. Przy umowach zawieranych za pośrednictwem App Store obowiązuje także <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noopener noreferrer">standardowa licencja Apple (EULA)</a>.</p>
+
+<div class="contact">
+<h2>Kontakt</h2>
+<p>Pytania, uwagi, błąd w grze? Napisz:</p>
+<p><a href="mailto:dawikk.apps@gmail.com">dawikk.apps@gmail.com</a></p>
+</div>
+<footer>
+<div class="footer-links">
+<a href="./">Dureń</a>
+<a href="privacyPolicy.html">Polityka prywatności</a>
+<a href="en/termsOfUse.html">English</a>
+</div>
+<p class="footer-note">&copy; Dawikk &middot; Dureń – gra w karty</p>
+</footer>
+    </div>
+</body>
+</html>
